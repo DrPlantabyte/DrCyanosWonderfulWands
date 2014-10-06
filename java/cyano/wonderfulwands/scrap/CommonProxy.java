@@ -1,4 +1,4 @@
-package cyano.wonderfulwands;
+package cyano.wonderfulwands.scrap;
 
 public class CommonProxy {
 

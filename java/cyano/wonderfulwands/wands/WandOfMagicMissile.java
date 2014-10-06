@@ -1,5 +1,6 @@
 package cyano.wonderfulwands.wands;
 
+import cyano.wonderfulwands.WonderfulWands;
 import cyano.wonderfulwands.projectiles.MagicMissile;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class WandOfMagicMissile extends Wand {
+	public static final String itemName = "wand_missiles";
 
 	public static int cooldown = 10;
 	
@@ -19,10 +21,11 @@ public class WandOfMagicMissile extends Wand {
 	 * Constructor
 	 * @param itemID id of this item
 	 */
-	public WandOfMagicMissile(int itemID){
-		super(itemID);
+	public WandOfMagicMissile(){
+		super();
+		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
+		this.setTextureName(WonderfulWands.MODID +":"+ itemName);
 		this.setCreativeTab(CreativeTabs.tabCombat);
-		setTextureName("wonderfulwands:wandIconMagicMissiles");
         this.setMaxDamage(defaultCharges + 1);
 	}
 	
@@ -84,6 +87,6 @@ public class WandOfMagicMissile extends Wand {
 	}
 	
 	@Override  public int getBaseRepairCost(){
-    	return 7;
+    	return 3;
     }
 }

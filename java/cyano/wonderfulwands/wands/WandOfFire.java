@@ -1,35 +1,43 @@
 package cyano.wonderfulwands.wands;
 
-import cyano.wonderfulwands.projectiles.DeathSkull;
+import cyano.wonderfulwands.WonderfulWands;
+import cyano.wonderfulwands.projectiles.Fireball;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityWitherSkull;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class WandOfDeath extends Wand {
+public class WandOfFire extends Wand  {
+	public static final String itemName = "wand_fire";
 
-	public static int cooldown = 20;
+	public static int cooldown = 15;
 	
-
 	public static int defaultCharges = 64;
-	/**
-	 * Constructor
-	 * @param itemID id of this item
-	 */
-	public WandOfDeath(int itemID){
-		super(itemID);
+	
+	public WandOfFire() {
+		super();
+		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
+		this.setTextureName(WonderfulWands.MODID +":"+ itemName);
 		this.setCreativeTab(CreativeTabs.tabCombat);
-		setTextureName("wonderfulwands:wandIconDeath");
         this.setMaxDamage(defaultCharges + 1);
 	}
-	
+
+	@Override
+	public int getUseCost() {
+		return 1;
+	}
+
+	@Override
+	public int getBaseRepairCost() {
+		return 3;
+	}
+
 	@Override public int getMaxItemUseDuration(ItemStack par1ItemStack){
 		return cooldown;
 	}
-	
-	@Override public ItemStack onItemRightClick(ItemStack srcItemStack, World world, EntityPlayer playerEntity){
+
+	@Override  public ItemStack onItemRightClick(ItemStack srcItemStack, World world, EntityPlayer playerEntity){
 		 playerEntity.setItemInUse(srcItemStack, getMaxItemUseDuration(srcItemStack));
 	        return srcItemStack;
 	 }
@@ -68,7 +76,7 @@ public class WandOfDeath extends Wand {
 	        	srcItemStack.damageItem(getUseCost(), playerEntity);
 	        }
 
-	        playSound("mob.endermen.portal",world,playerEntity);
+	        playSound("fireworks.launch",world,playerEntity);
 
 	        if (!world.isRemote)
 	        {
@@ -79,17 +87,8 @@ public class WandOfDeath extends Wand {
 	        	double deltaX = (double)(-MathHelper.sin(playerEntity.rotationYaw / 180.0F * (float)Math.PI));
 	        	double deltaZ = (double)( MathHelper.cos(playerEntity.rotationYaw / 180.0F * (float)Math.PI));
 	        	
-	            world.spawnEntityInWorld(new DeathSkull(world, playerEntity,playerEntity.posX+deltaX,playerEntity.posY+1,playerEntity.posZ+deltaZ,  vecX, vecY, vecZ));
+	            world.spawnEntityInWorld(new Fireball(world,playerEntity, playerEntity.posX+deltaX,playerEntity.posY+1,playerEntity.posZ+deltaZ,  vecX, vecY, vecZ));
 	        }
 	        return srcItemStack;
-	    }
-	 
-	 /** cost of repairing the wand (in levels) */
-		@Override public int getUseCost(){
-			return 1;
-		}
-		
-		@Override  public int getBaseRepairCost(){
-	    	return 20;
 	    }
 }

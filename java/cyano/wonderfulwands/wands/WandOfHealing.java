@@ -1,24 +1,29 @@
 package cyano.wonderfulwands.wands;
 
+import cyano.wonderfulwands.WonderfulWands;
 import cyano.wonderfulwands.projectiles.MagicMissile;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityPotion;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class WandOfHealing extends Wand {
+	public static final String itemName = "wand_healing";
+
 
 	public static int cooldown = 10;
 	
 	public static int defaultCharges = 64;
 	
-	public WandOfHealing(int itemID) {
-		super(itemID);
+	public WandOfHealing() {
+		super();
+		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
+		this.setTextureName(WonderfulWands.MODID +":"+ itemName);
 		this.setCreativeTab(CreativeTabs.tabTools);
-		setTextureName("wonderfulwands:wandIconHealing");
         this.setMaxDamage(defaultCharges + 1);
 	}
 
@@ -29,7 +34,7 @@ public class WandOfHealing extends Wand {
 
 	@Override
 	public int getBaseRepairCost() {
-		return 15;
+		return 5;
 	}
 
 	
@@ -45,7 +50,7 @@ public class WandOfHealing extends Wand {
         }
         playSound("random.pop",world,playerEntity);
         
-        ItemStack hp = new ItemStack(Item.potion);
+        ItemStack hp = new ItemStack(Items.potionitem);
         hp.setItemDamage(0x0005 + /*0x0020 +*/ 0x4000);
         if (!world.isRemote)
         {

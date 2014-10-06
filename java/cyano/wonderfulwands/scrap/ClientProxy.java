@@ -1,6 +1,5 @@
-package cyano.wonderfulwands.client;
+package cyano.wonderfulwands.scrap;
 
-import cyano.wonderfulwands.CommonProxy;
 
 
 public class ClientProxy extends CommonProxy {

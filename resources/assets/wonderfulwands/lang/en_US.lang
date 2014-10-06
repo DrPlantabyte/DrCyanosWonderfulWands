@@ -1,0 +1,15 @@
+
+item.wonderfulwands_wand_ordinary.name=Nonmagical Wand
+item.wonderfulwands_wand_death.name=Wand of Death
+item.wonderfulwands_wand_fire.name=Wand of Fire
+item.wonderfulwands_wand_growth.name=Wand of Growth
+item.wonderfulwands_wand_harvesting.name=Wand of Harvesting
+item.wonderfulwands_wand_healing.name=Wand of Healing
+item.wonderfulwands_wand_ice.name=Wand of Freezing
+item.wonderfulwands_wand_light.name=Wand of Light
+item.wonderfulwands_wand_mining.name=Wand of Mining
+item.wonderfulwands_wand_missiles.name=Wand of Magic Missiles
+item.wonderfulwands_wand_teleportation.name=Wand of Teleportation
+
+tile.wonderfulwands_mage_light.name=Mage Light
+

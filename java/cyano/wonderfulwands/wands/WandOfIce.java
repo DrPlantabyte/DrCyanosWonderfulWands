@@ -1,21 +1,25 @@
 package cyano.wonderfulwands.wands;
 
+import cyano.wonderfulwands.WonderfulWands;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class WandOfIce extends Wand {
+	public static final String itemName = "wand_ice";
 
 	public static int cooldown = 10;
 	
-	public static int defaultCharges = 64;
+	public static int defaultCharges = 128;
 	
-	public WandOfIce(int itemID) {
-		super(itemID);
+	public WandOfIce() {
+		super();
+		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
+		this.setTextureName(WonderfulWands.MODID +":"+ itemName);
 		this.setCreativeTab(CreativeTabs.tabTools);
-		setTextureName("wonderfulwands:wandIconIce");
         this.setMaxDamage(defaultCharges + 1);
 	}
 
@@ -26,7 +30,7 @@ public class WandOfIce extends Wand {
 
 	@Override
 	public int getBaseRepairCost() {
-		return 5;
+		return 2;
 	}
 	
 	@Override public boolean onItemUse(ItemStack srcItemStack, EntityPlayer playerEntity, World world, int targetX, int targetY, int targetZ, int par7, float par8, float par9, float par10){
@@ -57,12 +61,12 @@ public class WandOfIce extends Wand {
 	}
 	
 	protected int freezeBlock(World w, int x, int y, int z){
-		int targetID = w.getBlockId(x, y, z);
-		if(targetID == Block.waterStill.blockID || targetID == Block.waterMoving.blockID){
-			w.setBlock(x, y, z, Block.ice.blockID);
+		Block target = w.getBlock(x, y, z);
+		if(target == Blocks.water || target == Blocks.flowing_water){
+			w.setBlock(x, y, z, Blocks.ice);
 			return 1;
-		} else if(targetID == Block.lavaMoving.blockID || targetID == Block.lavaStill.blockID){
-			w.setBlock(x, y, z, Block.cobblestone.blockID);
+		} else if(target == Blocks.lava || target == Blocks.flowing_lava){
+			w.setBlock(x, y, z, Blocks.cobblestone);
 			return 1;
 		}
 		return 0;

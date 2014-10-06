@@ -1,5 +1,6 @@
 package cyano.wonderfulwands.wands;
 
+import cyano.wonderfulwands.WonderfulWands;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityEnderPearl;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,14 +9,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class WandOfTeleportation extends Wand {
+	public static final String itemName = "wand_teleportation";
 
 	
 	public static int defaultCharges = 64;
 	
-	public WandOfTeleportation(int itemID) {
-		super(itemID);
+	public WandOfTeleportation() {
+		super();
+		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
+		this.setTextureName(WonderfulWands.MODID +":"+ itemName);
 		this.setCreativeTab(CreativeTabs.tabTools);
-		setTextureName("wonderfulwands:wandIconTeleportation");
         this.setMaxDamage(defaultCharges + 1);
 	}
 
@@ -26,7 +29,7 @@ public class WandOfTeleportation extends Wand {
 
 	@Override
 	public int getBaseRepairCost() {
-		return 12;
+		return 4;
 	}
 	
 	@Override public int getMaxItemUseDuration(ItemStack par1ItemStack){
