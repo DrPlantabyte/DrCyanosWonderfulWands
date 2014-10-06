@@ -2,7 +2,6 @@ package cyano.wonderfulwands;
 
 
 import cyano.wonderfulwands.blocks.MageLight;
-import cyano.wonderfulwands.client.*;
 import cyano.wonderfulwands.wands.*;
 
 import java.util.Map;
