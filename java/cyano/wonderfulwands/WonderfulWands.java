@@ -2,6 +2,8 @@ package cyano.wonderfulwands;
 
 
 import cyano.wonderfulwands.blocks.MageLight;
+import cyano.wonderfulwands.graphics.MagicMissileRenderer;
+import cyano.wonderfulwands.projectiles.EntityMagicMissile;
 import cyano.wonderfulwands.wands.*;
 
 import java.util.Map;
@@ -20,7 +22,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -38,8 +42,11 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 public class WonderfulWands {
     public static final String MODID = "wonderfulwands";
     public static final String NAME ="Cyano's Wonderful Wands";
-    public static final String VERSION = "1.2.0";
+    public static final String VERSION = "1.3.0";
 	
+    @SidedProxy(clientSide="cyano.wonderfulwands.ClientProxy", serverSide="cyano.wonderfulwands.ServerProxy")
+    public static Proxy proxy;
+    
 	public static Wand wandGeneric = null;
 	public static Wand wandOfMagicMissile = null;
 	public static Wand wandOfDeath = null;
@@ -51,6 +58,8 @@ public class WonderfulWands {
 	public static Wand wandOfMining = null;
 	public static Wand wandOfTeleportation = null;
 	public static Wand wandOfLight = null;
+	public static Wand wandOfStorms = null;
+	public static Wand wandOfLightning = null;
 	
 	public static Block mageLight = null;
 	
@@ -75,6 +84,7 @@ public class WonderfulWands {
 		wandOfMining = new WandOfMining();
 		wandOfTeleportation = new WandOfTeleportation();
 		wandOfLight = new WandOfLight();
+		wandOfStorms = new WandOfStorms();
 		
 		mageLight = new MageLight();
 		GameRegistry.registerBlock(mageLight, MageLight.name);
@@ -91,6 +101,7 @@ public class WonderfulWands {
 		GameRegistry.registerItem(wandOfMining, WandOfMining.itemName);
 		GameRegistry.registerItem(wandOfTeleportation, WandOfTeleportation.itemName);
 		GameRegistry.registerItem(wandOfLight, WandOfLight.itemName);
+		GameRegistry.registerItem(wandOfStorms, WandOfStorms.itemName);
 		
 		// recipes
 
@@ -123,7 +134,10 @@ public class WonderfulWands {
 		// wand of light
 		addWandRecipe(wandOfLight,"dustGlowstone");
 		
+		
+	//	OreDictionary.initVanillaEntries()
 		config.save();
+		proxy.preInit(event);
     }
 
     private static void addWandRecipe(Wand output, Item specialItem){
@@ -143,8 +157,11 @@ public class WonderfulWands {
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-
-
+		// register entities
+		EntityRegistry.registerGlobalEntityID(EntityMagicMissile.class, "magic_missile", EntityRegistry.findGlobalUniqueEntityId());
+ 		EntityRegistry.registerModEntity(EntityMagicMissile.class, "magic_missile", 0/*id*/, this, 128/*trackingRange*/, 1/*updateFrequency*/, true/*sendsVelocityUpdates*/);
+ 		
+		proxy.init(event);
 	}
     
     public static ItemStack wandItemStack(Wand w){
@@ -152,11 +169,11 @@ public class WonderfulWands {
     	i.setRepairCost(w.getBaseRepairCost());
     	return i;
     }
-	/*
-	@EventHandler public void postInit(FMLPostInitializationEvent event) {
-		// Stub Method
-	}
 	
+	@EventHandler public void postInit(FMLPostInitializationEvent event) {
+		proxy.postInit(event);
+	}
+	/*
 	@EventHandler public void onServerStarting(FMLServerStartingEvent event)
 	{
 		// stub

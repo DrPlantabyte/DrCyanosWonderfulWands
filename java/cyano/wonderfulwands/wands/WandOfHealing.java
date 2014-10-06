@@ -1,7 +1,7 @@
 package cyano.wonderfulwands.wands;
 
 import cyano.wonderfulwands.WonderfulWands;
-import cyano.wonderfulwands.projectiles.MagicMissile;
+import cyano.wonderfulwands.projectiles.EntityMagicMissile;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityPotion;

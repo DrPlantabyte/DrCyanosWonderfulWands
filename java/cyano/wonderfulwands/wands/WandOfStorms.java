@@ -1,39 +1,46 @@
 package cyano.wonderfulwands.wands;
 
 import cyano.wonderfulwands.WonderfulWands;
-import cyano.wonderfulwands.projectiles.EntityMagicMissile;
+import cyano.wonderfulwands.projectiles.Fireball;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.entity.projectile.EntitySnowball;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class WandOfMagicMissile extends Wand {
-	public static final String itemName = "wand_missiles";
+public class WandOfStorms extends Wand  {
+	public static final String itemName = "wand_storm";
 
-	public static int cooldown = 10;
+	public static int cooldown = 20;
 	
 	public static int defaultCharges = 64;
 	
-	/**
-	 * Constructor
-	 * @param itemID id of this item
-	 */
-	public WandOfMagicMissile(){
+	public static final double AOEradius = 32; 
+	
+	public WandOfStorms() {
 		super();
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
 		this.setTextureName(WonderfulWands.MODID +":"+ itemName);
 		this.setCreativeTab(CreativeTabs.tabCombat);
         this.setMaxDamage(defaultCharges + 1);
 	}
-	
-	public int getMaxItemUseDuration(ItemStack par1ItemStack){
+
+	@Override
+	public int getUseCost() {
+		return 1;
+	}
+
+	@Override
+	public int getBaseRepairCost() {
+		return 3;
+	}
+
+	@Override public int getMaxItemUseDuration(ItemStack par1ItemStack){
 		return cooldown;
 	}
-	
-	 public ItemStack onItemRightClick(ItemStack srcItemStack, World world, EntityPlayer playerEntity){
+
+	@Override  public ItemStack onItemRightClick(ItemStack srcItemStack, World world, EntityPlayer playerEntity){
 		 playerEntity.setItemInUse(srcItemStack, getMaxItemUseDuration(srcItemStack));
 	        return srcItemStack;
 	 }
@@ -74,19 +81,21 @@ public class WandOfMagicMissile extends Wand {
 
 	        playSound("mob.endermen.portal",world,playerEntity);
 
+	     
 	        if (!world.isRemote)
 	        {
-	            world.spawnEntityInWorld(new EntityMagicMissile(world, playerEntity,  2.0F));
+	        	int x = (int)(playerEntity.posX + nextDouble(world) * AOEradius);
+	        	int z = (int)(playerEntity.posZ + nextDouble(world) * AOEradius);
+	        	
+	            world.addWeatherEffect(new EntityLightningBolt(world,x,world.getPrecipitationHeight(x, z),z));
 	        }
 	        return srcItemStack;
 	    }
 
-	@Override
-	public int getUseCost() {
-		return 1;
+	 private static final int prngRange = 0xFFFFF; 
+	 private static final double multiplier = 2.0 / (double)prngRange;
+	private static double nextDouble(World world) {
+		int seed = (int)world.getTotalWorldTime();
+		return (((seed * 1103515245) + 12345) & prngRange) * multiplier - 1.0;
 	}
-	
-	@Override  public int getBaseRepairCost(){
-    	return 3;
-    }
 }
