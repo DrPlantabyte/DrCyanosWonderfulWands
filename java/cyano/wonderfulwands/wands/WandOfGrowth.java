@@ -47,6 +47,7 @@ public class WandOfGrowth extends Wand {
         }
 		boolean success = growBlock(playerEntity,world,targetX,targetY,targetZ);
 		if(success){
+	        playSound("random.orb",world,playerEntity);
 			if (!playerEntity.capabilities.isCreativeMode)
 	        {
 	        	srcItemStack.damageItem(getUseCost(), playerEntity);

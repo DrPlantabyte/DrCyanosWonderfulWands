@@ -4,6 +4,7 @@ package cyano.wonderfulwands;
 import cyano.wonderfulwands.blocks.MageLight;
 import cyano.wonderfulwands.graphics.MagicMissileRenderer;
 import cyano.wonderfulwands.projectiles.EntityMagicMissile;
+import cyano.wonderfulwands.projectiles.EntityWandLightningBolt;
 import cyano.wonderfulwands.wands.*;
 
 import java.util.Map;
@@ -17,6 +18,7 @@ import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandManager;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -85,6 +87,7 @@ public class WonderfulWands {
 		wandOfTeleportation = new WandOfTeleportation();
 		wandOfLight = new WandOfLight();
 		wandOfStorms = new WandOfStorms();
+		wandOfLightning = new WandOfLightning();
 		
 		mageLight = new MageLight();
 		GameRegistry.registerBlock(mageLight, MageLight.name);
@@ -102,6 +105,7 @@ public class WonderfulWands {
 		GameRegistry.registerItem(wandOfTeleportation, WandOfTeleportation.itemName);
 		GameRegistry.registerItem(wandOfLight, WandOfLight.itemName);
 		GameRegistry.registerItem(wandOfStorms, WandOfStorms.itemName);
+		GameRegistry.registerItem(wandOfLightning, WandOfLightning.itemName);
 		
 		// recipes
 
@@ -133,6 +137,10 @@ public class WonderfulWands {
 		addWandRecipe(wandOfTeleportation, Items.ender_eye);
 		// wand of light
 		addWandRecipe(wandOfLight,"dustGlowstone");
+		// wand of storms
+		addWandRecipe(wandOfStorms,new ItemStack(Blocks.wool,1,7));
+		// wand of lightning
+		addWandRecipe(wandOfLightning,"gemDiamond");
 		
 		
 	//	OreDictionary.initVanillaEntries()
@@ -160,6 +168,9 @@ public class WonderfulWands {
 		// register entities
 		EntityRegistry.registerGlobalEntityID(EntityMagicMissile.class, "magic_missile", EntityRegistry.findGlobalUniqueEntityId());
  		EntityRegistry.registerModEntity(EntityMagicMissile.class, "magic_missile", 0/*id*/, this, 128/*trackingRange*/, 1/*updateFrequency*/, true/*sendsVelocityUpdates*/);
+ 		
+ 		EntityRegistry.registerGlobalEntityID(EntityWandLightningBolt.class, "bolt_lightning", EntityRegistry.findGlobalUniqueEntityId());
+ 		EntityRegistry.registerModEntity(EntityWandLightningBolt.class, "bolt_lightning", 1/*id*/, this, 128/*trackingRange*/, 1/*updateFrequency*/, false/*sendsVelocityUpdates*/);
  		
 		proxy.init(event);
 	}

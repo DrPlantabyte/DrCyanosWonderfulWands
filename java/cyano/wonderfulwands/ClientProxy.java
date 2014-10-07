@@ -5,8 +5,8 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
-import cyano.wonderfulwands.graphics.MagicMissileRenderer;
-import cyano.wonderfulwands.projectiles.EntityMagicMissile;
+import cyano.wonderfulwands.graphics.*;
+import cyano.wonderfulwands.projectiles.*;
 
 public class ClientProxy extends Proxy{
 
@@ -22,6 +22,7 @@ public class ClientProxy extends Proxy{
         // client-only init code
         // add renderers
  		RenderingRegistry.registerEntityRenderingHandler(EntityMagicMissile.class, new MagicMissileRenderer());
+ 		RenderingRegistry.registerEntityRenderingHandler(EntityWandLightningBolt.class, new WandLightningBoltRenderer());
      		
     }
 

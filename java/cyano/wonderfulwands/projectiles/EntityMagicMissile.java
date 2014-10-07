@@ -12,9 +12,8 @@ import net.minecraft.world.World;
 /** a non-pickupable arrow */
 public class EntityMagicMissile extends net.minecraft.entity.projectile.EntityArrow{
 
-	protected int life = 0;
-	public final int lifeSpan = 100;
-    
+	int life = 0;
+	final int lifeSpan = 100;
 	
 	public EntityMagicMissile(World par1World)
     {
@@ -40,5 +39,11 @@ public class EntityMagicMissile extends net.minecraft.entity.projectile.EntityAr
         this.canBePickedUp = 0;
     }
     
+    @Override public void onUpdate(){
+		super.onUpdate();
+		if(++life > lifeSpan){
+			this.setDead();
+		}
+	}
 
 }

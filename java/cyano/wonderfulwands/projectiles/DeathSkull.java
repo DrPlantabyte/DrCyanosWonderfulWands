@@ -14,6 +14,8 @@ import net.minecraft.world.World;
 public class DeathSkull extends EntityWitherSkull {
 	public static float damage = 10f;
 	
+	public static final float explosionForce = 3f;
+	
 	 public DeathSkull(World par1World)
 	    {
 	        super(par1World);
@@ -64,7 +66,7 @@ public class DeathSkull extends EntityWitherSkull {
 	                }
 	            }
 
-	            this.worldObj.newExplosion(this, this.posX, this.posY, this.posZ, 1.0F, false, this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing"));
+	            this.worldObj.newExplosion(this, this.posX, this.posY, this.posZ, explosionForce, false, this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing"));
 	            this.setDead();
 	        }
 	    }
