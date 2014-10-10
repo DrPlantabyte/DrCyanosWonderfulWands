@@ -13,6 +13,14 @@ item.wonderfulwands_wand_mining.name=Wand of Mining
 item.wonderfulwands_wand_missiles.name=Wand of Magic Missiles
 item.wonderfulwands_wand_teleportation.name=Wand of Teleportation
 
+item.wonderfulwands_hat_wizard.name=Wizard's Hat
+item.wonderfulwands_hat_witch.name=Witch's Hat
+item.wonderfulwands_tophat.name=Top Hat
+item.wonderfulwands_robes_purple_helmet.name=Purple Wizard Hood
+item.wonderfulwands_robes_purple_chestplate.name=Purple Wizard Robe
+item.wonderfulwands_robes_purple_leggings.name=Purple Wizard Leggings
+item.wonderfulwands_robes_purple_boots.name=Purple Wizard Slippers
+
 tile.wonderfulwands_mage_light.name=Mage Light
 
 entity.wonderfulwands_magic_missile.name=Magical Missile

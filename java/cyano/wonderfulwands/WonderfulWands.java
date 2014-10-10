@@ -6,6 +6,7 @@ import cyano.wonderfulwands.graphics.MagicMissileRenderer;
 import cyano.wonderfulwands.projectiles.EntityMagicMissile;
 import cyano.wonderfulwands.projectiles.EntityWandLightningBolt;
 import cyano.wonderfulwands.wands.*;
+import cyano.wonderfulwands.wizardrobes.WizardingArmor;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -26,6 +27,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -44,7 +46,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 public class WonderfulWands {
     public static final String MODID = "wonderfulwands";
     public static final String NAME ="Cyano's Wonderful Wands";
-    public static final String VERSION = "1.3.0";
+    public static final String VERSION = "1.4.0";
 	
     @SidedProxy(clientSide="cyano.wonderfulwands.ClientProxy", serverSide="cyano.wonderfulwands.ServerProxy")
     public static Proxy proxy;
@@ -65,6 +67,13 @@ public class WonderfulWands {
 	
 	public static Block mageLight = null;
 	
+	public static WizardingArmor[][] robes = new WizardingArmor[16][4]; // [color][slot]
+
+	private static final String[] colorSuffixes = {"black","red","green","brown","blue","purple","cyan",
+		"silver","gray","pink","lime","yellow","light_blue","magenta","orange","white"};
+	private static final String[] oreDictionaryColors = {"dyeBlack","dyeRed","dyeGreen","dyeBrown","dyeBlue","dyePurple","dyeCyan",
+		"dyeLightGray","dyeGray","dyePink","dyeLime","dyeYellow","dyeLightBlue","dyeMagenta","dyeOrange","dyeWhite"};
+
 	
 	// Mark this method for receiving an FMLEvent (in this case, it's the FMLPreInitializationEvent)
     @EventHandler public void preInit(FMLPreInitializationEvent event)
@@ -141,6 +150,24 @@ public class WonderfulWands {
 		addWandRecipe(wandOfStorms,new ItemStack(Blocks.wool,1,7));
 		// wand of lightning
 		addWandRecipe(wandOfLightning,"gemDiamond");
+		
+		// Wizarding Robes
+		int robesRenderIndex = proxy.getArmorRenderIndex(MODID+"_robes");
+		for(int colorIndex = 0; colorIndex < 16; colorIndex++){
+			for(int armorSlot = 0; armorSlot < 4; armorSlot++){
+				String color = colorSuffixes[colorIndex];
+				WizardingArmor r = new WizardingArmor(color,armorSlot,robesRenderIndex);
+				GameRegistry.registerItem(r, "robes_"+color+"_"+WizardingArmor.slotName[armorSlot]);
+				OreDictionary.registerOre("wizardRobes", r);
+				GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(r ,1),"wizardRobes",oreDictionaryColors[colorIndex]));
+				robes[colorIndex][armorSlot] = r;
+			}
+		}
+		ItemStack cloth = new ItemStack(Blocks.wool,1,10);		
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[5][0],1),"ccc", "cgc",  'c', cloth, 'g', "ingotGold"));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[5][1],1),"cgc", "ccc", "ccc",  'c', cloth, 'g', "ingotGold"));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[5][2],1),"ggg", "c c", "c c",  'c', cloth, 'g', "ingotGold"));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[5][3],1),"c c", "g g",  'c', cloth, 'g', "ingotGold"));
 		
 		
 	//	OreDictionary.initVanillaEntries()

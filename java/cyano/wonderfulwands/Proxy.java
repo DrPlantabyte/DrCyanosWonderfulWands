@@ -18,4 +18,8 @@ public class Proxy {
     public void postInit(FMLPostInitializationEvent e) {
     	// do nothing
     }
+    
+    public int getArmorRenderIndex(String armorSet){
+		return 0; // Server don't care!
+	}
 }
