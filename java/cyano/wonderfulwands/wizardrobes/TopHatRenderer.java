@@ -3,6 +3,7 @@ package cyano.wonderfulwands.wizardrobes;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import cyano.wonderfulwands.WonderfulWands;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
@@ -10,8 +11,8 @@ import net.minecraft.util.ResourceLocation;
 public class TopHatRenderer extends ModelBiped  {
 	TopHatBlackModel hatBlack;
 	TopHatWhiteModel hatBand;
-	public ResourceLocation blackTexture = new ResourceLocation("wizardrobes:textures/witchblack.png");
-	public ResourceLocation whiteTexture = new ResourceLocation("wizardrobes:textures/fancywhite.png");
+	public ResourceLocation blackTexture = new ResourceLocation(WonderfulWands.MODID+":textures/witchblack.png");
+	public ResourceLocation whiteTexture = new ResourceLocation(WonderfulWands.MODID+":textures/fancywhite.png");
 	
 	public TopHatRenderer(){
 		hatBlack = new TopHatBlackModel();

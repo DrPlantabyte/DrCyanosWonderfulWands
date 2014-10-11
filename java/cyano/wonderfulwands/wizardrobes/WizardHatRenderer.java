@@ -3,6 +3,7 @@ package cyano.wonderfulwands.wizardrobes;
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.client.FMLClientHandler;
+import cyano.wonderfulwands.WonderfulWands;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
@@ -14,7 +15,7 @@ import net.minecraftforge.client.IItemRenderer.ItemRendererHelper;
 public class WizardHatRenderer extends ModelBiped /*implements IItemRenderer*/ {
 
 	WizardHatModel hatModel;
-	public ResourceLocation hatTexture = new ResourceLocation("wizardrobes:textures/blueNstars.png");
+	public ResourceLocation hatTexture = new ResourceLocation(WonderfulWands.MODID+":textures/blueNstars.png");
 	
 	public WizardHatRenderer(){
 		hatModel = new WizardHatModel();

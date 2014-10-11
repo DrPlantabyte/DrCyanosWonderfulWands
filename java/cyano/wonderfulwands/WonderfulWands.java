@@ -6,7 +6,7 @@ import cyano.wonderfulwands.graphics.MagicMissileRenderer;
 import cyano.wonderfulwands.projectiles.EntityMagicMissile;
 import cyano.wonderfulwands.projectiles.EntityWandLightningBolt;
 import cyano.wonderfulwands.wands.*;
-import cyano.wonderfulwands.wizardrobes.WizardingArmor;
+import cyano.wonderfulwands.wizardrobes.*;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -68,6 +68,10 @@ public class WonderfulWands {
 	public static Block mageLight = null;
 	
 	public static WizardingArmor[][] robes = new WizardingArmor[16][4]; // [color][slot]
+
+	public static WizardsHat wizardHat = null;
+	public static WitchsHat witchHat = null;
+	public static TopHat topHat = null;
 
 	private static final String[] colorSuffixes = {"black","red","green","brown","blue","purple","cyan",
 		"silver","gray","pink","lime","yellow","light_blue","magenta","orange","white"};
@@ -158,8 +162,9 @@ public class WonderfulWands {
 				String color = colorSuffixes[colorIndex];
 				WizardingArmor r = new WizardingArmor(color,armorSlot,robesRenderIndex);
 				GameRegistry.registerItem(r, "robes_"+color+"_"+WizardingArmor.slotName[armorSlot]);
+				OreDictionary.registerOre(WizardingArmor.slotName[armorSlot]+"WizardRobes", r);
 				OreDictionary.registerOre("wizardRobes", r);
-				GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(r ,1),"wizardRobes",oreDictionaryColors[colorIndex]));
+				GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(r ,1),WizardingArmor.slotName[armorSlot]+"WizardRobes",oreDictionaryColors[colorIndex]));
 				robes[colorIndex][armorSlot] = r;
 			}
 		}
@@ -168,7 +173,16 @@ public class WonderfulWands {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[5][1],1),"cgc", "ccc", "ccc",  'c', cloth, 'g', "ingotGold"));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[5][2],1),"ggg", "c c", "c c",  'c', cloth, 'g', "ingotGold"));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[5][3],1),"c c", "g g",  'c', cloth, 'g', "ingotGold"));
+
+		wizardHat = new WizardsHat(RenderingRegistry.addNewArmourRendererPrefix("wizhat"));
+		GameRegistry.registerItem(wizardHat, wizardHat.itemName);
+		witchHat = new WitchsHat(RenderingRegistry.addNewArmourRendererPrefix("witchhat"));
+		GameRegistry.registerItem(witchHat, witchHat.itemName);
+		topHat = new TopHat(RenderingRegistry.addNewArmourRendererPrefix("tophat"));
+		GameRegistry.registerItem(topHat, topHat.itemName);
 		
+
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(wizardHat,1)," d "," b ", "bbb",  'b', new ItemStack(Blocks.wool,1,11), 'd', "gemDiamond"));
 		
 	//	OreDictionary.initVanillaEntries()
 		config.save();

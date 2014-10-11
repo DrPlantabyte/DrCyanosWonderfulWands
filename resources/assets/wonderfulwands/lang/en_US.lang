@@ -16,10 +16,86 @@ item.wonderfulwands_wand_teleportation.name=Wand of Teleportation
 item.wonderfulwands_hat_wizard.name=Wizard's Hat
 item.wonderfulwands_hat_witch.name=Witch's Hat
 item.wonderfulwands_tophat.name=Top Hat
+
+item.wonderfulwands_robes_black_helmet.name=Black Wizard Hood
+item.wonderfulwands_robes_black_chestplate.name=Black Wizard Robe
+item.wonderfulwands_robes_black_leggings.name=Black Wizard Leggings
+item.wonderfulwands_robes_black_boots.name=Black Wizard Slippers
+
+item.wonderfulwands_robes_red_helmet.name=Red Wizard Hood
+item.wonderfulwands_robes_red_chestplate.name=Red Wizard Robe
+item.wonderfulwands_robes_red_leggings.name=Red Wizard Leggings
+item.wonderfulwands_robes_red_boots.name=Red Wizard Slippers
+
+item.wonderfulwands_robes_green_helmet.name=Green Wizard Hood
+item.wonderfulwands_robes_green_chestplate.name=Green Wizard Robe
+item.wonderfulwands_robes_green_leggings.name=Green Wizard Leggings
+item.wonderfulwands_robes_green_boots.name=Green Wizard Slippers
+
+item.wonderfulwands_robes_brown_helmet.name=Brown Wizard Hood
+item.wonderfulwands_robes_brown_chestplate.name=Brown Wizard Robe
+item.wonderfulwands_robes_brown_leggings.name=Brown Wizard Leggings
+item.wonderfulwands_robes_brown_boots.name=Brown Wizard Slippers
+
+item.wonderfulwands_robes_blue_helmet.name=Blue Wizard Hood
+item.wonderfulwands_robes_blue_chestplate.name=Blue Wizard Robe
+item.wonderfulwands_robes_blue_leggings.name=Blue Wizard Leggings
+item.wonderfulwands_robes_blue_boots.name=Blue Wizard Slippers
+
 item.wonderfulwands_robes_purple_helmet.name=Purple Wizard Hood
 item.wonderfulwands_robes_purple_chestplate.name=Purple Wizard Robe
 item.wonderfulwands_robes_purple_leggings.name=Purple Wizard Leggings
 item.wonderfulwands_robes_purple_boots.name=Purple Wizard Slippers
+
+item.wonderfulwands_robes_cyan_helmet.name=Cyan Wizard Hood
+item.wonderfulwands_robes_cyan_chestplate.name=Cyan Wizard Robe
+item.wonderfulwands_robes_cyan_leggings.name=Cyan Wizard Leggings
+item.wonderfulwands_robes_cyan_boots.name=Cyan Wizard Slippers
+
+item.wonderfulwands_robes_silver_helmet.name=Gray Wizard Hood
+item.wonderfulwands_robes_silver_chestplate.name=Gray Wizard Robe
+item.wonderfulwands_robes_silver_leggings.name=Gray Wizard Leggings
+item.wonderfulwands_robes_silver_boots.name=Gray Wizard Slippers
+
+item.wonderfulwands_robes_gray_helmet.name=Dark Wizard Hood
+item.wonderfulwands_robes_gray_chestplate.name=Dark Wizard Robe
+item.wonderfulwands_robes_gray_leggings.name=Dark Wizard Leggings
+item.wonderfulwands_robes_gray_boots.name=Dark Wizard Slippers
+
+item.wonderfulwands_robes_pink_helmet.name=Pink Wizard Hood
+item.wonderfulwands_robes_pink_chestplate.name=Pink Wizard Robe
+item.wonderfulwands_robes_pink_leggings.name=Pink Wizard Leggings
+item.wonderfulwands_robes_pink_boots.name=Pink Wizard Slippers
+
+item.wonderfulwands_robes_lime_helmet.name=Jungle Wizard Hood
+item.wonderfulwands_robes_lime_chestplate.name=Jungle Wizard Robe
+item.wonderfulwands_robes_lime_leggings.name=Jungle Wizard Leggings
+item.wonderfulwands_robes_lime_boots.name=Jungle Wizard Slippers
+
+item.wonderfulwands_robes_yellow_helmet.name=Yellow Wizard Hood
+item.wonderfulwands_robes_yellow_chestplate.name=Yellow Wizard Robe
+item.wonderfulwands_robes_yellow_leggings.name=Yellow Wizard Leggings
+item.wonderfulwands_robes_yellow_boots.name=Yellow Wizard Slippers
+
+item.wonderfulwands_robes_light_blue_helmet.name=Sky-Blue Wizard Hood
+item.wonderfulwands_robes_light_blue_chestplate.name=Sky-Blue Wizard Robe
+item.wonderfulwands_robes_light_blue_leggings.name=Sky-Blue Wizard Leggings
+item.wonderfulwands_robes_light_blue_boots.name=Sky-Blue Wizard Slippers
+
+item.wonderfulwands_robes_magenta_helmet.name=Magenta Wizard Hood
+item.wonderfulwands_robes_magenta_chestplate.name=Magenta Wizard Robe
+item.wonderfulwands_robes_magenta_leggings.name=Magenta Wizard Leggings
+item.wonderfulwands_robes_magenta_boots.name=Magenta Wizard Slippers
+
+item.wonderfulwands_robes_orange_helmet.name=Orange Wizard Hood
+item.wonderfulwands_robes_orange_chestplate.name=Orange Wizard Robe
+item.wonderfulwands_robes_orange_leggings.name=Orange Wizard Leggings
+item.wonderfulwands_robes_orange_boots.name=Orange Wizard Slippers
+
+item.wonderfulwands_robes_white_helmet.name=White Wizard Hood
+item.wonderfulwands_robes_white_chestplate.name=White Wizard Robe
+item.wonderfulwands_robes_white_leggings.name=White Wizard Leggings
+item.wonderfulwands_robes_white_boots.name=White Wizard Slippers
 
 tile.wonderfulwands_mage_light.name=Mage Light
 

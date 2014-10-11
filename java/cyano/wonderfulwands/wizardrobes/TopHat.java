@@ -2,6 +2,7 @@ package cyano.wonderfulwands.wizardrobes;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import cyano.wonderfulwands.WonderfulWands;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -17,9 +18,11 @@ import net.minecraft.item.ItemStack;
 public class TopHat extends net.minecraft.item.ItemArmor {
 
 	//final TopHatRenderer renderer; // moved to ClientProxy for server compatibility
-	
+	public final String itemName = "tophat";
 	public TopHat( int renderIndex) {
 		super( WizardsHat.NONARMOR, renderIndex, 0);
+		this.setUnlocalizedName(WonderfulWands.MODID +"_"+itemName);
+		this.setTextureName(WonderfulWands.MODID +":"+ itemName);
 		this.setCreativeTab(CreativeTabs.tabMisc);
 		// set values
 		this.setMaxDamage(100);
@@ -33,7 +36,7 @@ public class TopHat extends net.minecraft.item.ItemArmor {
 	
 	@Override public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type)
     {
-    	return "wizardrobes:textures/models/armor/empty_armor_layer.png";
+    	return WonderfulWands.MODID +":textures/models/armor/empty_armor_layer.png";
     }
     
 

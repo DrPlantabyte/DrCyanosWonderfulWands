@@ -18,12 +18,12 @@ import net.minecraft.util.ResourceLocation;
  */
 public class WitchsHat extends WizardsHat {
 	//private final WizardHatRenderer renderer;
+	public final String itemName = "hat_witch";
 	
 	public WitchsHat(int renderIndex) {
 		super(renderIndex);
-		String name = "hat_witch";
-		this.setUnlocalizedName(WonderfulWands.MODID +"_"+name);
-		this.setTextureName(WonderfulWands.MODID +":"+ name);
+		this.setUnlocalizedName(WonderfulWands.MODID +"_"+itemName);
+		this.setTextureName(WonderfulWands.MODID +":"+ itemName);
 	}
 
 	

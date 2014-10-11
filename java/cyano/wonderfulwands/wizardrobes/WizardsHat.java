@@ -39,15 +39,14 @@ public class WizardsHat extends  net.minecraft.item.ItemArmor {
 	
 	
 	public static final ArmorMaterial NONARMOR = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("NONARMOR",maxDamageFactor, damageReduction,enchantibility);
-	
+	public final String itemName = "hat_wizard";
 	
 	//private final WizardHatRenderer renderer;
 	
 	public WizardsHat( int renderIndex) {
 		super( NONARMOR, renderIndex, 0);
-		String name = "hat_wizard";
-		this.setUnlocalizedName(WonderfulWands.MODID +"_"+name);
-		this.setTextureName(WonderfulWands.MODID +":"+ name);
+		this.setUnlocalizedName(WonderfulWands.MODID +"_"+itemName);
+		this.setTextureName(WonderfulWands.MODID +":"+ itemName);
 		this.setCreativeTab(CreativeTabs.tabBrewing);
 		// set values
 		this.setMaxDamage(1);
@@ -118,7 +117,7 @@ public class WizardsHat extends  net.minecraft.item.ItemArmor {
     
     @Override public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type)
     {
-    	return "wizardrobes:textures/models/armor/empty_armor_layer.png";
+    	return WonderfulWands.MODID +":textures/models/armor/empty_armor_layer.png";
     }
     
 
