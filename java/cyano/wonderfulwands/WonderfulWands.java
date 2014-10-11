@@ -46,7 +46,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 public class WonderfulWands {
     public static final String MODID = "wonderfulwands";
     public static final String NAME ="Cyano's Wonderful Wands";
-    public static final String VERSION = "1.4.0";
+    public static final String VERSION = "1.4.1";
 	
     @SidedProxy(clientSide="cyano.wonderfulwands.ClientProxy", serverSide="cyano.wonderfulwands.ServerProxy")
     public static Proxy proxy;
@@ -181,8 +181,16 @@ public class WonderfulWands {
 		topHat = new TopHat(RenderingRegistry.addNewArmourRendererPrefix("tophat"));
 		GameRegistry.registerItem(topHat, topHat.itemName);
 		
-
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(wizardHat,1)," d "," b ", "bbb",  'b', new ItemStack(Blocks.wool,1,11), 'd', "gemDiamond"));
+		if(config.getBoolean("allow_wizard_hat", "options", true, 
+				"If true, then the Wizard's Hat and Witch's Hat items will be craftable (if \n" +
+				"false, the hats will not be craftable). These hats are very powerful and you \n" +
+				"may want to disable them if you expect there to be troublemakers (aka \n" +
+				"\"griefers\")")){
+			
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(wizardHat,1)," d "," b ", "bbb",  'b', new ItemStack(Blocks.wool,1,11), 'd', "gemDiamond"));
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(witchHat,1)," d "," b ", "bbb",  'b', new ItemStack(Blocks.wool,1,15), 'd', "gemDiamond"));
+		}
+		GameRegistry.addRecipe(new ItemStack(topHat,1)," b "," l ",  'b', new ItemStack(Blocks.wool,1,15), 'l', Items.leather);
 		
 	//	OreDictionary.initVanillaEntries()
 		config.save();
