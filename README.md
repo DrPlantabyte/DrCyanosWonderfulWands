@@ -1,5 +1,5 @@
 # Cyano's Wonderful Wands
-This mod replaces the generic "stone" in Minecraft with real-world rock types.
+This mod adds magical wands to Minecraft
 
 ## Requirements
 This mod requires that you install Minecraft Forge version 1.7.10-10.13.1.1219 or later (ealier versions of Forge for Minecraft 1.7.10 may work, but no guarentees).
