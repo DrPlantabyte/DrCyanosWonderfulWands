@@ -15,15 +15,23 @@ buildscript {
     }
 }
 
-apply plugin: 'forge'
+//apply plugin: 'forge'
+apply plugin: 'fml'
 
-version = "1.4.1"
+version = "1.5.0"
 group= "cyano.wonderfulwands" 
 archivesBaseName = "CyanosWonderfulWands"
 
 minecraft {
-    version = "1.7.10-10.13.1.1217"
+    version = "1.8-8.0.7.1014-1.8"
     runDir = "eclipse"
+    
+    // the mappings can be changed at any time, and must be in the following format.
+    // snapshot_YYYYMMDD   snapshot are built nightly.
+    // stable_#            stables are built at the discretion of the MCP team.
+    // Use non-default mappings at your own risk. they may not allways work.
+    // simply re-run your setup task after changing the mappings to update your workspace.
+    mappings = "snapshot_nodoc_20140930"
 }
 
 dependencies {

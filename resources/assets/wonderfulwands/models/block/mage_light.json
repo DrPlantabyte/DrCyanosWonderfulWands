@@ -1,0 +1,6 @@
+{
+    "parent": "block/cross",
+    "textures": {
+        "cross": "wonderfulwands:blocks/mage_light"
+    }
+}

@@ -6,6 +6,8 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 public class WandOfIce extends Wand {
@@ -18,7 +20,6 @@ public class WandOfIce extends Wand {
 	public WandOfIce() {
 		super();
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
-		this.setTextureName(WonderfulWands.MODID +":"+ itemName);
 		this.setCreativeTab(CreativeTabs.tabTools);
         this.setMaxDamage(defaultCharges + 1);
 	}
@@ -33,7 +34,8 @@ public class WandOfIce extends Wand {
 		return 2;
 	}
 	
-	@Override public boolean onItemUse(ItemStack srcItemStack, EntityPlayer playerEntity, World world, int targetX, int targetY, int targetZ, int par7, float par8, float par9, float par10){
+	@Override public boolean onItemUse(ItemStack srcItemStack, EntityPlayer playerEntity, World world, BlockPos coord, EnumFacing blockFace, float par8, float par9, float par10){
+		int targetX=coord.getX(),targetY=coord.getY(),targetZ=coord.getZ();
 		if (!playerEntity.capabilities.isCreativeMode)
         {
         	if(isOutOfCharge(srcItemStack)){
@@ -45,9 +47,12 @@ public class WandOfIce extends Wand {
 		int blocksChanged = 0;
 		for(int y = targetY+1; y >= targetY-1; y--){
 			if(y < 0) continue;
-			for(int x = targetX-1; x <= targetX+1; x++){
-				for(int z = targetZ-1; z <= targetZ+1; z++){
-					blocksChanged += freezeBlock(world,x,y,z);
+			for(int x = targetX-2; x <= targetX+2; x++){
+				for(int z = targetZ-2; z <= targetZ+2; z++){
+					// cut corners
+					if((x == targetX-2 || x == targetX+2) && (z == targetZ-2 || z == targetZ+2))continue;
+					// set to ice
+					blocksChanged += freezeBlock(world,new BlockPos(x,y,z));
 				}
 			}
 		}
@@ -60,13 +65,13 @@ public class WandOfIce extends Wand {
 		}
 	}
 	
-	protected int freezeBlock(World w, int x, int y, int z){
-		Block target = w.getBlock(x, y, z);
+	protected int freezeBlock(World w, BlockPos coord){
+		Block target = w.getBlockState(coord).getBlock();
 		if(target == Blocks.water || target == Blocks.flowing_water){
-			w.setBlock(x, y, z, Blocks.ice);
+			w.setBlockState(coord, Blocks.ice.getDefaultState());
 			return 1;
 		} else if(target == Blocks.lava || target == Blocks.flowing_lava){
-			w.setBlock(x, y, z, Blocks.cobblestone);
+			w.setBlockState(coord, Blocks.cobblestone.getDefaultState());
 			return 1;
 		}
 		return 0;

@@ -1,7 +1,5 @@
 package cyano.wonderfulwands.wizardrobes;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import cyano.wonderfulwands.WonderfulWands;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.EntityLivingBase;
@@ -20,15 +18,15 @@ public class WitchsHat extends WizardsHat {
 	//private final WizardHatRenderer renderer;
 	public final String itemName = "hat_witch";
 	
-	public WitchsHat(int renderIndex) {
-		super(renderIndex);
+	public WitchsHat() {
+		super();
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+itemName);
-		this.setTextureName(WonderfulWands.MODID +":"+ itemName);
 	}
 
-	
+	/*
 	@SideOnly(Side.CLIENT)
 	@Override public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot){
 		return cyano.wonderfulwands.ClientProxy.witchHatRenderer;
 	}
+	*/
 }

@@ -6,17 +6,22 @@ import org.lwjgl.opengl.GL12;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderArrow;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
 import cyano.wonderfulwands.WonderfulWands;
 import cyano.wonderfulwands.projectiles.EntityWandLightningBolt;
 
 @SideOnly(Side.CLIENT)
 public class WandLightningBoltRenderer extends Render{
+
+	public WandLightningBoltRenderer(RenderManager rm) {
+		super(rm);
+	}
 
 	private static final ResourceLocation texture = new ResourceLocation(WonderfulWands.MODID+":textures/entity/bolt_lightning.png");
 	
@@ -32,7 +37,7 @@ public class WandLightningBoltRenderer extends Render{
       //  GL11.glRotatef(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * yaw, 0.0F, 0.0F, 1.0F);
         GL11.glRotatef(270F - entity.rotationYaw, 0.0F, 1.0F, 0.0F);
         GL11.glRotatef(-1*entity.rotationPitch, 0.0F, 0.0F, 1.0F);
-        Tessellator tessellator = Tessellator.instance;
+        Tessellator tessellator = Tessellator.getInstance();
         
         float f10 = 0.05625F;
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -49,11 +54,11 @@ public class WandLightningBoltRenderer extends Render{
         {
             GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
             GL11.glNormal3f(0.0F, 0.0F, f10);
-            tessellator.startDrawingQuads();
-            tessellator.addVertexWithUV(0.0D, -2.0D, 0.0D, (double)0, (double)0);
-            tessellator.addVertexWithUV(size, -2.0D, 0.0D, entity.length, (double)0);
-            tessellator.addVertexWithUV(size, 2.0D, 0.0D, entity.length, (double)1);
-            tessellator.addVertexWithUV(0.0D, 2.0D, 0.0D, (double)0, (double)1);
+            tessellator.getWorldRenderer().startDrawingQuads();
+            tessellator.getWorldRenderer().addVertexWithUV(0.0D, -2.0D, 0.0D, (double)0, (double)0);
+            tessellator.getWorldRenderer().addVertexWithUV(size, -2.0D, 0.0D, entity.length, (double)0);
+            tessellator.getWorldRenderer().addVertexWithUV(size, 2.0D, 0.0D, entity.length, (double)1);
+            tessellator.getWorldRenderer().addVertexWithUV(0.0D, 2.0D, 0.0D, (double)0, (double)1);
             tessellator.draw();
         }
 

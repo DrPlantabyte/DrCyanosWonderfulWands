@@ -3,10 +3,16 @@ package cyano.wonderfulwands.wands;
 import java.util.List;
 
 import cyano.wonderfulwands.WonderfulWands;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockCrops;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 public class WandOfHarvesting extends Wand {
@@ -19,7 +25,6 @@ public class WandOfHarvesting extends Wand {
 	public WandOfHarvesting() {
 		super();
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
-		this.setTextureName(WonderfulWands.MODID +":"+ itemName);
 		this.setCreativeTab(CreativeTabs.tabTools);
         this.setMaxDamage(defaultCharges + 1);
 	}
@@ -34,9 +39,9 @@ public class WandOfHarvesting extends Wand {
 		return 2;
 	}
 
-	@Override public boolean onItemUse(ItemStack srcItemStack, EntityPlayer playerEntity, World world, int targetX, int targetY, int targetZ, int par7, float par8, float par9, float par10){
-		// TODO: stop it from making phantom blocks
-		if(isHarvestable(world,targetX,targetY,targetZ)){
+	@Override public boolean onItemUse(ItemStack srcItemStack, EntityPlayer playerEntity, World world, BlockPos coord, EnumFacing blockFace, float par8, float par9, float par10){
+		int targetX = coord.getX(),targetY = coord.getY(),targetZ = coord.getZ();
+		if(isHarvestable(world,coord)){
 			if (!playerEntity.capabilities.isCreativeMode)
 	        {
 	        	if(isOutOfCharge(srcItemStack)){
@@ -50,7 +55,7 @@ public class WandOfHarvesting extends Wand {
 				if(y < 0) continue;
 				for(int x = targetX-1; x <= targetX+1; x++){
 					for(int z = targetZ-1; z <= targetZ+1; z++){
-						harvestBlock(world,x,y,z);
+						harvestBlock(world,new BlockPos(x,y,z));
 					}
 				}
 			}
@@ -62,21 +67,20 @@ public class WandOfHarvesting extends Wand {
 		return false;
 	}
 	
-	protected void harvestBlock(World w, int x, int y, int z){
-		
-		if(isHarvestable(w,x,y,z)){
-			List<ItemStack> drops = w.getBlock(x, y, z).getDrops(w, x, y, z, w.getBlockMetadata(x, y, z), 0);
-			w.setBlockToAir(x, y, z);
-			if(!drops.isEmpty() && !w.isRemote){
-				for(ItemStack s : drops){
-					w.spawnEntityInWorld(new net.minecraft.entity.item.EntityItem(w, x, y, z, s));
-				}
+	protected void harvestBlock(World w, BlockPos coord){
+		float dropProbability = 1;
+		int fortuneLevel = 0;
+		if(isHarvestable(w,coord)){
+			IBlockState bs = w.getBlockState(coord);
+			w.setBlockToAir(coord);
+			if(!w.isRemote){
+				bs.getBlock().dropBlockAsItemWithChance(w,coord,bs,dropProbability,fortuneLevel);
 			}
 		}
 	}
 	
-	protected boolean isHarvestable(World w, int x, int y, int z){
-		Material mat = w.getBlock(x, y, z).getMaterial();
+	protected boolean isHarvestable(World w, BlockPos coord){
+		Material mat = w.getBlockState(coord).getBlock().getMaterial();
 		return mat == Material.cactus || mat == Material.leaves 
 				|| mat == Material.plants || mat == Material.gourd || mat == Material.vine
 				|| mat == Material.web;

@@ -22,7 +22,6 @@ public class WandOfHealing extends Wand {
 	public WandOfHealing() {
 		super();
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
-		this.setTextureName(WonderfulWands.MODID +":"+ itemName);
 		this.setCreativeTab(CreativeTabs.tabTools);
         this.setMaxDamage(defaultCharges + 1);
 	}
