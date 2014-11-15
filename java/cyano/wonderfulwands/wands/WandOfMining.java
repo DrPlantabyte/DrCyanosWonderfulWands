@@ -41,7 +41,6 @@ public class WandOfMining extends Wand {
 	}
 	
 	@Override public boolean onItemUse(ItemStack srcItemStack, EntityPlayer playerEntity, World world, BlockPos coord, EnumFacing blockFace, float par8, float par9, float par10){
-		// TODO: stop it from making phantom blocks
 		if (!playerEntity.capabilities.isCreativeMode)
         {
         	if(isOutOfCharge(srcItemStack)){

@@ -1,6 +1,7 @@
 package cyano.wonderfulwands;
 
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -19,6 +20,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -53,7 +55,7 @@ import cyano.wonderfulwands.wizardrobes.WizardsHat;
 public class WonderfulWands {
     public static final String MODID = "wonderfulwands";
     public static final String NAME ="Cyano's Wonderful Wands";
-    public static final String VERSION = "1.5.0";
+    public static final String VERSION = "1.5.1";
 	
     @SidedProxy(clientSide="cyano.wonderfulwands.ClientProxy", serverSide="cyano.wonderfulwands.ServerProxy")
     public static Proxy proxy;
@@ -87,7 +89,7 @@ public class WonderfulWands {
 
 	
 	public static ItemArmor.ArmorMaterial NONARMOR = null;
-	public static ItemArmor.ArmorMaterial WIZARDROBE = null;
+	public static ItemArmor.ArmorMaterial[] WIZARDROBES = new ItemArmor.ArmorMaterial[colorSuffixes.length];
 	
 	// Mark this method for receiving an FMLEvent (in this case, it's the FMLPreInitializationEvent)
     @EventHandler public void preInit(FMLPreInitializationEvent event)
@@ -98,8 +100,22 @@ public class WonderfulWands {
     	// TODO: Forge Update:	config.load();
 		
 
-    	NONARMOR = newArmorMaterial("NONARMOR",10,new int[]{0, 0, 0, 0},0);
-    	WIZARDROBE = newArmorMaterial("WIZARDCLOTH", 15,new int[]{1, 1, 1, 1},40);
+    	NONARMOR = newArmorMaterial("NONARMOR","empty_armor",10,new int[]{0, 0, 0, 0},0);
+    	for(int color = 0; color < colorSuffixes.length; color++){
+    		WIZARDROBES[color] = newArmorMaterial("WIZARDCLOTH_"+colorSuffixes[color].toUpperCase(), "robes_"+colorSuffixes[color], 15,new int[]{1, 1, 1, 1},40);
+    		//WIZARDROBES[color] = newArmorMaterial("WIZARDCLOTH_"+colorSuffixes[color].toUpperCase(), "chainmail", 15,new int[]{1, 1, 1, 1},40);
+    	}
+    	
+    	System.out.println("Enum test");
+    	for(ItemArmor.ArmorMaterial e : ItemArmor.ArmorMaterial.values()){
+    		try {
+				System.out.println("\t"+e.toString()+" "+e.func_179242_c() +" "+objectDump(e));
+			} catch (IllegalArgumentException e1) {
+				e1.printStackTrace(System.err);
+			} catch (IllegalAccessException e1) {
+				e1.printStackTrace(System.err);
+			}
+    	}
     	
 		wandGeneric = new OrdinaryWand();
 		wandOfMagicMissile = new WandOfMagicMissile();
@@ -170,17 +186,12 @@ public class WonderfulWands {
 		// TODO: Forge Update:	addWandRecipe(wandOfLightning,"gemDiamond");
 		addWandRecipe(wandOfLightning,Items.diamond);
 		
-		// TODO: make armor render
-		if(true){
-			proxy.preInit(event);
-			return;
-		}
 		// Wizarding Robes
 		int robesRenderIndex = proxy.getArmorRenderIndex(MODID+"_robes");
 		for(int colorIndex = 0; colorIndex < 16; colorIndex++){
 			for(int armorSlot = 0; armorSlot < 4; armorSlot++){
 				String color = colorSuffixes[colorIndex];
-				WizardingArmor r = new WizardingArmor(color,armorSlot);
+				WizardingArmor r = new WizardingArmor(WIZARDROBES[colorIndex],color,armorSlot);
 				GameRegistry.registerItem(r, "robes_"+color+"_"+WizardingArmor.slotName[armorSlot]);
 				// TODO: Forge Update:	OreDictionary.registerOre(WizardingArmor.slotName[armorSlot]+"WizardRobes", r);
 				// TODO: Forge Update:	OreDictionary.registerOre("wizardRobes", r);
@@ -192,7 +203,7 @@ public class WonderfulWands {
 		for(int armorSlot = 0; armorSlot < 4; armorSlot++){
 			for(int cin = 0; cin < 16; cin++){
 				for(int cout = 0; cin < 16; cin++){
-					GameRegistry.addShapelessRecipe(new ItemStack(robes[cout][armorSlot] ,1),robes[cin][armorSlot],new ItemStack(Items.dye,1,cout));
+	//				GameRegistry.addShapelessRecipe(new ItemStack(robes[cout][armorSlot] ,1),robes[cin][armorSlot],new ItemStack(Items.dye,1,cout));
 				}
 			}
 		}
@@ -204,10 +215,6 @@ public class WonderfulWands {
 //		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[5][1],1),"cgc", "ccc", "ccc",  'c', cloth, 'g', "ingotGold"));
 //		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[5][2],1),"ggg", "c c", "c c",  'c', cloth, 'g', "ingotGold"));
 //		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[5][3],1),"c c", "g g",  'c', cloth, 'g', "ingotGold"));
-		GameRegistry.addShapedRecipe(new ItemStack(robes[5][0],1),"ccc", "cgc",  'c', cloth, 'g', Items.gold_ingot);
-		GameRegistry.addShapedRecipe(new ItemStack(robes[5][1],1),"cgc", "ccc", "ccc",  'c', cloth, 'g', Items.gold_ingot);
-		GameRegistry.addShapedRecipe(new ItemStack(robes[5][2],1),"ggg", "c c", "c c",  'c', cloth, 'g', Items.gold_ingot);
-		GameRegistry.addShapedRecipe(new ItemStack(robes[5][3],1),"c c", "g g",  'c', cloth, 'g', Items.gold_ingot);
 
 
 		wizardHat = new WizardsHat();
@@ -236,7 +243,7 @@ public class WonderfulWands {
 		proxy.preInit(event);
     }
 
-    private static void addWandRecipe(Wand output, Item specialItem){
+	private static void addWandRecipe(Wand output, Item specialItem){
     	// TODO: Forge Update:	GameRegistry.addRecipe(new ShapedOreRecipe(wandItemStack(output), "xex", " s ", " g ", 'x', specialItem, 'e',
 		//		"gemEmerald", 's', "stickWood", 'g', "nuggetGold"));
     	GameRegistry.addShapedRecipe(wandItemStack(output), "xex", " s ", " g ", 'x', specialItem, 'e',
@@ -288,8 +295,6 @@ public class WonderfulWands {
     	
     	registerItemRender(net.minecraft.item.Item.getItemFromBlock(mageLight),MageLight.name);
     	
-    	// TODO: make armor work
-    	if(true) {return;}
     	for(int color = 0; color < robes.length; color++){
     		for(int slot = 0; slot < robes[0].length; slot++){
     			registerItemRender(robes[color][slot], "robes_"+colorSuffixes[color]+"_"+WizardingArmor.slotName[slot]);
@@ -313,6 +318,14 @@ public class WonderfulWands {
 	
 	@EventHandler public void postInit(FMLPostInitializationEvent event) {
 		proxy.postInit(event);
+		System.out.println("Enum test 2");
+    	try{
+    	Field mapf = net.minecraft.client.renderer.entity.layers.LayerArmorBase.class.getDeclaredField("field_177191_j");
+    	mapf.setAccessible(true);
+    	System.out.println(WonderfulWands.mapDump((java.util.Map)mapf.get(null)));
+    	}catch(Exception ex){
+    		ex.printStackTrace(System.err);
+    	}
 	}
 	/*
 	@EventHandler public void onServerStarting(FMLServerStartingEvent event)
@@ -321,8 +334,9 @@ public class WonderfulWands {
 	}
 	*/
 	/** black magic voodoo contained here-in. You have been warned. */ 
-	public static ItemArmor.ArmorMaterial newArmorMaterial(String name, int maxDamageFactor, int[] damageReduction,int enchantibility){
-		
+	public static ItemArmor.ArmorMaterial newArmorMaterial(String name, String textureName, int maxDamageFactor, int[] damageReduction,int enchantibility){
+		// Minecraft uses this string pattern to find the texture for the armor:
+		// "textures/models/armor/%s_layer_%d%s.png", textureName, layer#, _overlay
 		try{
 			// Avert your eyes! This unholy reflective abomination will harm your soul! 
 			Field enumArrayField = ItemArmor.ArmorMaterial.class.getDeclaredField("$VALUES");
@@ -339,11 +353,25 @@ public class WonderfulWands {
 		//	ItemArmor.ArmorMaterial newMaterial = (ItemArmor.ArmorMaterial)c.newInstance(name.toUpperCase(),oldEnumArray.length,name.toLowerCase(), maxDamageFactor, damageReduction, enchantibility);
 			ItemArmor.ArmorMaterial newMaterial = (ItemArmor.ArmorMaterial) ReflectionFactory.getReflectionFactory()
 					.newConstructorAccessor(c)
-					.newInstance(new Object[]{name.toUpperCase(),oldEnumArray.length,name.toLowerCase(), maxDamageFactor, damageReduction, enchantibility});
+					.newInstance(new Object[]{name,oldEnumArray.length,textureName, maxDamageFactor, damageReduction, enchantibility});
 		    ItemArmor.ArmorMaterial[] newEnumArray = new ItemArmor.ArmorMaterial[oldEnumArray.length+1];
 		    System.arraycopy(oldEnumArray, 0, newEnumArray, 0, oldEnumArray.length);
 		    newEnumArray[oldEnumArray.length] = newMaterial;
 		    enumArrayField.set(null, newEnumArray);
+		    
+		    
+	    	Field resourceMapField = net.minecraft.client.renderer.entity.layers.LayerArmorBase.class.getDeclaredField("field_177191_j");
+	    	resourceMapField.setAccessible(true);
+	    	java.util.Map resourceMap = (java.util.Map)resourceMapField.get(null);
+	    	int layer = 1;
+	    	String key = String.format("textures/models/armor/%s_layer_%d%s.png", textureName,layer,"");
+	    	ResourceLocation texsrc = new ResourceLocation(MODID+":"+key);
+	    	resourceMap.put(key, texsrc);
+	    	layer = 2;
+	    	String key2 = String.format("textures/models/armor/%s_layer_%d%s.png", textureName,layer,"");
+	    	ResourceLocation texsrc2 = new ResourceLocation(MODID+":"+key2);
+	    	resourceMap.put(key2, texsrc2);
+	    	
 			
 			return newMaterial;
 		}catch(Exception ex){
@@ -353,4 +381,69 @@ public class WonderfulWands {
 		}
 		
 	}
+
+	public static String objectDump(Object o) throws IllegalArgumentException, IllegalAccessException {
+    	if(o == null ){
+    		return "null object";
+    	}
+    	if(o.getClass() == null){
+    		return "null class";
+    	}
+		StringBuilder sb = new StringBuilder();
+    	Class c = o.getClass();
+    	sb.append(c.getName()).append("\n");
+    	do{
+    		Field[] fields = c.getDeclaredFields();
+    		for(Field f : fields){
+    			f.setAccessible(true);
+    			sb.append("\t").append(f.getName()).append("=");
+    			if(f.getType().isArray()){
+    				sb.append(arrayDump(f.get(o)));
+    			}else if(f.get(o) instanceof java.util.Map){
+    				sb.append(mapDump((java.util.Map)f.get(o)));
+    			}else {
+    				sb.append(String.valueOf(f.get(o)));
+    			}
+    			sb.append("\n");
+    		}
+    		c = c.getSuperclass();
+    	}while(c != null);
+		
+		return sb.toString();
+	}
+    
+    public static String mapDump(java.util.Map map){
+    	StringBuilder sb = new StringBuilder();
+    	for(Object key : map.keySet()){
+    		sb.append(String.valueOf(key)).append("->");
+    		if(map.get(key).getClass().isArray()){
+    			sb.append(arrayDump(map.get(key)));
+    		} else {
+    			sb.append(String.valueOf(map.get(key)));
+    		}
+    		sb.append("\n");
+    	}
+    	return sb.toString();
+    }
+    
+    public static String arrayDump(Object array){
+    	StringBuilder sb = new StringBuilder();
+    	int size = Array.getLength(array);
+    	sb.append("[ ");
+    	boolean addComma = false;
+    	for(int i = 0; i < size; i++){
+    		if(addComma)sb.append(", ");
+    		if(Array.get(array, i).getClass().isArray()){
+    			sb.append(arrayDump(Array.get(array, i)));
+    		} else if(Array.get(array, i) instanceof java.util.Map){
+    			sb.append(mapDump((java.util.Map)Array.get(array, i)));
+    		}else {
+    			sb.append(String.valueOf(Array.get(array, i)));
+    		}
+    		addComma = true;
+    	}
+    	sb.append(" ]");
+    	return sb.toString();
+    }
+
 }

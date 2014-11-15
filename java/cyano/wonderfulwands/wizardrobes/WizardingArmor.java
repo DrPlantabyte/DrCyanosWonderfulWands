@@ -22,16 +22,15 @@ public class WizardingArmor extends ItemArmor {
 	
 	public static String[] slotName = {"helmet","chestplate","leggings","boots"};
 	
-	public WizardingArmor(String color, int armorSlot) {
-		super(WonderfulWands.WIZARDROBE,0, armorSlot);
+	public WizardingArmor(ArmorMaterial mat, String color, int armorSlot) {
+		super(mat,mat.ordinal(), armorSlot);
+		//super(ArmorMaterial.CHAIN,1, armorSlot); // does render as chainmail
 	//	// add icons
 	//	func_111206_d("wizardrobes:robes"+armorSlot);
 		String name = itemName+"_"+color+"_"+slotName[armorSlot];
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+name);
 		this.setCreativeTab(CreativeTabs.tabCombat);
 		this.color = color;
-		
-		
 	}
 
 	/**

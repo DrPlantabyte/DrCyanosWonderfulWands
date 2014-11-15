@@ -28,13 +28,11 @@ public class ClientProxy extends Proxy{
  		RenderingRegistry.registerEntityRenderingHandler(EntityMagicMissile.class, new MagicMissileRenderer(rm));
  		RenderingRegistry.registerEntityRenderingHandler(EntityWandLightningBolt.class, new WandLightningBoltRenderer(rm));
  		
- 		// TODO: make armor work
- 		if(true)return;
-    	topHatRenderer = new TopHatRenderer();
+ 		topHatRenderer = new TopHatRenderer();
     	wizardHatRenderer = new WizardHatRenderer();
     	witchHatRenderer = new WizardHatRenderer();
     	witchHatRenderer.hatTexture = new ResourceLocation(WonderfulWands.MODID+":textures/witchblack.png");
-     		
+    	
     }
 
     @Override

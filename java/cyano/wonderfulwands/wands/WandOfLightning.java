@@ -1,5 +1,6 @@
 package cyano.wonderfulwands.wands;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import cyano.wonderfulwands.WonderfulWands;
