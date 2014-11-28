@@ -55,7 +55,7 @@ import cyano.wonderfulwands.wizardrobes.WizardsHat;
 public class WonderfulWands {
     public static final String MODID = "wonderfulwands";
     public static final String NAME ="Cyano's Wonderful Wands";
-    public static final String VERSION = "1.5.1";
+    public static final String VERSION = "1.5.2";
 	
     @SidedProxy(clientSide="cyano.wonderfulwands.ClientProxy", serverSide="cyano.wonderfulwands.ServerProxy")
     public static Proxy proxy;
@@ -106,16 +106,16 @@ public class WonderfulWands {
     		//WIZARDROBES[color] = newArmorMaterial("WIZARDCLOTH_"+colorSuffixes[color].toUpperCase(), "chainmail", 15,new int[]{1, 1, 1, 1},40);
     	}
     	
-    	System.out.println("Enum test");
-    	for(ItemArmor.ArmorMaterial e : ItemArmor.ArmorMaterial.values()){
-    		try {
-				System.out.println("\t"+e.toString()+" "+e.func_179242_c() +" "+objectDump(e));
-			} catch (IllegalArgumentException e1) {
-				e1.printStackTrace(System.err);
-			} catch (IllegalAccessException e1) {
-				e1.printStackTrace(System.err);
-			}
-    	}
+//    	System.out.println("Enum test");
+//    	for(ItemArmor.ArmorMaterial e : ItemArmor.ArmorMaterial.values()){
+//    		try {
+//				System.out.println("\t"+e.toString()+" "+e.func_179242_c() +" "+objectDump(e));
+//			} catch (IllegalArgumentException e1) {
+//				e1.printStackTrace(System.err);
+//			} catch (IllegalAccessException e1) {
+//				e1.printStackTrace(System.err);
+//			}
+//    	}
     	
 		wandGeneric = new OrdinaryWand();
 		wandOfMagicMissile = new WandOfMagicMissile();
@@ -279,6 +279,8 @@ public class WonderfulWands {
 	}
     
     private void registerItemRenders() {
+    	// client-side only
+    	if(proxy instanceof ServerProxy) return;
     	registerItemRender(wandGeneric,OrdinaryWand.itemName);
     	registerItemRender(wandOfMagicMissile,WandOfMagicMissile.itemName );
     	registerItemRender(wandOfDeath,WandOfDeath.itemName );
@@ -318,14 +320,14 @@ public class WonderfulWands {
 	
 	@EventHandler public void postInit(FMLPostInitializationEvent event) {
 		proxy.postInit(event);
-		System.out.println("Enum test 2");
-    	try{
-    	Field mapf = net.minecraft.client.renderer.entity.layers.LayerArmorBase.class.getDeclaredField("field_177191_j");
-    	mapf.setAccessible(true);
-    	System.out.println(WonderfulWands.mapDump((java.util.Map)mapf.get(null)));
-    	}catch(Exception ex){
-    		ex.printStackTrace(System.err);
-    	}
+//		System.out.println("Enum test 2");
+//    	try{
+//    	Field mapf = net.minecraft.client.renderer.entity.layers.LayerArmorBase.class.getDeclaredField("field_177191_j");
+//    	mapf.setAccessible(true);
+//    	System.out.println(WonderfulWands.mapDump((java.util.Map)mapf.get(null)));
+//    	}catch(Exception ex){
+//    		ex.printStackTrace(System.err);
+//    	}
 	}
 	/*
 	@EventHandler public void onServerStarting(FMLServerStartingEvent event)
@@ -359,7 +361,8 @@ public class WonderfulWands {
 		    newEnumArray[oldEnumArray.length] = newMaterial;
 		    enumArrayField.set(null, newEnumArray);
 		    
-		    
+		    // The following code is client-side only
+		    if(proxy instanceof ClientProxy){
 	    	Field resourceMapField = net.minecraft.client.renderer.entity.layers.LayerArmorBase.class.getDeclaredField("field_177191_j");
 	    	resourceMapField.setAccessible(true);
 	    	java.util.Map resourceMap = (java.util.Map)resourceMapField.get(null);
@@ -371,7 +374,7 @@ public class WonderfulWands {
 	    	String key2 = String.format("textures/models/armor/%s_layer_%d%s.png", textureName,layer,"");
 	    	ResourceLocation texsrc2 = new ResourceLocation(MODID+":"+key2);
 	    	resourceMap.put(key2, texsrc2);
-	    	
+		    }
 			
 			return newMaterial;
 		}catch(Exception ex){

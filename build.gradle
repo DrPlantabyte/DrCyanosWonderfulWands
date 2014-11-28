@@ -18,7 +18,7 @@ buildscript {
 //apply plugin: 'forge'
 apply plugin: 'fml'
 
-version = "1.5.1"
+version = "1.5.2"
 group= "cyano.wonderfulwands" 
 archivesBaseName = "CyanosWonderfulWands"
 
