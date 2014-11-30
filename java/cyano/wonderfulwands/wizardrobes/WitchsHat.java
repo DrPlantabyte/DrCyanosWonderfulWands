@@ -5,6 +5,8 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Wizards and Witches hats are expensive head-slot items that are rendered in 
@@ -23,10 +25,10 @@ public class WitchsHat extends WizardsHat {
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+itemName);
 	}
 
-	/*
+	
 	@SideOnly(Side.CLIENT)
 	@Override public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot){
 		return cyano.wonderfulwands.ClientProxy.witchHatRenderer;
 	}
-	*/
+	
 }

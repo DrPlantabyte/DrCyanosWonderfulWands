@@ -9,6 +9,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 public abstract class Wand extends Item {
 	/** vanilla minecraft sound to play when you try to use a wand that has no charge left */
@@ -40,11 +41,11 @@ public abstract class Wand extends Item {
     @Override public boolean getIsRepairable(ItemStack srcItemStack, ItemStack rawMaterial)
     {
     	// repair with gold ingots
-    	// TODO: Forge Update:	if(allowedItems == null)allowedItems = OreDictionary.getOres("ingotGold"); 
-    	//for(int i = 0; i < allowedItems.size(); i++){
-    	//	if(allowedItems.get(i).getUnlocalizedName().equals(rawMaterial.getUnlocalizedName())) return true;
-    	//}
-        return rawMaterial.getItem().getUnlocalizedName().equals(Items.gold_ingot.getUnlocalizedName());
+    	if(allowedItems == null)allowedItems = OreDictionary.getOres("ingotGold"); 
+    	for(int i = 0; i < allowedItems.size(); i++){
+    		if(allowedItems.get(i).getUnlocalizedName().equals(rawMaterial.getUnlocalizedName())) return true;
+    	}
+    	return false;
     }
     /** returns true if the wand is on its last damage point */
     public boolean isOutOfCharge(ItemStack srcItemStack){

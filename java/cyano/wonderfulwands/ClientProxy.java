@@ -30,8 +30,7 @@ public class ClientProxy extends Proxy{
  		
  		topHatRenderer = new TopHatRenderer();
     	wizardHatRenderer = new WizardHatRenderer();
-    	witchHatRenderer = new WizardHatRenderer();
-    	witchHatRenderer.hatTexture = new ResourceLocation(WonderfulWands.MODID+":textures/witchblack.png");
+    	witchHatRenderer = new WitchHatRenderer();
     	
     }
 

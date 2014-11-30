@@ -16,6 +16,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Wizards and Witches hats are expensive head-slot items that are rendered in 
@@ -57,7 +59,7 @@ public class WizardsHat extends  net.minecraft.item.ItemArmor {
 		return src.getItemDamage();
 	}
 	
-	/*
+	
 	@SideOnly(Side.CLIENT)
 	@Override public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot){
 		return cyano.wonderfulwands.ClientProxy.wizardHatRenderer;
@@ -67,7 +69,7 @@ public class WizardsHat extends  net.minecraft.item.ItemArmor {
     {
     	return WonderfulWands.MODID +":textures/models/armor/empty_armor_layer.png";
     }
-	*/
+	
 	/**
      * Return whether this item is repairable in an anvil.
      */
@@ -77,36 +79,35 @@ public class WizardsHat extends  net.minecraft.item.ItemArmor {
         return false;
     }
     
-    // TODO: Forge Update: make potions permanent
-//    @Override public void onArmorTick(World world, EntityPlayer player, ItemStack src){
-//    	super.onArmorTick(world, player, src);
-//    	if(this.getPotionEffectID(src) != 0){
-//    		if(world.getWorldTime() % (potionApplyInterval) == 0){
-//    			player.addPotionEffect(new PotionEffect(this.getPotionEffectID(src),potionDuration));
-//    		}
-//    	} else {
-//    		if(player.getActivePotionEffects().isEmpty() == false){
-//    			// soak up a potion effect
-//    			Collection<PotionEffect> c = player.getActivePotionEffects();
-//    			PotionEffect[] effect = c.toArray(new PotionEffect[c.size()]);
-//    			Random r = new Random(world.getSeed() ^ (world.getWorldTime() / potionApplyInterval));
-//    			int i = r.nextInt(effect.length);
-//    			int potionCode = effect[i].getPotionID();
-//    			this.setPotionEffectID(src, potionCode);
-//    		}
-//    	}
-//    }
+    @Override public void onArmorTick(World world, EntityPlayer player, ItemStack src){
+    	super.onArmorTick(world, player, src);
+    	if(this.getPotionEffectID(src) != 0){
+    		if(world.getWorldTime() % (potionApplyInterval) == 0){
+    			player.addPotionEffect(new PotionEffect(this.getPotionEffectID(src),potionDuration));
+    		}
+    	} else {
+    		if(player.getActivePotionEffects().isEmpty() == false){
+    			// soak up a potion effect
+    			Collection<PotionEffect> c = player.getActivePotionEffects();
+    			PotionEffect[] effect = c.toArray(new PotionEffect[c.size()]);
+    			Random r = new Random(world.getSeed() ^ (world.getWorldTime() / potionApplyInterval));
+    			int i = r.nextInt(effect.length);
+    			int potionCode = effect[i].getPotionID();
+    			this.setPotionEffectID(src, potionCode);
+    		}
+    	}
+    }
 
-//	/**
-//     * Queries the percentage of the 'Durability' bar that should be drawn.
-//     * 
-//     * @param stack The current ItemStack
-//     * @return 1.0 for 100% 0 for 0%
-//     */
-//	@Override public double getDurabilityForDisplay(ItemStack stack)
-//    {
-//        return 1;
-//    }
+	/**
+     * Queries the percentage of the 'Durability' bar that should be drawn.
+     * 
+     * @param stack The current ItemStack
+     * @return 1.0 for 100% 0 for 0%
+     */
+	@Override public double getDurabilityForDisplay(ItemStack stack)
+    {
+        return 1;
+    }
    
     
    

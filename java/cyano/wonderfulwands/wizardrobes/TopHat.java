@@ -27,7 +27,7 @@ public class TopHat extends net.minecraft.item.ItemArmor {
 		this.setMaxDamage(100);
 	}
 	
-	/*
+	
 	@SideOnly(Side.CLIENT)
 	@Override public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot){
 		return cyano.wonderfulwands.ClientProxy.topHatRenderer;
@@ -35,8 +35,8 @@ public class TopHat extends net.minecraft.item.ItemArmor {
 	
 	@Override public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type)
     {
-    	return WonderfulWands.MODID +":textures/models/armor/empty_armor_layer.png";
+    	return WonderfulWands.MODID +":textures/models/armor/empty_armor_layer_1.png";
     }
     
-	 */
+	 
 }

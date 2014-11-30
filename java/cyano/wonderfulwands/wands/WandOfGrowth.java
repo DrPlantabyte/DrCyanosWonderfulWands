@@ -110,7 +110,7 @@ public class WandOfGrowth extends Wand {
 		} else if(targetBlock == Blocks.stonebrick){
 			if( targetBS.getProperties().get(stoneblockVariantKey) == BlockStoneBrick.EnumType.DEFAULT){
 				// mossify stonebrick
-				world.setBlockState(coord, Blocks.stonebrick.getStateFromMeta(1)); // TODO: set property "variant" to "mossy_stonebrick"
+				world.setBlockState(coord, Blocks.stonebrick.getStateFromMeta(1)); 
 				return true;
 			}
 		}

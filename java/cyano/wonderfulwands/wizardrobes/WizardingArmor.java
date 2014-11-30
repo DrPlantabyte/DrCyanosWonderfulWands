@@ -9,6 +9,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class WizardingArmor extends ItemArmor {
 
@@ -43,9 +45,10 @@ public class WizardingArmor extends ItemArmor {
         		|| rawMaterial.getUnlocalizedName().equals(Blocks.wool.getUnlocalizedName());
     }
 	
-//    @Override public String getArmorTexture(ItemStack stack, Entity e, int slot, String layer){
-//    	// layer will either be "overlay" or null (ignore this variable)
-//    	return WonderfulWands.MODID+":textures/models/armor/robes_"+color+"_layer_"+(slot == 2 ? 2 : 1)+".png";
-//    }
+    @SideOnly(Side.CLIENT)
+	@Override public String getArmorTexture(ItemStack stack, Entity e, int slot, String layer){
+   	// layer will either be "overlay" or null (ignore this variable)
+    	return WonderfulWands.MODID+":textures/models/armor/robes_"+color+"_layer_"+(slot == 2 ? 2 : 1)+".png";
+    }
 
 }

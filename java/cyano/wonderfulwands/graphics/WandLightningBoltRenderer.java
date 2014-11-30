@@ -41,8 +41,8 @@ public class WandLightningBoltRenderer extends Render{
         
         float f10 = 0.05625F;
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-        GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_BLEND);
+        GL11.glDisable(GL11.GL_LIGHTING);
 
         GL11.glRotatef(45.0F, 1.0F, 0.0F, 0.0F);
         //GL11.glScalef(f10, f10, f10);
@@ -62,8 +62,8 @@ public class WandLightningBoltRenderer extends Render{
             tessellator.draw();
         }
 
-        GL11.glDisable(GL11.GL_BLEND);
         GL11.glEnable(GL11.GL_LIGHTING);
+        GL11.glDisable(GL11.GL_BLEND);
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         GL11.glPopMatrix();
     }
