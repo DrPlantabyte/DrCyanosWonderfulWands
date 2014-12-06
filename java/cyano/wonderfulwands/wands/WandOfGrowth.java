@@ -114,8 +114,7 @@ public class WandOfGrowth extends Wand {
 				return true;
 			}
 		}
-		//return ItemDye.applyBonemeal(fauxItemStack, world, coord, playerEntity);
-		return ItemDye.func_179234_a(fauxItemStack, world, coord); 
+		return ItemDye.applyBonemeal(fauxItemStack, world, coord, playerEntity); 
 	}
 
 }
