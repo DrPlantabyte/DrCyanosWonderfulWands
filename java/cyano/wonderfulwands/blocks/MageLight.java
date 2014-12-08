@@ -3,17 +3,15 @@ package cyano.wonderfulwands.blocks;
 import java.util.ArrayList;
 import java.util.Random;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import cyano.wonderfulwands.WonderfulWands;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.World;
 
 public class MageLight extends Block {
@@ -26,7 +24,8 @@ public class MageLight extends Block {
         this.setHardness(0.0F);
         this.setLightLevel(1F);
         this.setStepSound(soundTypeCloth);
-        this.setUnlocalizedName(WonderfulWands.MODID+"_"+name);
+        this.setBlockName(WonderfulWands.MODID+"_"+name);
+        this.setBlockTextureName(WonderfulWands.MODID+":"+name);
         
         float f = 0.25F;
         float min = 0.5F - f;
@@ -34,7 +33,7 @@ public class MageLight extends Block {
         this.setBlockBounds(min,min,min,max,max,max);
         
         
-        //net.minecraft.block.BlockReed
+       // net.minecraft.block.BlockReed
 	}
 
 	
@@ -42,16 +41,17 @@ public class MageLight extends Block {
      * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
      * cleared to be reused)
      */
-    @Override public AxisAlignedBB getCollisionBoundingBox(World w, BlockPos coord, IBlockState state)
+    @Override public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_, int p_149668_4_)
     {
         return null;
     }
 
 	
 	 @Override
-    public Item getItemDropped(IBlockState state, Random prng, int fortune)
+    public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune)
     {
-        return null;
+        ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
+        return ret;
     }
 	/**
      * Is this block (a) opaque and (b) a full 1m cube?  This determines whether or not to render the shared face of two
@@ -61,13 +61,20 @@ public class MageLight extends Block {
     {
         return false;
     }
-    
-    @Override public boolean isFullCube(){
-    	return false;
+    /**
+     * If this block doesn't render as an ordinary block it will return False (examples: signs, buttons, stairs, etc)
+     */
+    public boolean renderAsNormalBlock()
+    {
+        return false;
     }
-    
-    @Override public EnumWorldBlockLayer getBlockLayer(){
-    	return EnumWorldBlockLayer.CUTOUT;
+
+    /**
+     * The type of render function that is called for this block
+     */
+    public int getRenderType()
+    {
+        return 1;
     }
     
 }

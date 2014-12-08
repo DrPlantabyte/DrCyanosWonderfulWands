@@ -1,5 +1,7 @@
 package cyano.wonderfulwands.projectiles;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -7,8 +9,6 @@ import net.minecraft.entity.IProjectile;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.fml.relauncher.Side;
 
 public class EntityWandLightningBolt  extends Entity{
 
@@ -64,9 +64,9 @@ public class EntityWandLightningBolt  extends Entity{
         if (tag.hasKey("direction", 9))
         {
             NBTTagList nbttaglist = tag.getTagList("direction", 6);
-            this.motionX = nbttaglist.getFloat(0);
-            this.motionY = nbttaglist.getFloat(1);
-            this.motionZ = nbttaglist.getFloat(2);
+            this.motionX = nbttaglist.func_150309_d(0);
+            this.motionY = nbttaglist.func_150309_d(1);
+            this.motionZ = nbttaglist.func_150309_d(2);
         }
         else
         {
@@ -82,7 +82,7 @@ public class EntityWandLightningBolt  extends Entity{
 		tag.setShort("yTile", (short)this.tileY);
 		tag.setShort("zTile", (short)this.tileZ);
 		tag.setByte("len", (byte)(this.length * 100f));
-		tag.setTag("direction", this.newFloatNBTList(new float[] {(float)this.motionX, (float)this.motionY, (float)this.motionZ}));
+		tag.setTag("direction", this.newDoubleNBTList(new double[] {this.motionX, this.motionY, this.motionZ}));
 		
 	}
 	
@@ -91,10 +91,10 @@ public class EntityWandLightningBolt  extends Entity{
      * posY, posZ, yaw, pitch
      */
     @SideOnly(Side.CLIENT)
-    @Override public void setPositionAndRotation(double x, double y, double z, float yaw, float pitch)
+    @Override public void setPositionAndRotation2(double p_70056_1_, double p_70056_3_, double p_70056_5_, float p_70056_7_, float p_70056_8_, int p_70056_9_)
     {
-        this.setPosition(x, y, z);
-        this.setRotation(yaw, pitch);
+        this.setPosition(p_70056_1_, p_70056_3_, p_70056_5_);
+        this.setRotation(p_70056_7_, p_70056_8_);
     }
 
 }

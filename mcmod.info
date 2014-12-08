@@ -5,7 +5,7 @@
   "description": "Add a touch of magic to your Minecraft game with these magical wands",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "https://github.com/cyanobacterium/DrCyanosWonderfulWands",
+  "url": "https://github.com/cyanobacterium/Minecraft_Mineralogy",
   "updateUrl": "",
   "authorList": ["Cyanobacterium"],
   "credits": "The Forge and FML guys, for making the Forge modding API (you guys are awesome), wizards everywhere, and the mod author Cyanobacterium (aka Synechocystis)",

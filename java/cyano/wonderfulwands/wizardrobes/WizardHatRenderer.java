@@ -2,14 +2,15 @@ package cyano.wonderfulwands.wizardrobes;
 
 import org.lwjgl.opengl.GL11;
 
+import cpw.mods.fml.client.FMLClientHandler;
 import cyano.wonderfulwands.WonderfulWands;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.client.IItemRenderer;
+import net.minecraftforge.client.IItemRenderer.ItemRenderType;
+import net.minecraftforge.client.IItemRenderer.ItemRendererHelper;
 
 public class WizardHatRenderer extends ModelBiped /*implements IItemRenderer*/ {
 
@@ -19,15 +20,14 @@ public class WizardHatRenderer extends ModelBiped /*implements IItemRenderer*/ {
 	public WizardHatRenderer(){
 		hatModel = new WizardHatModel();
 	}
-
-	@SideOnly(Side.CLIENT)
+	
 	/** render the hat on head */
 	@Override public void render(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7)
     {
 		float yrot = par5 / (180F / (float)Math.PI);
 		float xrot = par6 / (180F / (float)Math.PI);
-
-		Minecraft.getMinecraft().getRenderManager().renderEngine.bindTexture(hatTexture);
+		
+		FMLClientHandler.instance().getClient().renderEngine.bindTexture(hatTexture);
 		hatModel.render(yrot,xrot);
     }
 	/*

@@ -9,8 +9,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 public class WandOfLight extends Wand {
@@ -23,6 +21,7 @@ public class WandOfLight extends Wand {
 	public WandOfLight() {
 		super();
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
+		this.setTextureName(WonderfulWands.MODID +":"+ itemName);
 		this.setCreativeTab(CreativeTabs.tabTools);
         this.setMaxDamage(defaultCharges + 1);
 	}
@@ -37,8 +36,10 @@ public class WandOfLight extends Wand {
 		return 1;
 	}
 	
-	@Override public boolean onItemUse(ItemStack srcItemStack, EntityPlayer playerEntity, World world, BlockPos coord, EnumFacing blockFace, float par8, float par9, float par10){
-		int targetX=coord.getX(),targetY=coord.getY(),targetZ=coord.getZ();
+	@Override public boolean onItemUse(ItemStack srcItemStack, EntityPlayer playerEntity, 
+			World world, int targetX, int targetY, int targetZ, 
+			int blockFace, 
+			float par8, float par9, float par10){
 		if (!playerEntity.capabilities.isCreativeMode)
         {
         	if(isOutOfCharge(srcItemStack)){
@@ -47,8 +48,34 @@ public class WandOfLight extends Wand {
         		return true;
         	}
         }
+		boolean success = false;
 		
-		boolean success = placeMageLight(world, coord.offset(blockFace));
+		switch(blockFace){
+		case 0:
+			// bottom face
+			success = placeMageLight(world, targetX,targetY-1,targetZ);
+			break;
+		case 1:
+			// top face
+			success = placeMageLight(world, targetX,targetY+1,targetZ);
+			break;
+		case 2:
+			// north face
+			success = placeMageLight(world, targetX,targetY,targetZ-1);
+			break;
+		case 3:
+			// south face
+			success = placeMageLight(world, targetX,targetY,targetZ+1);
+			break;
+		case 4:
+			// east face
+			success = placeMageLight(world, targetX-1,targetY,targetZ);
+			break;
+		case 5:
+			// west face
+			success = placeMageLight(world, targetX+1,targetY,targetZ);
+			break;
+		}
 		
 		if(success){
 			if (!playerEntity.capabilities.isCreativeMode)
@@ -60,9 +87,9 @@ public class WandOfLight extends Wand {
 		
 	}
 
-	private boolean placeMageLight(World w, BlockPos coord) {
-		if(w.isAirBlock(coord)){
-			w.setBlockState(coord, WonderfulWands.mageLight.getDefaultState());
+	private boolean placeMageLight(World w, int x, int y, int z) {
+		if(w.isAirBlock(x, y, z)){
+			w.setBlock(x, y, z, WonderfulWands.mageLight);
 			return true;
 		} else{ 
 			return false;

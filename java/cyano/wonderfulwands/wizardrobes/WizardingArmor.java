@@ -1,5 +1,7 @@
 package cyano.wonderfulwands.wizardrobes;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import cyano.wonderfulwands.WonderfulWands;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -9,8 +11,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class WizardingArmor extends ItemArmor {
 
@@ -19,18 +19,19 @@ public class WizardingArmor extends ItemArmor {
 	public static final  int robeMaxDamageFactor = 15;
 	private static final String itemName = "robes";
 	
+	public static final ArmorMaterial WIZARDROBE = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("WIZARDCLOTH", robeMaxDamageFactor, robeDamageReduction, robeEnchantibility);
 	 
 	final private String color;
 	
 	public static String[] slotName = {"helmet","chestplate","leggings","boots"};
 	
-	public WizardingArmor(ArmorMaterial mat, String color, int armorSlot) {
-		super(mat,mat.ordinal(), armorSlot);
-		//super(ArmorMaterial.CHAIN,1, armorSlot); // does render as chainmail
+	public WizardingArmor(String color, int armorSlot, int renderIndex) {
+		super(WIZARDROBE, renderIndex, armorSlot);
 	//	// add icons
 	//	func_111206_d("wizardrobes:robes"+armorSlot);
 		String name = itemName+"_"+color+"_"+slotName[armorSlot];
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+name);
+		this.setTextureName(WonderfulWands.MODID +":"+ name);
 		this.setCreativeTab(CreativeTabs.tabCombat);
 		this.color = color;
 	}
@@ -45,9 +46,8 @@ public class WizardingArmor extends ItemArmor {
         		|| rawMaterial.getUnlocalizedName().equals(Blocks.wool.getUnlocalizedName());
     }
 	
-    @SideOnly(Side.CLIENT)
-	@Override public String getArmorTexture(ItemStack stack, Entity e, int slot, String layer){
-   	// layer will either be "overlay" or null (ignore this variable)
+    @Override public String getArmorTexture(ItemStack stack, Entity e, int slot, String layer){
+    	// layer will either be "overlay" or null (ignore this variable)
     	return WonderfulWands.MODID+":textures/models/armor/robes_"+color+"_layer_"+(slot == 2 ? 2 : 1)+".png";
     }
 

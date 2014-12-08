@@ -2,10 +2,6 @@ package cyano.wonderfulwands.wands;
 
 import cyano.wonderfulwands.WonderfulWands;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockStoneBrick;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -13,8 +9,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 public class WandOfGrowth extends Wand {
@@ -24,11 +18,10 @@ public class WandOfGrowth extends Wand {
 	
 	public static int defaultCharges = 128;
 	
-	static final PropertyEnum stoneblockVariantKey = PropertyEnum.create("variant", BlockStoneBrick.EnumType.class);
-	
 	public WandOfGrowth() {
 		super();
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
+		this.setTextureName(WonderfulWands.MODID +":"+ itemName);
 		this.setCreativeTab(CreativeTabs.tabTools);
         this.setMaxDamage(defaultCharges + 1);
 	}
@@ -43,7 +36,7 @@ public class WandOfGrowth extends Wand {
 		return 3;
 	}
 	
-	@Override public boolean onItemUse(ItemStack srcItemStack, EntityPlayer playerEntity, World world, BlockPos coord, EnumFacing blockFace, float par8, float par9, float par10){
+	@Override public boolean onItemUse(ItemStack srcItemStack, EntityPlayer playerEntity, World world, int targetX, int targetY, int targetZ, int par7, float par8, float par9, float par10){
 		if (!playerEntity.capabilities.isCreativeMode)
         {
         	if(isOutOfCharge(srcItemStack)){
@@ -52,7 +45,7 @@ public class WandOfGrowth extends Wand {
         		return true;
         	}
         }
-		boolean success = growBlock(playerEntity,world,coord);
+		boolean success = growBlock(playerEntity,world,targetX,targetY,targetZ);
 		if(success){
 	        playSound("random.orb",world,playerEntity);
 			if (!playerEntity.capabilities.isCreativeMode)
@@ -72,49 +65,46 @@ public class WandOfGrowth extends Wand {
 	 * @param targetZ
 	 * @return True if anything happened, false otherwise (invalid target)
 	 */
-	protected boolean growBlock(EntityPlayer playerEntity, World world, BlockPos coord){
-		IBlockState targetBS = world.getBlockState(coord); 
-		Block targetBlock = targetBS.getBlock();
-		ItemStack fauxItemStack = new ItemStack(Items.dye,1,15);
+	protected boolean growBlock(EntityPlayer playerEntity, World world, int targetX, int targetY, int targetZ){
 
-		int targetX = coord.getX();
-		int targetY = coord.getY();
-		int targetZ = coord.getZ();
+		Block targetBlock = world.getBlock(targetX, targetY, targetZ);
+		ItemStack fauxItemStack = new ItemStack(Items.dye,1,15);
 		
 		if(targetBlock == Blocks.cactus){
 			// grow cactus
 			int y = targetY+1;
-			while(world.getBlockState(new BlockPos(targetX, y, targetZ)).getBlock() == Blocks.cactus && y < 255){
+			while(world.getBlock(targetX, y, targetZ) == Blocks.cactus){
 				y++;
 			}
-			if(world.isAirBlock(new BlockPos(targetX, y, targetZ))){
+			if(world.isAirBlock(targetX, y, targetZ)){
 				// place cactus block
-				world.setBlockState(new BlockPos(targetX, y, targetZ), Blocks.cactus.getDefaultState());
+				world.setBlock(targetX, y, targetZ, Blocks.cactus);
 			}
 			return true;
 		} else if(targetBlock == Blocks.reeds){
 			// grow reeds
 			int y = targetY+1;
-			while(world.getBlockState(new BlockPos(targetX, y, targetZ)).getBlock() == Blocks.reeds && y < 255){
+			while(world.getBlock(targetX, y, targetZ) == Blocks.reeds){
 				y++;
 			}
-			if(world.isAirBlock(new BlockPos(targetX, y, targetZ))){
-				// place cactus block
-				world.setBlockState(new BlockPos(targetX, y, targetZ), Blocks.reeds.getDefaultState());
+			if(world.isAirBlock(targetX, y, targetZ)){
+				// place reed block
+				world.setBlock(targetX, y, targetZ, Blocks.reeds);
 			}
 			return true;
 		} else if(targetBlock == Blocks.cobblestone){
 			// mossify cobblestone
-			world.setBlockState(coord, Blocks.mossy_cobblestone.getDefaultState());
+			world.setBlock(targetX, targetY, targetZ, Blocks.mossy_cobblestone);
 			return true;
 		} else if(targetBlock == Blocks.stonebrick){
-			if( targetBS.getProperties().get(stoneblockVariantKey) == BlockStoneBrick.EnumType.DEFAULT){
+			if( world.getBlockMetadata(targetX, targetY, targetZ) == 0){
 				// mossify stonebrick
-				world.setBlockState(coord, Blocks.stonebrick.getStateFromMeta(1)); 
+				world.setBlockMetadataWithNotify(targetX, targetY, targetZ, 1, 3);
 				return true;
 			}
 		}
-		return ItemDye.applyBonemeal(fauxItemStack, world, coord, playerEntity); 
+		return ItemDye.applyBonemeal(fauxItemStack, world, targetX, targetY, targetZ, playerEntity);
+		
 	}
 
 }

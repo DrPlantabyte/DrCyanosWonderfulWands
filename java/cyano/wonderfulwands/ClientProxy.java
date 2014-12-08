@@ -1,13 +1,14 @@
 package cyano.wonderfulwands;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.common.event.*;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cyano.wonderfulwands.graphics.*;
 import cyano.wonderfulwands.projectiles.*;
 import cyano.wonderfulwands.wizardrobes.*;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.RenderManager;
 
 public class ClientProxy extends Proxy{
 	public static TopHatRenderer topHatRenderer;
@@ -23,15 +24,14 @@ public class ClientProxy extends Proxy{
     public void init(FMLInitializationEvent e) {
         super.init(e);
         // client-only init code
-        RenderManager rm = Minecraft.getMinecraft().getRenderManager();
         // add renderers
- 		RenderingRegistry.registerEntityRenderingHandler(EntityMagicMissile.class, new MagicMissileRenderer(rm));
- 		RenderingRegistry.registerEntityRenderingHandler(EntityWandLightningBolt.class, new WandLightningBoltRenderer(rm));
- 		
- 		topHatRenderer = new TopHatRenderer();
+ 		RenderingRegistry.registerEntityRenderingHandler(EntityMagicMissile.class, new MagicMissileRenderer());
+ 		RenderingRegistry.registerEntityRenderingHandler(EntityWandLightningBolt.class, new WandLightningBoltRenderer());
+    	topHatRenderer = new TopHatRenderer();
     	wizardHatRenderer = new WizardHatRenderer();
-    	witchHatRenderer = new WitchHatRenderer();
-    	
+    	witchHatRenderer = new WizardHatRenderer();
+    	witchHatRenderer.hatTexture = new ResourceLocation(WonderfulWands.MODID+":textures/witchblack.png");
+     		
     }
 
     @Override
@@ -40,4 +40,7 @@ public class ClientProxy extends Proxy{
         // client-only post-init code
     }
     
+    @Override public int getArmorRenderIndex(String armorSet){
+		return RenderingRegistry.addNewArmourRendererPrefix(armorSet);
+	}
 }

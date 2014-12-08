@@ -9,6 +9,7 @@ public class OrdinaryWand extends Wand{
 	public OrdinaryWand() {
 		super();
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
+		this.setTextureName(WonderfulWands.MODID +":"+ itemName);
 		this.setCreativeTab(CreativeTabs.tabDecorations);
 	}
 

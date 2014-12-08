@@ -4,7 +4,6 @@ import java.util.List;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -31,7 +30,7 @@ public abstract class Wand extends Item {
      */
     @Override public EnumAction getItemUseAction(ItemStack par1ItemStack)
     {
-        return EnumAction.BLOCK;
+        return EnumAction.block;
     }
     
     private List<ItemStack> allowedItems = null;
@@ -45,7 +44,7 @@ public abstract class Wand extends Item {
     	for(int i = 0; i < allowedItems.size(); i++){
     		if(allowedItems.get(i).getUnlocalizedName().equals(rawMaterial.getUnlocalizedName())) return true;
     	}
-    	return false;
+        return false;
     }
     /** returns true if the wand is on its last damage point */
     public boolean isOutOfCharge(ItemStack srcItemStack){
