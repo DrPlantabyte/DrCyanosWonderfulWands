@@ -57,7 +57,7 @@ import cyano.wonderfulwands.wizardrobes.WizardsHat;
 public class WonderfulWands {
     public static final String MODID = "wonderfulwands";
     public static final String NAME ="Cyano's Wonderful Wands";
-    public static final String VERSION = "1.5.4";
+    public static final String VERSION = "1.5.5";
 	
     @SidedProxy(clientSide="cyano.wonderfulwands.ClientProxy", serverSide="cyano.wonderfulwands.ServerProxy")
     public static Proxy proxy;
@@ -101,11 +101,8 @@ public class WonderfulWands {
     	Configuration config = new Configuration(event.getSuggestedConfigurationFile());
     	config.load();
 		
-    	// TODO: Forge Update:
-    	//NONARMOR = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("NONARMOR",10,new int[]{0, 0, 0, 0},0);
-    	//WIZARDROBES = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("WIZARDCLOTH", 15,new int[]{1, 1, 1, 1},40);
-    	NONARMOR = newArmorMaterial("NONARMOR","empty_armor",10,new int[]{0, 0, 0, 0},0);
-    	WIZARDROBES = newArmorMaterial("WIZARDCLOTH","robes_purple", 15,new int[]{1, 1, 1, 1},40);
+    	NONARMOR = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("NONARMOR","empty_armor",10,new int[]{0, 0, 0, 0},0);
+    	WIZARDROBES = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("WIZARDCLOTH","wizard_robes", 15,new int[]{1, 1, 1, 1},40);
     	
 		wandGeneric = new OrdinaryWand();
 		wandOfMagicMissile = new WandOfMagicMissile();
@@ -303,53 +300,7 @@ public class WonderfulWands {
 	}
 	*/
 	
-	// TODO: Forge update: exocize black magic
-	/** black magic voodoo contained here-in. You have been warned. */
-	public static ItemArmor.ArmorMaterial newArmorMaterial(String name, String textureName, int maxDamageFactor, int[] damageReduction,int enchantibility){
-		// Minecraft uses this string pattern to find the texture for the armor:
-		// "textures/models/armor/%s_layer_%d%s.png", textureName, layer#, _overlay
-		try{
-			// Avert your eyes! This unholy reflective abomination will harm your soul!
-			Field enumArrayField = ItemArmor.ArmorMaterial.class.getDeclaredField("$VALUES");
-			enumArrayField.setAccessible(true);
-			Field enumEnumField = Modifier.class.getDeclaredField("ENUM");
-			enumEnumField.setAccessible(true);
-			Field modifiersField = Field.class.getDeclaredField("modifiers");
-			modifiersField.setAccessible(true);
-			modifiersField.setInt(enumArrayField, enumArrayField.getModifiers() & ~Modifier.FINAL);
-			ItemArmor.ArmorMaterial[] oldEnumArray = (ItemArmor.ArmorMaterial[])enumArrayField.get(null);
-			Constructor c = ItemArmor.ArmorMaterial.class.getDeclaredConstructor(
-					String.class, int.class, String.class, int.class, int[].class,int.class);
-			c.setAccessible(true);
-			// ItemArmor.ArmorMaterial newMaterial = (ItemArmor.ArmorMaterial)c.newInstance(name.toUpperCase(),oldEnumArray.length,name.toLowerCase(), maxDamageFactor, damageReduction, enchantibility);
-			ItemArmor.ArmorMaterial newMaterial = (ItemArmor.ArmorMaterial) ReflectionFactory.getReflectionFactory()
-					.newConstructorAccessor(c)
-					.newInstance(new Object[]{name,oldEnumArray.length,textureName, maxDamageFactor, damageReduction, enchantibility});
-			ItemArmor.ArmorMaterial[] newEnumArray = new ItemArmor.ArmorMaterial[oldEnumArray.length+1];
-			System.arraycopy(oldEnumArray, 0, newEnumArray, 0, oldEnumArray.length);
-			newEnumArray[oldEnumArray.length] = newMaterial;
-			enumArrayField.set(null, newEnumArray);
-			// The following code is client-side only
-			if(proxy instanceof ClientProxy){
-				Field resourceMapField = net.minecraft.client.renderer.entity.layers.LayerArmorBase.class.getDeclaredField("field_177191_j");
-				resourceMapField.setAccessible(true);
-				java.util.Map resourceMap = (java.util.Map)resourceMapField.get(null);
-				int layer = 1;
-				String key = String.format("textures/models/armor/%s_layer_%d%s.png", textureName,layer,"");
-				ResourceLocation texsrc = new ResourceLocation(MODID+":"+key);
-				resourceMap.put(key, texsrc);
-				layer = 2;
-				String key2 = String.format("textures/models/armor/%s_layer_%d%s.png", textureName,layer,"");
-				ResourceLocation texsrc2 = new ResourceLocation(MODID+":"+key2);
-				resourceMap.put(key2, texsrc2);
-			}
-			return newMaterial;
-		}catch(Exception ex){
-			Logger.getLogger(MODID).log(Level.SEVERE, "Failed to add armor material enum '"+name+"'",ex);
-			ex.printStackTrace(System.err);
-			return null;
-		}
-	}
+	
 	public static String objectDump(Object o) throws IllegalArgumentException, IllegalAccessException {
 		if(o == null ){
 			return "null object";
