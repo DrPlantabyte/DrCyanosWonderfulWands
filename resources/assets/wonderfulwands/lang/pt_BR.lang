@@ -1,0 +1,102 @@
+
+item.wonderfulwands_wand_ordinary.name=Varinha Mundana
+item.wonderfulwands_wand_death.name=Varinha da Morte
+item.wonderfulwands_wand_fire.name=Varinha de Fogo
+item.wonderfulwands_wand_growth.name=Varinha de Crescimento
+item.wonderfulwands_wand_harvesting.name=Varinha de Colheita
+item.wonderfulwands_wand_healing.name=Varinha de Cura
+item.wonderfulwands_wand_ice.name=Varinha de Congelamento
+item.wonderfulwands_wand_light.name=Varinha de Luz
+item.wonderfulwands_wand_lightning.name=Varinha do Relâmpago
+item.wonderfulwands_wand_storm.name=Varinha de Tempestades
+item.wonderfulwands_wand_mining.name=Varinha de Mineração
+item.wonderfulwands_wand_missiles.name=Varinha de Mísseis Mágicos
+item.wonderfulwands_wand_teleportation.name=Varinha de Teletransporte
+
+item.wonderfulwands_hat_wizard.name=Chapéu de Mago 
+item.wonderfulwands_hat_witch.name=Chapéu de Bruxa 
+item.wonderfulwands_tophat.name=Cartola 
+
+item.wonderfulwands_robes_black_helmet.name=Capuz do Mago Negro
+item.wonderfulwands_robes_black_chestplate.name=Manto do Mago Negro
+item.wonderfulwands_robes_black_leggings.name=Perneiras do Mago Negro
+item.wonderfulwands_robes_black_boots.name=Sandálias do Mago Negro
+
+item.wonderfulwands_robes_red_helmet.name=Capuz do Mago Encarnado
+item.wonderfulwands_robes_red_chestplate.name=Manto do Mago Encarnado
+item.wonderfulwands_robes_red_leggings.name=Perneiras do Mago Encarnado
+item.wonderfulwands_robes_red_boots.name=Sandálias do Mago Encarnado
+
+item.wonderfulwands_robes_green_helmet.name=Capuz do Mago Verde
+item.wonderfulwands_robes_green_chestplate.name=Manto do Mago Verde
+item.wonderfulwands_robes_green_leggings.name=Perneiras do Mago Verde
+item.wonderfulwands_robes_green_boots.name=Sandálias do Mago Verde
+
+item.wonderfulwands_robes_brown_helmet.name=Capuz do Mago Marrom
+item.wonderfulwands_robes_brown_chestplate.name=Manto do Mago Marrom
+item.wonderfulwands_robes_brown_leggings.name=Perneiras do Mago Marrom
+item.wonderfulwands_robes_brown_boots.name=Sandálias do Mago Marrom
+
+item.wonderfulwands_robes_blue_helmet.name=Capuz do Mago Azul
+item.wonderfulwands_robes_blue_chestplate.name=Manto do Mago Azul
+item.wonderfulwands_robes_blue_leggings.name=Perneiras do Mago Azul
+item.wonderfulwands_robes_blue_boots.name=Sandálias do Mago Azul
+
+item.wonderfulwands_robes_purple_helmet.name=Capuz do Mago Púrpura
+item.wonderfulwands_robes_purple_chestplate.name=Manto do Mago Púrpura
+item.wonderfulwands_robes_purple_leggings.name=Perneiras do Mago Púrpura
+item.wonderfulwands_robes_purple_boots.name=Sandálias do Mago Púrpura
+
+item.wonderfulwands_robes_cyan_helmet.name=Capuz do Mago Ciano
+item.wonderfulwands_robes_cyan_chestplate.name=Manto do Mago Ciano
+item.wonderfulwands_robes_cyan_leggings.name=Perneiras do Mago Ciano
+item.wonderfulwands_robes_cyan_boots.name=Sandálias do Mago Ciano
+
+item.wonderfulwands_robes_silver_helmet.name=Capuz do Mago Prateado
+item.wonderfulwands_robes_silver_chestplate.name=Manto do Mago Prateado
+item.wonderfulwands_robes_silver_leggings.name=Perneiras do Mago Prateado
+item.wonderfulwands_robes_silver_boots.name=Sandálias do Mago Prateado
+
+item.wonderfulwands_robes_gray_helmet.name=Capuz do Mago Sombrio
+item.wonderfulwands_robes_gray_chestplate.name=Manto do Mago Sombrio
+item.wonderfulwands_robes_gray_leggings.name=Perneiras do Mago Sombrio
+item.wonderfulwands_robes_gray_boots.name=Sandálias do Mago Sombrio
+
+item.wonderfulwands_robes_pink_helmet.name=Capuz do Mago Rosa
+item.wonderfulwands_robes_pink_chestplate.name=Manto do Mago Rosa
+item.wonderfulwands_robes_pink_leggings.name=Perneiras do Mago Rosa
+item.wonderfulwands_robes_pink_boots.name=Sandálias do Mago Rosa
+
+item.wonderfulwands_robes_lime_helmet.name=Capuz do Mago da Selva
+item.wonderfulwands_robes_lime_chestplate.name=Manto do Mago da Selva
+item.wonderfulwands_robes_lime_leggings.name=Perneiras do Mago da Selva
+item.wonderfulwands_robes_lime_boots.name=Sandálias do Mago da Selva
+
+item.wonderfulwands_robes_yellow_helmet.name=Capuz do Mago Amarelo
+item.wonderfulwands_robes_yellow_chestplate.name=Manto do Mago Amarelo
+item.wonderfulwands_robes_yellow_leggings.name=Perneiras do Mago Amarelo
+item.wonderfulwands_robes_yellow_boots.name=Sandálias do Mago Amarelo
+
+item.wonderfulwands_robes_light_blue_helmet.name=Capuz do Mago Celeste
+item.wonderfulwands_robes_light_blue_chestplate.name=Manto do Mago Celeste
+item.wonderfulwands_robes_light_blue_leggings.name=Perneiras do Mago Celeste
+item.wonderfulwands_robes_light_blue_boots.name=Sandálias do Mago Celeste
+
+item.wonderfulwands_robes_magenta_helmet.name=Capuz do Mago Magenta
+item.wonderfulwands_robes_magenta_chestplate.name=Manto do Mago Magenta
+item.wonderfulwands_robes_magenta_leggings.name=Perneiras do Mago Magenta
+item.wonderfulwands_robes_magenta_boots.name=Sandálias do Mago Magenta
+
+item.wonderfulwands_robes_orange_helmet.name=Capuz do Mago Laranja
+item.wonderfulwands_robes_orange_chestplate.name=Manto do Mago Laranja
+item.wonderfulwands_robes_orange_leggings.name=Perneiras do Mago Laranja
+item.wonderfulwands_robes_orange_boots.name=Sandálias do Mago Laranja
+
+item.wonderfulwands_robes_white_helmet.name=Capuz do Mago Branco
+item.wonderfulwands_robes_white_chestplate.name=Manto do Mago Branco
+item.wonderfulwands_robes_white_leggings.name=Perneiras do Mago Branco
+item.wonderfulwands_robes_white_boots.name=Sandálias do Mago Branco
+
+tile.wonderfulwands_mage_light.name=Luz do Mago 
+
+entity.wonderfulwands_magic_missile.name=Mísseis Mágicos 
