@@ -81,6 +81,8 @@ public class WonderfulWands {
 	
 	public static Block mageLight = null;
 	
+	public static boolean altRecipes = false;
+	
 	public static WizardingArmor[][] robes = new WizardingArmor[16][4]; // [color][slot]
 
 	public static WizardsHat wizardHat = null;
@@ -103,6 +105,9 @@ public class WonderfulWands {
     	// load config
     	Configuration config = new Configuration(event.getSuggestedConfigurationFile());
     	config.load();
+    	
+    	altRecipes = config.getBoolean("alternative_recipes", "options", false, 
+				"If true, then robes and wands will use different recipes than normal");
 		
     	NONARMOR = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("NONARMOR","empty_armor",10,new int[]{0, 0, 0, 0},0);
     	WIZARDROBES = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("WIZARDCLOTH","wizard_robes", 15,new int[]{1, 1, 1, 1},40);
@@ -136,8 +141,8 @@ public class WonderfulWands {
 		GameRegistry.registerItem(wandOfIce, WandOfIce.itemName);
 		GameRegistry.registerItem(wandOfMining, WandOfMining.itemName);
 		GameRegistry.registerItem(wandOfTeleportation, WandOfTeleportation.itemName);
-		GameRegistry.registerItem(wandOfLight, WandOfGreaterLight.itemName);
-		GameRegistry.registerItem(wandOfGreaterLight, WandOfLight.itemName);
+		GameRegistry.registerItem(wandOfLight, WandOfLight.itemName);
+		GameRegistry.registerItem(wandOfGreaterLight, WandOfGreaterLight.itemName);
 		GameRegistry.registerItem(wandOfStorms, WandOfStorms.itemName);
 		GameRegistry.registerItem(wandOfLightning, WandOfLightning.itemName);
 		
@@ -192,13 +197,19 @@ public class WonderfulWands {
 				GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(r ,1),WizardingArmor.slotName[armorSlot]+"WizardRobes",oreDictionaryColors[colorIndex]));
 				robes[colorIndex][armorSlot] = r;
 			}
-			
-
-			ItemStack cloth = new ItemStack(Blocks.wool,1,colorIndex);		
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[5][0],1),"ccc", "cgc",  'c', cloth, 'g', "ingotGold"));
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[5][1],1),"cgc", "ccc", "ccc",  'c', cloth, 'g', "ingotGold"));
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[5][2],1),"ggg", "c c", "c c",  'c', cloth, 'g', "ingotGold"));
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[5][3],1),"c c", "g g",  'c', cloth, 'g', "ingotGold"));
+			ItemStack cloth = new ItemStack(Blocks.wool,1,colorIndex);
+			// metadata for wool: white, orange, magenta, lightblue, yellow lime green, pink, gray, light gray, cyan, purple, blue, brown, green, red, black
+			if(altRecipes){
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[15-colorIndex][0],1),"ccc", "cgc",  'c', cloth, 'g', "ingotGold"));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[15-colorIndex][1],1),"cgc", "ccc", "ccc",  'c', cloth, 'g', "ingotGold"));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[15-colorIndex][2],1),"ggg", "c c", "c c",  'c', cloth, 'g', "ingotGold"));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[15-colorIndex][3],1),"c c", "g g",  'c', cloth, 'g', "ingotGold"));
+			}else{
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[15-colorIndex][0],1),"ccc", "c c",  'c', cloth));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[15-colorIndex][1],1),"c c", "ccc", "ccc",  'c', cloth));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[15-colorIndex][2],1),"ccc", "c c", "c c",  'c', cloth));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[15-colorIndex][3],1),"c c", "c c",  'c', cloth));
+			}
 		}
 		
 		
@@ -218,9 +229,13 @@ public class WonderfulWands {
 				"false, the hats will not be craftable). These hats are very powerful and you \n" +
 				"may want to disable them if you expect there to be troublemakers (aka \n" +
 				"\"griefers\")")){
-			
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(wizardHat,1)," d "," b ", "bbb",  'b', new ItemStack(Blocks.wool,1,11), 'd', "gemDiamond"));
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(witchHat,1)," d "," b ", "bbb",  'b', new ItemStack(Blocks.wool,1,15), 'd', "gemDiamond"));
+			if(altRecipes){
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(wizardHat,1)," d "," b ", "bbb",  'b', new ItemStack(Blocks.wool,1,11), 'd', Blocks.skull));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(witchHat,1)," d "," b ", "bbb",  'b', new ItemStack(Blocks.wool,1,15), 'd', Blocks.skull));
+			}else{
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(wizardHat,1)," d "," b ", "bbb",  'b', new ItemStack(Blocks.wool,1,11), 'd', Items.ghast_tear));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(witchHat,1)," d "," b ", "bbb",  'b', new ItemStack(Blocks.wool,1,15), 'd', Items.ghast_tear));
+			}
 		
 		}
 		GameRegistry.addRecipe(new ItemStack(topHat,1)," b "," l ",  'b', new ItemStack(Blocks.wool,1,15), 'l', Items.leather);
@@ -231,18 +246,32 @@ public class WonderfulWands {
     }
 
 	private static void addWandRecipe(Wand output, Item specialItem){
-    	GameRegistry.addRecipe(new ShapedOreRecipe(wandItemStack(output), "xex", " s ", " g ", 'x', specialItem, 'e',
-				"gemEmerald", 's', "stickWood", 'g', "nuggetGold"));
-    	
+		if(altRecipes){
+			GameRegistry.addRecipe(new ShapedOreRecipe(wandItemStack(output), " x ", " ex", "s  ", 'x', specialItem, 'e',
+					"gemEmerald", 's', wandGeneric));
+		}else{
+			GameRegistry.addRecipe(new ShapedOreRecipe(wandItemStack(output), "xex", " s ", " g ", 'x', specialItem, 'e',
+					"gemEmerald", 's', "stickWood", 'g', "nuggetGold"));
+		}
     }
 
     private static void addWandRecipe(Wand output, ItemStack specialItem){
-    	GameRegistry.addRecipe(new ShapedOreRecipe(wandItemStack(output), "xex", " s ", " g ", 'x', specialItem, 'e',
-				"gemEmerald", 's', "stickWood", 'g', "nuggetGold"));
+    	if(altRecipes){
+			GameRegistry.addRecipe(new ShapedOreRecipe(wandItemStack(output), " x ", " ex", "s  ", 'x', specialItem, 'e',
+					"gemEmerald", 's', wandGeneric));
+		}else{
+			GameRegistry.addRecipe(new ShapedOreRecipe(wandItemStack(output), "xex", " s ", " g ", 'x', specialItem, 'e',
+					"gemEmerald", 's', "stickWood", 'g', "nuggetGold"));
+		}
     }
     private static void addWandRecipe(Wand output, String specialItem_oreDictionary){
-    	GameRegistry.addRecipe(new ShapedOreRecipe(wandItemStack(output), "xex", " s ", " g ", 'x', specialItem_oreDictionary, 'e',
-				"gemEmerald", 's', "stickWood", 'g', "nuggetGold"));
+    	if(altRecipes){
+			GameRegistry.addRecipe(new ShapedOreRecipe(wandItemStack(output), " x ", " ex", "s  ", 'x', specialItem_oreDictionary, 'e',
+					"gemEmerald", 's', wandGeneric));
+		}else{
+			GameRegistry.addRecipe(new ShapedOreRecipe(wandItemStack(output), "xex", " s ", " g ", 'x', specialItem_oreDictionary, 'e',
+					"gemEmerald", 's', "stickWood", 'g', "nuggetGold"));
+		}
     }
 	
 	@EventHandler
