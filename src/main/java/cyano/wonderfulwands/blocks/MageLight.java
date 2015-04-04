@@ -1,20 +1,22 @@
 package cyano.wonderfulwands.blocks;
 
-import java.util.ArrayList;
 import java.util.Random;
 
-import cyano.wonderfulwands.WonderfulWands;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockTorch;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import cyano.wonderfulwands.WonderfulWands;
 
 public class MageLight extends Block {
 
@@ -68,6 +70,19 @@ public class MageLight extends Block {
     
     @Override public EnumWorldBlockLayer getBlockLayer(){
     	return EnumWorldBlockLayer.CUTOUT;
+    }
+    
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void randomDisplayTick(final World w, final BlockPos coord, final IBlockState bs, final Random rand) {
+        final double d0 = coord.getX() + 0.5;
+        final double d = coord.getY() + 0.7;
+        final double d2 = coord.getZ() + 0.5;
+        final double d3 = 0.22;
+        final double d4 = 0.27;
+        
+        w.spawnParticle(EnumParticleTypes.FLAME, d0, d, d2, 0.0, 0.0, 0.0, new int[0]);
+        
     }
     
 }

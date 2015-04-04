@@ -1,6 +1,20 @@
 {
-    "parent": "block/cross",
     "textures": {
-        "cross": "wonderfulwands:blocks/mage_light"
-    }
+        "texture": "wonderfulwands:blocks/mage_light",
+        "particle": "wonderfulwands:blocks/mage_light"
+    },
+    "elements": [
+        {   "from": [ 5, 4, 5 ],
+            "to": [ 11, 12, 11 ],
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "y", "angle": 45, "rescale": false },
+            "faces": {
+                "down":  { "uv": [ 0, 0, 16, 16 ], "texture": "#texture" },
+                "up":    { "uv": [ 0, 0, 16, 16 ], "texture": "#texture" },
+                "north": { "uv": [ 0, 0, 16, 16 ], "texture": "#texture" },
+                "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#texture" },
+                "west":  { "uv": [ 0, 0, 16, 16 ], "texture": "#texture" },
+                "east":  { "uv": [ 0, 0, 16, 16 ], "texture": "#texture" }
+            }
+        }
+    ]
 }

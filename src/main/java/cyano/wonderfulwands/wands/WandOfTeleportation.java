@@ -97,6 +97,7 @@ public class WandOfTeleportation extends Wand {
 			}
 
 			playerEntity.setLocationAndAngles(x, y, z,playerEntity.rotationYaw, playerEntity.rotationPitch);
+			playerEntity.setVelocity(0, 0, 0);
 
 	        playSound("mob.endermen.portal",world,playerEntity);
 	}
