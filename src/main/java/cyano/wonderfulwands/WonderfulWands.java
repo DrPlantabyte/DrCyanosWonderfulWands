@@ -209,18 +209,18 @@ public class WonderfulWands {
 				GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(r ,1),WizardingArmor.slotName[armorSlot]+"WizardRobes",oreDictionaryColors[colorIndex]));
 				robes[colorIndex][armorSlot] = r;
 			}
-			ItemStack cloth = new ItemStack(Blocks.wool,1,colorIndex);
+			ItemStack cloth = new ItemStack(Blocks.wool,1,15-colorIndex);
 			// metadata for wool: white, orange, magenta, lightblue, yellow lime green, pink, gray, light gray, cyan, purple, blue, brown, green, red, black
 			if(altRecipes){
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[15-colorIndex][0],1),"ccc", "cgc",  'c', cloth, 'g', "ingotGold"));
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[15-colorIndex][1],1),"cgc", "ccc", "ccc",  'c', cloth, 'g', "ingotGold"));
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[15-colorIndex][2],1),"ggg", "c c", "c c",  'c', cloth, 'g', "ingotGold"));
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[15-colorIndex][3],1),"c c", "g g",  'c', cloth, 'g', "ingotGold"));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[colorIndex][0],1),"ccc", "cgc",  'c', cloth, 'g', "ingotGold"));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[colorIndex][1],1),"cgc", "ccc", "ccc",  'c', cloth, 'g', "ingotGold"));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[colorIndex][2],1),"ggg", "c c", "c c",  'c', cloth, 'g', "ingotGold"));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[colorIndex][3],1),"c c", "g g",  'c', cloth, 'g', "ingotGold"));
 			}else{
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[15-colorIndex][0],1),"ccc", "c c",  'c', cloth));
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[15-colorIndex][1],1),"c c", "ccc", "ccc",  'c', cloth));
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[15-colorIndex][2],1),"ccc", "c c", "c c",  'c', cloth));
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[15-colorIndex][3],1),"c c", "c c",  'c', cloth));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[colorIndex][0],1),"ccc", "c c",  'c', cloth));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[colorIndex][1],1),"c c", "ccc", "ccc",  'c', cloth));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[colorIndex][2],1),"ccc", "c c", "c c",  'c', cloth));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[colorIndex][3],1),"c c", "c c",  'c', cloth));
 			}
 		}
 		

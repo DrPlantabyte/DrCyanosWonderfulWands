@@ -102,7 +102,7 @@ public class EntityLightWisp extends net.minecraft.entity.EntityLivingBase{
 				target = coords[i];
 			}
 		}
-		if(target == null){
+		if(target == null || worldObj.rand.nextInt(16) == 0){
 			final float r = 12;
 			float theta = worldObj.rand.nextFloat() * 6.2832f;
 			float dx = r*net.minecraft.util.MathHelper.sin(theta);
@@ -110,11 +110,6 @@ public class EntityLightWisp extends net.minecraft.entity.EntityLivingBase{
 			target = moveToGroundLevel(blockCoord.add(dx,0,dz));
 		}
 		this.setPosition(target.getX()+0.5, target.getY(), target.getZ()+0.5);
-	//	double dx, dy, dz;
-	//	dx = target.getX() - blockCoord.getX();
-	//	dy = target.getY() - blockCoord.getY();
-	//	dz = target.getZ() - blockCoord.getZ();
-	//	this.setVelocity(dx*dt, dy*dt, dz*dt);
 	}
 
 	private BlockPos moveToGroundLevel(BlockPos coord){
