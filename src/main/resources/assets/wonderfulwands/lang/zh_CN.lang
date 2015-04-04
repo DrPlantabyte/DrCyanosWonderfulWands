@@ -11,6 +11,9 @@ item.wonderfulwands_wand_storm.name=风暴魔杖
 item.wonderfulwands_wand_mining.name=矿工法杖
 item.wonderfulwands_wand_missiles.name=魔箭法杖
 item.wonderfulwands_wand_teleportation.name=传送魔杖
+item.wonderfulwands_wand_bridge.name=桥梁魔杖
+item.wonderfulwands_wand_climb.name=登山者魔杖
+item.wonderfulwands_wand_greater_light.name=安全魔杖
 
 item.wonderfulwands_hat_wizard.name=巫师之帽
 item.wonderfulwands_hat_witch.name=女巫之帽

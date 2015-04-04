@@ -7,6 +7,7 @@ item.wonderfulwands_wand_harvesting.name=Wand of Harvesting
 item.wonderfulwands_wand_healing.name=Wand of Healing
 item.wonderfulwands_wand_ice.name=Wand of Freezing
 item.wonderfulwands_wand_light.name=Wand of Light
+item.wonderfulwands_wand_greater_light.name=Wand of Darkness Bane
 item.wonderfulwands_wand_lightning.name=Wand of Lightning
 item.wonderfulwands_wand_storm.name=Wand of Storms
 item.wonderfulwands_wand_mining.name=Wand of Mining
@@ -14,7 +15,6 @@ item.wonderfulwands_wand_missiles.name=Wand of Magic Missiles
 item.wonderfulwands_wand_teleportation.name=Wand of Teleportation
 item.wonderfulwands_wand_bridge.name=Wand of Bridging
 item.wonderfulwands_wand_climb.name=Wand of Climbing
-item.wonderfulwands_wand_greater_light.name=Wand of Darkness Bane
 
 item.wonderfulwands_hat_wizard.name=Wizard's Hat
 item.wonderfulwands_hat_witch.name=Witch's Hat
