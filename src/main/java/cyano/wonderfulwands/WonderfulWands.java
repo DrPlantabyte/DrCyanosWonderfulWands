@@ -37,6 +37,8 @@ import cyano.wonderfulwands.projectiles.EntityMagicMissile;
 import cyano.wonderfulwands.projectiles.EntityWandLightningBolt;
 import cyano.wonderfulwands.wands.OrdinaryWand;
 import cyano.wonderfulwands.wands.Wand;
+import cyano.wonderfulwands.wands.WandOfBridging;
+import cyano.wonderfulwands.wands.WandOfClimbing;
 import cyano.wonderfulwands.wands.WandOfDeath;
 import cyano.wonderfulwands.wands.WandOfFire;
 import cyano.wonderfulwands.wands.WandOfGreaterLight;
@@ -78,6 +80,8 @@ public class WonderfulWands {
 	public static Wand wandOfGreaterLight = null;
 	public static Wand wandOfStorms = null;
 	public static Wand wandOfLightning = null;
+	public static Wand wandOfBridging = null;
+	public static Wand wandOfClimbing = null;
 	
 	public static Block mageLight = null;
 	
@@ -126,6 +130,8 @@ public class WonderfulWands {
 		wandOfGreaterLight = new WandOfGreaterLight();
 		wandOfStorms = new WandOfStorms();
 		wandOfLightning = new WandOfLightning();
+		wandOfBridging = new WandOfBridging(Blocks.cobblestone);
+		wandOfClimbing = new WandOfClimbing();
 		
 		mageLight = new MageLight();
 		GameRegistry.registerBlock(mageLight, MageLight.name);
@@ -145,6 +151,8 @@ public class WonderfulWands {
 		GameRegistry.registerItem(wandOfGreaterLight, WandOfGreaterLight.itemName);
 		GameRegistry.registerItem(wandOfStorms, WandOfStorms.itemName);
 		GameRegistry.registerItem(wandOfLightning, WandOfLightning.itemName);
+		GameRegistry.registerItem(wandOfBridging, WandOfBridging.itemName);
+		GameRegistry.registerItem(wandOfClimbing, WandOfClimbing.itemName);
 		
 		// recipes
 
@@ -182,8 +190,12 @@ public class WonderfulWands {
 		addWandRecipe(wandOfStorms,new ItemStack(Blocks.wool,1,7));
 		// wand of lightning
 		addWandRecipe(wandOfLightning,"gemDiamond");
-		
+		// wand of climbing
 		OreDictionary.registerOre("vine", Blocks.vine);
+		addWandRecipe(wandOfClimbing,"vine");
+		// wand of bridging
+		addWandRecipe(wandOfBridging,"blockIron");
+		addWandRecipe(wandOfBridging,"blockSteel");
 		
 		// Wizarding Robes
 		int robesRenderIndex = proxy.getArmorRenderIndex(MODID+"_robes");
@@ -310,6 +322,8 @@ public class WonderfulWands {
     	registerItemRender(wandOfGreaterLight,WandOfGreaterLight.itemName);
     	registerItemRender(wandOfStorms,WandOfStorms.itemName );
     	registerItemRender( wandOfLightning,WandOfLightning.itemName);
+    	registerItemRender( wandOfBridging,WandOfBridging.itemName);
+    	registerItemRender( wandOfClimbing,WandOfClimbing.itemName);
     	
     	registerItemRender(net.minecraft.item.Item.getItemFromBlock(mageLight),MageLight.name);
     	

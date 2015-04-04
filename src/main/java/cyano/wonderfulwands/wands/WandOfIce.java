@@ -15,7 +15,7 @@ public class WandOfIce extends Wand {
 
 	public static int cooldown = 10;
 	
-	public static int defaultCharges = 128;
+	public static int defaultCharges = 256;
 	
 	public WandOfIce() {
 		super();
