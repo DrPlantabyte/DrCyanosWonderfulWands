@@ -39,6 +39,7 @@ import cyano.wonderfulwands.wands.OrdinaryWand;
 import cyano.wonderfulwands.wands.Wand;
 import cyano.wonderfulwands.wands.WandOfDeath;
 import cyano.wonderfulwands.wands.WandOfFire;
+import cyano.wonderfulwands.wands.WandOfGreaterLight;
 import cyano.wonderfulwands.wands.WandOfGrowth;
 import cyano.wonderfulwands.wands.WandOfHarvesting;
 import cyano.wonderfulwands.wands.WandOfHealing;
@@ -74,6 +75,7 @@ public class WonderfulWands {
 	public static Wand wandOfMining = null;
 	public static Wand wandOfTeleportation = null;
 	public static Wand wandOfLight = null;
+	public static Wand wandOfGreaterLight = null;
 	public static Wand wandOfStorms = null;
 	public static Wand wandOfLightning = null;
 	
@@ -116,6 +118,7 @@ public class WonderfulWands {
 		wandOfMining = new WandOfMining();
 		wandOfTeleportation = new WandOfTeleportation();
 		wandOfLight = new WandOfLight();
+		wandOfGreaterLight = new WandOfGreaterLight();
 		wandOfStorms = new WandOfStorms();
 		wandOfLightning = new WandOfLightning();
 		
@@ -133,7 +136,8 @@ public class WonderfulWands {
 		GameRegistry.registerItem(wandOfIce, WandOfIce.itemName);
 		GameRegistry.registerItem(wandOfMining, WandOfMining.itemName);
 		GameRegistry.registerItem(wandOfTeleportation, WandOfTeleportation.itemName);
-		GameRegistry.registerItem(wandOfLight, WandOfLight.itemName);
+		GameRegistry.registerItem(wandOfLight, WandOfGreaterLight.itemName);
+		GameRegistry.registerItem(wandOfGreaterLight, WandOfLight.itemName);
 		GameRegistry.registerItem(wandOfStorms, WandOfStorms.itemName);
 		GameRegistry.registerItem(wandOfLightning, WandOfLightning.itemName);
 		
@@ -168,11 +172,13 @@ public class WonderfulWands {
 		// wand of light
 		OreDictionary.registerOre("torch", Blocks.torch);
 		addWandRecipe(wandOfLight,"torch");
-		//addWandRecipe(wandOfLight,"dustGlowstone");
+		addWandRecipe(wandOfGreaterLight,new ItemStack(Blocks.redstone_lamp));
 		// wand of storms
 		addWandRecipe(wandOfStorms,new ItemStack(Blocks.wool,1,7));
 		// wand of lightning
 		addWandRecipe(wandOfLightning,"gemDiamond");
+		
+		OreDictionary.registerOre("vine", Blocks.vine);
 		
 		// Wizarding Robes
 		int robesRenderIndex = proxy.getArmorRenderIndex(MODID+"_robes");
@@ -186,15 +192,17 @@ public class WonderfulWands {
 				GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(r ,1),WizardingArmor.slotName[armorSlot]+"WizardRobes",oreDictionaryColors[colorIndex]));
 				robes[colorIndex][armorSlot] = r;
 			}
+			
+
+			ItemStack cloth = new ItemStack(Blocks.wool,1,colorIndex);		
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[5][0],1),"ccc", "cgc",  'c', cloth, 'g', "ingotGold"));
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[5][1],1),"cgc", "ccc", "ccc",  'c', cloth, 'g', "ingotGold"));
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[5][2],1),"ggg", "c c", "c c",  'c', cloth, 'g', "ingotGold"));
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[5][3],1),"c c", "g g",  'c', cloth, 'g', "ingotGold"));
 		}
 		
 		
 		
-		ItemStack cloth = new ItemStack(Blocks.wool,1,10);		
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[5][0],1),"ccc", "cgc",  'c', cloth, 'g', "ingotGold"));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[5][1],1),"cgc", "ccc", "ccc",  'c', cloth, 'g', "ingotGold"));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[5][2],1),"ggg", "c c", "c c",  'c', cloth, 'g', "ingotGold"));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[5][3],1),"c c", "g g",  'c', cloth, 'g', "ingotGold"));
 
 
 		wizardHat = new WizardsHat();
@@ -270,6 +278,7 @@ public class WonderfulWands {
     	registerItemRender(wandOfMining,WandOfMining.itemName);
     	registerItemRender( wandOfTeleportation,WandOfTeleportation.itemName);
     	registerItemRender(wandOfLight,WandOfLight.itemName);
+    	registerItemRender(wandOfGreaterLight,WandOfGreaterLight.itemName);
     	registerItemRender(wandOfStorms,WandOfStorms.itemName );
     	registerItemRender( wandOfLightning,WandOfLightning.itemName);
     	

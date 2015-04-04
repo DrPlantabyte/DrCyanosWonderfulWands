@@ -67,39 +67,36 @@ public class WandOfTeleportation extends Wand {
 			
 			final int maxRange = 160;
 			Vec3 origin = playerEntity.getPositionEyes(1f);
-			double x = origin.xCoord;
-			double y = origin.yCoord;
-			double z = origin.zCoord;
 			Vec3 vector = playerEntity.getLookVec();
-			double dx = vector.xCoord;
-        	double dy = vector.yCoord;
-        	double dz = vector.zCoord;
-
-        	
+			Vec3 pos = origin;
+			Vec3 next = pos;
+			BlockPos coord = new BlockPos(pos);
+			
 			for(int i = 0; i < maxRange; i++){
-				double nx = x + dx;
-				double ny = y + dy;
-				double nz = z + dz;
-				if(ny < 0 || ny > 255) break;
-				BlockPos coord = new BlockPos(nx,ny,nz);
-				if(world.isAreaLoaded(coord, 1, true) && world.isAirBlock(coord)){
-					world.spawnParticle(EnumParticleTypes.PORTAL, 
-							x + (world.rand.nextDouble() - 0.5), y + (world.rand.nextDouble() - 0.5), z + (world.rand.nextDouble() - 0.5), 
-							(world.rand.nextFloat() - 0.5f) * 0.2f, (world.rand.nextFloat() - 0.5f) * 0.2f, (world.rand.nextFloat() - 0.5f) * 0.2f, 
-							new int[0]);
-					x = nx;
-					y = ny;
-					z = nz;
-					continue;
+				next = pos.add(vector);
+				if(next.yCoord < 0 || next.yCoord > 255) break;
+				BlockPos nextBlock = new BlockPos(next);
+				if(world.isAreaLoaded(coord, 1, true) ){
+					if(world.isAirBlock(nextBlock)){
+						world.spawnParticle(EnumParticleTypes.PORTAL, 
+								pos.xCoord + (world.rand.nextDouble() - 0.5), pos.yCoord + (world.rand.nextDouble() - 0.5), pos.zCoord + (world.rand.nextDouble() - 0.5), 
+								(world.rand.nextFloat() - 0.5f) * 0.2f, (world.rand.nextFloat() - 0.5f) * 0.2f, (world.rand.nextFloat() - 0.5f) * 0.2f, 
+								new int[0]);
+						pos = next;
+						coord = nextBlock;
+						continue;
+					} else {
+						if(world.isAirBlock(nextBlock.up())){
+							coord = nextBlock.up();
+						}
+						break;
+					}
 				} else{
-					x = coord.getX() + 0.5;
-					y = coord.getY() + 1.0625;
-					z = coord.getZ() + 0.5;
 					break;
 				}
 			}
 
-			playerEntity.setLocationAndAngles(x, y, z,playerEntity.rotationYaw, playerEntity.rotationPitch);
+			playerEntity.setLocationAndAngles(coord.getX()+0.5,coord.getY()+0.25,coord.getZ()+0.5,playerEntity.rotationYaw, playerEntity.rotationPitch);
 			playerEntity.setVelocity(0, 0, 0);
 			playerEntity.fallDistance = 0;
 

@@ -22,6 +22,13 @@ public class EntityLightWisp extends net.minecraft.entity.EntityLivingBase{
 		super(w);
 		this.lifeCounter = LIFESPAN;
 	}
+	
+	public EntityLightWisp(World w, BlockPos startingPosition) {
+		this(w);
+		this.posX = startingPosition.getX() + 0.5;
+		this.posY = startingPosition.getY();
+		this.posZ = startingPosition.getZ() + 0.5;
+	}
 
 	
 	@Override

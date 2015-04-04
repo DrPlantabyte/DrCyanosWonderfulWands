@@ -1,17 +1,13 @@
 package cyano.wonderfulwands.wands;
 
-import cyano.wonderfulwands.WonderfulWands;
-import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import cyano.wonderfulwands.WonderfulWands;
+import cyano.wonderfulwands.entities.EntityLightWisp;
 
 
 /**
@@ -21,11 +17,11 @@ import net.minecraft.world.World;
  *
  */
 public class WandOfGreaterLight extends Wand {
-	public static final String itemName = "wand_light";
+	public static final String itemName = "wand_greater_light";
 
 	public static int cooldown = 10;
 	
-	public static int defaultCharges = 128;
+	public static int defaultCharges = 64;
 	
 	public WandOfGreaterLight() {
 		super();
@@ -45,7 +41,7 @@ public class WandOfGreaterLight extends Wand {
 	}
 	
 	@Override public boolean onItemUse(ItemStack srcItemStack, EntityPlayer playerEntity, World world, BlockPos coord, EnumFacing blockFace, float par8, float par9, float par10){
-		int targetX=coord.getX(),targetY=coord.getY(),targetZ=coord.getZ();
+		BlockPos center = playerEntity.getPosition();
 		if (!playerEntity.capabilities.isCreativeMode)
         {
         	if(isOutOfCharge(srcItemStack)){
@@ -55,25 +51,33 @@ public class WandOfGreaterLight extends Wand {
         	}
         }
 		
-		boolean success = placeMageLight(world, coord.offset(blockFace));
-		
-		if(success){
-			if (!playerEntity.capabilities.isCreativeMode)
-	        {
-	        	srcItemStack.damageItem(getUseCost(), playerEntity);
-	        }
+
+		if(!world.isRemote){
+			EntityLightWisp[] e = new EntityLightWisp[9];
+			e[0] = new EntityLightWisp(world,center);
+			e[1] = new EntityLightWisp(world,center.add(-1, 0, -1));
+			e[1] = new EntityLightWisp(world,center.add( 0, 0, -1));
+			e[1] = new EntityLightWisp(world,center.add( 1, 0, -1));
+			e[1] = new EntityLightWisp(world,center.add(-1, 0,  0));
+			e[1] = new EntityLightWisp(world,center.add( 1, 0,  0));
+			e[1] = new EntityLightWisp(world,center.add(-1, 0,  1));
+			e[1] = new EntityLightWisp(world,center.add( 0, 0,  1));
+			e[1] = new EntityLightWisp(world,center.add( 1, 0,  1));
+			for(int i = 0; i < e.length; i++){
+				world.spawnEntityInWorld(e[i]);
+			}
 		}
-		return success;
+		
+        playSound("random.fizz",world,playerEntity);
+		
+		if (!playerEntity.capabilities.isCreativeMode)
+        {
+        	srcItemStack.damageItem(getUseCost(), playerEntity);
+        }
+		
+		return true;
 		
 	}
 
-	private boolean placeMageLight(World w, BlockPos coord) {
-		if(w.isAirBlock(coord)){
-			w.setBlockState(coord, WonderfulWands.mageLight.getDefaultState());
-			return true;
-		} else{ 
-			return false;
-		}
-	}
 
 }

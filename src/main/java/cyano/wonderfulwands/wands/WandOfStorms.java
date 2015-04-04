@@ -18,7 +18,8 @@ public class WandOfStorms extends Wand  {
 	
 	public static int defaultCharges = 64;
 	
-	public static final double AOEradius = 32; 
+	public static final int AOEdiameter = 64;
+	private static final int AOEsubtractor = -1 * AOEdiameter / 2;
 	
 	public WandOfStorms() {
 		super();
@@ -85,18 +86,20 @@ public class WandOfStorms extends Wand  {
 	     
 	        if (!world.isRemote)
 	        {
-	        	int x = (int)(playerEntity.posX + nextDouble(world) * AOEradius);
-	        	int z = (int)(playerEntity.posZ + nextDouble(world) * AOEradius);
+	        	// try a few times and strike the highest point
+	        	BlockPos origin = playerEntity.getPosition();
+        		BlockPos target = origin; 
+	        	for(int i = 0; i < 8; i++){
+	        		BlockPos test = origin.add(world.rand.nextInt(AOEdiameter)+AOEsubtractor, 0, world.rand.nextInt(AOEdiameter)+AOEsubtractor);
+		        	test = world.getTopSolidOrLiquidBlock(test);
+		        	if(test.getY() > target.getY()){
+		        		target = test;
+		        	}
+	        	}
 	        	
-	            world.addWeatherEffect(new EntityLightningBolt(world,x,world.getChunkFromBlockCoords(new BlockPos(x,64,z)).getHeight(x & 0x0F, z & 0X0F),z));
+	            world.addWeatherEffect(new EntityLightningBolt(world,target.getX(), target.getY(), target.getZ()));
 	        }
 	        return srcItemStack;
 	    }
 
-	 private static final int prngRange = 0xFFFFF; 
-	 private static final double multiplier = 2.0 / (double)prngRange;
-	private static double nextDouble(World world) {
-		int seed = (int)world.getTotalWorldTime();
-		return (((seed * 1103515245) + 12345) & prngRange) * multiplier - 1.0;
-	}
 }
