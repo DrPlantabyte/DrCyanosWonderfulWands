@@ -3,6 +3,7 @@ package cyano.wonderfulwands;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.*;
+import cyano.wonderfulwands.entities.*;
 import cyano.wonderfulwands.graphics.*;
 import cyano.wonderfulwands.projectiles.*;
 import cyano.wonderfulwands.wizardrobes.*;
@@ -27,6 +28,7 @@ public class ClientProxy extends Proxy{
         // add renderers
  		RenderingRegistry.registerEntityRenderingHandler(EntityMagicMissile.class, new MagicMissileRenderer(rm));
  		RenderingRegistry.registerEntityRenderingHandler(EntityWandLightningBolt.class, new WandLightningBoltRenderer(rm));
+ 		RenderingRegistry.registerEntityRenderingHandler(EntityLightWisp.class, new LightWispRenderer(rm));
  		
  		topHatRenderer = new TopHatRenderer();
     	wizardHatRenderer = new WizardHatRenderer();

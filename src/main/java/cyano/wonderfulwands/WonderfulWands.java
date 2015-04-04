@@ -32,6 +32,7 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.*;
 import cyano.wonderfulwands.blocks.MageLight;
+import cyano.wonderfulwands.entities.EntityLightWisp;
 import cyano.wonderfulwands.projectiles.EntityMagicMissile;
 import cyano.wonderfulwands.projectiles.EntityWandLightningBolt;
 import cyano.wonderfulwands.wands.OrdinaryWand;
@@ -165,7 +166,8 @@ public class WonderfulWands {
 		// Teleport
 		addWandRecipe(wandOfTeleportation, Items.ender_eye);
 		// wand of light
-		addWandRecipe(wandOfLight,new ItemStack(Blocks.torch));
+		OreDictionary.registerOre("torch", Blocks.torch);
+		addWandRecipe(wandOfLight,"torch");
 		//addWandRecipe(wandOfLight,"dustGlowstone");
 		// wand of storms
 		addWandRecipe(wandOfStorms,new ItemStack(Blocks.wool,1,7));
@@ -245,6 +247,9 @@ public class WonderfulWands {
  		
  		EntityRegistry.registerGlobalEntityID(EntityWandLightningBolt.class, "bolt_lightning", EntityRegistry.findGlobalUniqueEntityId());
  		EntityRegistry.registerModEntity(EntityWandLightningBolt.class, "bolt_lightning", 1/*id*/, this, 128/*trackingRange*/, 1/*updateFrequency*/, false/*sendsVelocityUpdates*/);
+ 		
+ 		EntityRegistry.registerGlobalEntityID(EntityLightWisp.class, "WispLight", EntityRegistry.findGlobalUniqueEntityId());
+ 		EntityRegistry.registerModEntity(EntityLightWisp.class, "WispLight", 2/*id*/, this, 128/*trackingRange*/, 1/*updateFrequency*/, true/*sendsVelocityUpdates*/);
  		
 		proxy.init(event);
 		

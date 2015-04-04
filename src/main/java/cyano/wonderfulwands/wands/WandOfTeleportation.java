@@ -1,8 +1,6 @@
 package cyano.wonderfulwands.wands;
 
-import cyano.wonderfulwands.WonderfulWands;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.item.EntityEnderPearl;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
@@ -10,8 +8,9 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLLog;
+import cyano.wonderfulwands.WonderfulWands;
 
 public class WandOfTeleportation extends Wand {
 	public static final String itemName = "wand_teleportation";
@@ -52,6 +51,8 @@ public class WandOfTeleportation extends Wand {
 		return super.onItemUse(srcItemStack, playerEntity, world, coord,blockFace, par8, par9, par10);
 	}
 	@Override public void onPlayerStoppedUsing (ItemStack srcItemStack, World world, EntityPlayer playerEntity, int timeRemain){
+		int chargetime = this.getMaxItemUseDuration(srcItemStack) - timeRemain;
+		if(chargetime < 3) return;
 		if (!playerEntity.capabilities.isCreativeMode)
         {
         	if(isOutOfCharge(srcItemStack)){
@@ -65,12 +66,14 @@ public class WandOfTeleportation extends Wand {
 	        playSound("mob.endermen.portal",world,playerEntity);
 			
 			final int maxRange = 160;
-			double x = playerEntity.getPositionVector().xCoord;
-			double y = playerEntity.getPositionVector().yCoord + 1.4;
-			double z = playerEntity.getPositionVector().zCoord;
-			double dx = (double)(-MathHelper.sin(playerEntity.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(playerEntity.rotationPitch / 180.0F * (float)Math.PI));
-        	double dy = (double)(-MathHelper.sin(playerEntity.rotationPitch / 180.0F * (float)Math.PI));
-        	double dz = (double)( MathHelper.cos(playerEntity.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(playerEntity.rotationPitch / 180.0F * (float)Math.PI));
+			Vec3 origin = playerEntity.getPositionEyes(1f);
+			double x = origin.xCoord;
+			double y = origin.yCoord;
+			double z = origin.zCoord;
+			Vec3 vector = playerEntity.getLookVec();
+			double dx = vector.xCoord;
+        	double dy = vector.yCoord;
+        	double dz = vector.zCoord;
 
         	
 			for(int i = 0; i < maxRange; i++){
@@ -98,6 +101,7 @@ public class WandOfTeleportation extends Wand {
 
 			playerEntity.setLocationAndAngles(x, y, z,playerEntity.rotationYaw, playerEntity.rotationPitch);
 			playerEntity.setVelocity(0, 0, 0);
+			playerEntity.fallDistance = 0;
 
 	        playSound("mob.endermen.portal",world,playerEntity);
 	}

@@ -27,7 +27,7 @@ public class MageLight extends Block {
         this.setCreativeTab(CreativeTabs.tabDecorations);
         this.setHardness(0.0F);
         this.setLightLevel(1F);
-        this.setStepSound(soundTypeCloth);
+        this.setStepSound(this.soundTypeGlass);
         this.setUnlocalizedName(WonderfulWands.MODID+"_"+name);
         
         float f = 0.25F;
@@ -76,7 +76,7 @@ public class MageLight extends Block {
     @Override
     public void randomDisplayTick(final World w, final BlockPos coord, final IBlockState bs, final Random rand) {
         final double d0 = coord.getX() + 0.5;
-        final double d = coord.getY() + 0.7;
+        final double d = coord.getY() + 0.5;
         final double d2 = coord.getZ() + 0.5;
         final double d3 = 0.22;
         final double d4 = 0.27;
