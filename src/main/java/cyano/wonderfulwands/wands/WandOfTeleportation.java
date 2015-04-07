@@ -66,7 +66,7 @@ public class WandOfTeleportation extends Wand {
 	        playSound("mob.endermen.portal",world,playerEntity);
 			
 			final int maxRange = 160;
-			Vec3 origin = playerEntity.getPositionEyes(1f);
+			Vec3 origin = (new Vec3(playerEntity.posX, playerEntity.posY + playerEntity.getEyeHeight(), playerEntity.posZ));
 			Vec3 vector = playerEntity.getLookVec();
 			Vec3 pos = origin;
 			Vec3 next = pos;
@@ -97,7 +97,7 @@ public class WandOfTeleportation extends Wand {
 			}
 
 			playerEntity.setLocationAndAngles(coord.getX()+0.5,coord.getY()+0.25,coord.getZ()+0.5,playerEntity.rotationYaw, playerEntity.rotationPitch);
-			playerEntity.setVelocity(0, 0, 0);
+			if(world.isRemote)playerEntity.setVelocity(0, 0, 0);
 			playerEntity.fallDistance = 0;
 
 	        playSound("mob.endermen.portal",world,playerEntity);

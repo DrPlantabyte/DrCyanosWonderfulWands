@@ -13,7 +13,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLLog;
 
 public class WandOfLight extends Wand {
 	public static final String itemName = "wand_light";
@@ -67,7 +69,7 @@ public class WandOfLight extends Wand {
         }
 		
 		net.minecraft.util.Vec3 vector = playerEntity.getLookVec();
-		net.minecraft.util.Vec3 origin = playerEntity.getPositionEyes(1f).add(vector);
+		net.minecraft.util.Vec3 origin = (new Vec3(playerEntity.posX, playerEntity.posY + playerEntity.getEyeHeight(), playerEntity.posZ)).add(vector);
 		
 		boolean success = placeMageLight(world, origin, vector, MAX_RANGE);
 		
