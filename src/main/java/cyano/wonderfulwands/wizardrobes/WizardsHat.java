@@ -82,7 +82,7 @@ public class WizardsHat extends  net.minecraft.item.ItemArmor {
     @Override public void onArmorTick(World world, EntityPlayer player, ItemStack src){
     	super.onArmorTick(world, player, src);
     	if(this.getPotionEffectID(src) != 0){
-    		if(world.getWorldTime() % (potionApplyInterval) == 0){
+    		if(world.getTotalWorldTime() % (potionApplyInterval) == 0){
     			player.addPotionEffect(new PotionEffect(this.getPotionEffectID(src),potionDuration));
     		}
     	} else {
@@ -90,7 +90,7 @@ public class WizardsHat extends  net.minecraft.item.ItemArmor {
     			// soak up a potion effect
     			Collection<PotionEffect> c = player.getActivePotionEffects();
     			PotionEffect[] effect = c.toArray(new PotionEffect[c.size()]);
-    			Random r = new Random(world.getSeed() ^ (world.getWorldTime() / potionApplyInterval));
+    			Random r = new Random(world.getSeed() ^ (world.getTotalWorldTime() / potionApplyInterval));
     			int i = r.nextInt(effect.length);
     			int potionCode = effect[i].getPotionID();
     			this.setPotionEffectID(src, potionCode);
