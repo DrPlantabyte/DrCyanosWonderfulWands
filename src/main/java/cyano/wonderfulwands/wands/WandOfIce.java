@@ -42,14 +42,19 @@ public class WandOfIce extends Wand {
         	}
         }
 		int blocksChanged = 0;
-		for(int y = targetY+1; y >= targetY-1; y--){
-			if(y < 0) continue;
-			for(int x = targetX-2; x <= targetX+2; x++){
-				for(int z = targetZ-2; z <= targetZ+2; z++){
-					// cut corners
-					if((x == targetX-2 || x == targetX+2) && (z == targetZ-2 || z == targetZ+2))continue;
-					// set to ice
-					blocksChanged += freezeBlock(world,new BlockPos(x,y,z));
+		int rSquared = 9;
+		for(int dy = 2; dy >= -2; dy--){
+			int y = targetY + dy;
+			for(int dx = -2; dx <= 2; dx++){
+				int x = targetX + dx;
+				for(int dz = -2; dz <= 2; dz++){
+					int z = targetZ + dz;
+					BlockPos pos = new BlockPos(x,y,z);
+					// spheritize
+					if((dy * dy + dx * dx + dz * dz) <= rSquared){
+						// set to ice
+						blocksChanged += freezeBlock(world,pos);
+					}
 				}
 			}
 		}
@@ -71,10 +76,15 @@ public class WandOfIce extends Wand {
 		} else if(target == Blocks.lava || target == Blocks.flowing_lava){
 			w.setBlockState(coord, Blocks.cobblestone.getDefaultState());
 			return 1;
-		}else if(target == Blocks.snow && ((Integer)bs.getValue(BlockSnow.LAYERS)) < 8){
-			w.setBlockState(coord, Blocks.snow.getStateById(((Integer)bs.getValue(BlockSnow.LAYERS)) + 1));
+		}else if(target == Blocks.snow_layer) {
+			if(((Integer)bs.getValue(BlockSnow.LAYERS)) < 8){
+				w.setBlockState(coord, Blocks.snow_layer.getDefaultState()
+						.withProperty(BlockSnow.LAYERS,(((Integer)bs.getValue(BlockSnow.LAYERS)) + 1)));
+			} else {
+				w.setBlockState(coord, Blocks.snow.getDefaultState());
+			}
 		}else if(target.isSolidFullCube() && w.isAirBlock(coord.up())){
-			w.setBlockState(coord.up(), BlockSnow.getStateById(2));
+			w.setBlockState(coord.up(), Blocks.snow_layer.getDefaultState());
 			return 1;
 		}
 		return 0;
