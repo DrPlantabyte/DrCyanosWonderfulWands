@@ -18,20 +18,14 @@ public class WandOfFire extends Wand  {
 	public static int defaultCharges = 64;
 	
 	public WandOfFire() {
-		super();
+		super(defaultCharges);
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
 		this.setCreativeTab(CreativeTabs.tabCombat);
-        this.setMaxDamage(defaultCharges + 1);
-	}
-
-	@Override
-	public int getUseCost() {
-		return 1;
 	}
 
 	@Override
 	public int getBaseRepairCost() {
-		return 3;
+		return 2;
 	}
 
 	@Override public int getMaxItemUseDuration(ItemStack par1ItemStack){
@@ -74,7 +68,7 @@ public class WandOfFire extends Wand  {
 	        		playSound(noChargeAttackSound,world,playerEntity);
 	        		return srcItemStack;
 	        	}
-	        	srcItemStack.damageItem(getUseCost(), playerEntity);
+	        	srcItemStack.damageItem(1, playerEntity);
 	        }
 
 	        playSound("fireworks.launch",world,playerEntity);

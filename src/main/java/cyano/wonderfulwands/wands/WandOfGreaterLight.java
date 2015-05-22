@@ -25,20 +25,15 @@ public class WandOfGreaterLight extends Wand {
 	public static int defaultCharges = 64;
 	
 	public WandOfGreaterLight() {
-		super();
+		super(defaultCharges);
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
 		this.setCreativeTab(CreativeTabs.tabTools);
-        this.setMaxDamage(defaultCharges + 1);
 	}
 
-	@Override
-	public int getUseCost() {
-		return 1;
-	}
 
 	@Override
 	public int getBaseRepairCost() {
-		return 1;
+		return 3;
 	}
 
 	@Override public int getMaxItemUseDuration(ItemStack par1ItemStack){
@@ -90,7 +85,7 @@ public class WandOfGreaterLight extends Wand {
 		
 		if (!playerEntity.capabilities.isCreativeMode)
         {
-        	srcItemStack.damageItem(getUseCost(), playerEntity);
+        	srcItemStack.damageItem(1, playerEntity);
         }
 		
 		return;

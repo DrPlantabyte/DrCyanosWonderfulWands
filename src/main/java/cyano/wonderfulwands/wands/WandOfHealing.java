@@ -20,20 +20,15 @@ public class WandOfHealing extends Wand {
 	public static int defaultCharges = 64;
 	
 	public WandOfHealing() {
-		super();
+		super(defaultCharges);
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
 		this.setCreativeTab(CreativeTabs.tabTools);
-        this.setMaxDamage(defaultCharges + 1);
 	}
 
-	@Override
-	public int getUseCost() {
-		return 1;
-	}
 
 	@Override
 	public int getBaseRepairCost() {
-		return 5;
+		return 4;
 	}
 
 	
@@ -45,7 +40,7 @@ public class WandOfHealing extends Wand {
         		playSound(noChargeAttackSound,world,playerEntity);
         		return srcItemStack;
         	}
-        	srcItemStack.damageItem(getUseCost(), playerEntity);
+        	srcItemStack.damageItem(1, playerEntity);
         }
         playSound("random.pop",world,playerEntity);
         

@@ -27,16 +27,11 @@ public class WandOfLight extends Wand {
 	static final int MAX_RANGE = 64;
 	
 	public WandOfLight() {
-		super();
+		super(defaultCharges);
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
 		this.setCreativeTab(CreativeTabs.tabTools);
-        this.setMaxDamage(defaultCharges + 1);
 	}
 
-	@Override
-	public int getUseCost() {
-		return 1;
-	}
 
 	@Override
 	public int getBaseRepairCost() {
@@ -77,7 +72,7 @@ public class WandOfLight extends Wand {
 	        playSound("note.pling",world,playerEntity);
 			if (!playerEntity.capabilities.isCreativeMode)
 	        {
-	        	srcItemStack.damageItem(getUseCost(), playerEntity);
+	        	srcItemStack.damageItem(1, playerEntity);
 	        }
 		}
 		

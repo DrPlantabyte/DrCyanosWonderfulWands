@@ -35,7 +35,6 @@ import cyano.wonderfulwands.blocks.MageLight;
 import cyano.wonderfulwands.entities.EntityLightWisp;
 import cyano.wonderfulwands.projectiles.EntityMagicMissile;
 import cyano.wonderfulwands.projectiles.EntityWandLightningBolt;
-import cyano.wonderfulwands.wands.OrdinaryWand;
 import cyano.wonderfulwands.wands.Wand;
 import cyano.wonderfulwands.wands.WandOfBridging;
 import cyano.wonderfulwands.wands.WandOfClimbing;
@@ -66,7 +65,7 @@ public class WonderfulWands {
     @SidedProxy(clientSide="cyano.wonderfulwands.ClientProxy", serverSide="cyano.wonderfulwands.ServerProxy")
     public static Proxy proxy;
     
-	public static Wand wandGeneric = null;
+	public static Item wandGeneric = null;
 	public static Wand wandOfMagicMissile = null;
 	public static Wand wandOfDeath = null;
 	public static Wand wandOfFire = null;
@@ -116,7 +115,7 @@ public class WonderfulWands {
     	NONARMOR = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("NONARMOR","empty_armor",10,new int[]{0, 0, 0, 0},0);
     	WIZARDROBES = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("WIZARDCLOTH","wizard_robes", 15,new int[]{1, 1, 1, 1},40);
     	
-		wandGeneric = new OrdinaryWand();
+		wandGeneric = new Item().setUnlocalizedName("wand_ordinary");
 		wandOfMagicMissile = new WandOfMagicMissile();
 		wandOfFire = new WandOfFire();
 		wandOfDeath = new WandOfDeath();
@@ -137,7 +136,7 @@ public class WonderfulWands {
 		GameRegistry.registerBlock(mageLight, MageLight.name);
 
 		// Register the wand items
-		GameRegistry.registerItem(wandGeneric, OrdinaryWand.itemName);
+		GameRegistry.registerItem(wandGeneric, "wand_ordinary");
 		GameRegistry.registerItem(wandOfMagicMissile, WandOfMagicMissile.itemName);
 		GameRegistry.registerItem(wandOfFire, WandOfFire.itemName);
 		GameRegistry.registerItem(wandOfDeath, WandOfDeath.itemName);
@@ -162,8 +161,7 @@ public class WonderfulWands {
 		ItemStack output;
 
 		// Nonmagical
-		GameRegistry.addRecipe(new ShapedOreRecipe(wandItemStack(wandGeneric), " g ", " s ", " g ", 'g', "nuggetGold", 's',"stickWood"));
-		GameRegistry.addShapedRecipe(wandItemStack(wandGeneric), " g ", " s ", " g ", 'g', Items.gold_nugget, 's',Items.stick);
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(wandGeneric), " g ", " s ", " g ", 'g', "nuggetGold", 's',"stickWood"));
 		// Magic Missile
 		addWandRecipe(wandOfMagicMissile,Items.golden_sword);
 		// Fire
@@ -308,7 +306,7 @@ public class WonderfulWands {
     private void registerItemRenders() {
     	// client-side only
     	if(proxy instanceof ServerProxy) return;
-    	registerItemRender(wandGeneric,OrdinaryWand.itemName);
+    	registerItemRender(wandGeneric,"wand_ordinary");
     	registerItemRender(wandOfMagicMissile,WandOfMagicMissile.itemName );
     	registerItemRender(wandOfDeath,WandOfDeath.itemName );
     	registerItemRender(wandOfFire,WandOfFire.itemName );

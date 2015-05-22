@@ -19,20 +19,15 @@ public class WandOfClimbing extends Wand {
 	
 	
 	public WandOfClimbing() {
-		super();
+		super(defaultCharges);
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
 		this.setCreativeTab(CreativeTabs.tabTools);
-        this.setMaxDamage(defaultCharges + 1);
 	}
 
-	@Override
-	public int getUseCost() {
-		return 1;
-	}
 
 	@Override
 	public int getBaseRepairCost() {
-		return 3;
+		return 1;
 	}
 	
 	@Override public boolean onItemUse(ItemStack srcItemStack, EntityPlayer playerEntity, World world, BlockPos coord, EnumFacing blockFace, float par8, float par9, float par10){
@@ -52,7 +47,7 @@ public class WandOfClimbing extends Wand {
 	        playSound("random.orb",world,playerEntity);
 			if (!playerEntity.capabilities.isCreativeMode)
 	        {
-	        	srcItemStack.damageItem(getUseCost(), playerEntity);
+	        	srcItemStack.damageItem(1, playerEntity);
 	        }
 		}
 		return success;

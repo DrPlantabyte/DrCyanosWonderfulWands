@@ -23,20 +23,15 @@ public class WandOfHarvesting extends Wand {
 	public static int defaultCharges = 64;
 	
 	public WandOfHarvesting() {
-		super();
+		super(defaultCharges);
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
 		this.setCreativeTab(CreativeTabs.tabTools);
         this.setMaxDamage(defaultCharges + 1);
 	}
-
-	@Override
-	public int getUseCost() {
-		return 1;
-	}
-
+	
 	@Override
 	public int getBaseRepairCost() {
-		return 2;
+		return 1;
 	}
 
 	@Override public boolean onItemUse(ItemStack srcItemStack, EntityPlayer playerEntity, World world, BlockPos coord, EnumFacing blockFace, float par8, float par9, float par10){
@@ -49,7 +44,7 @@ public class WandOfHarvesting extends Wand {
 	        		playSound(noChargeAttackSound,world,playerEntity);
 	        		return true;
 	        	}
-	        	srcItemStack.damageItem(getUseCost(), playerEntity);
+	        	srcItemStack.damageItem(1, playerEntity);
 	        }
 			for(int y = targetY+1; y >= targetY-1; y--){
 				if(y < 0) continue;

@@ -8,6 +8,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -18,14 +20,13 @@ public abstract class Wand extends Item {
 	 * Default constructor
 	 * @param itemID id of this item
 	 */
-	public Wand() {
+	public Wand(int numCharges) {
 		super();
         this.maxStackSize = 1;
 		this.setCreativeTab(CreativeTabs.tabTools);
+        this.setMaxDamage(numCharges + 1);
 	}
 	
-	/** returns damage caused per use */
-	public abstract int getUseCost();
 	/**
      * returns the action that specifies what animation to play when the items is being used
      */
@@ -49,7 +50,7 @@ public abstract class Wand extends Item {
     }
     /** returns true if the wand is on its last damage point */
     public boolean isOutOfCharge(ItemStack srcItemStack){
-    	return srcItemStack.getItemDamage() >= (srcItemStack.getMaxDamage() - getUseCost());
+    	return srcItemStack.getItemDamage() >= (srcItemStack.getMaxDamage() - 1);
     }
     /** plays a sound at the player location */
     protected void playSound(String soundID, World world, EntityPlayer playerEntity){
@@ -61,4 +62,13 @@ public abstract class Wand extends Item {
     
     public abstract int getBaseRepairCost();
     
+    
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean b){
+		super.addInformation(stack,player,list,b);
+		StringBuilder sb = new StringBuilder();
+		int max = stack.getMaxDamage() - 1;
+		sb.append(max - stack.getItemDamage()).append('/').append(max);
+		list.add(sb.toString());
+	}
 }

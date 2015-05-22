@@ -23,17 +23,12 @@ public class WandOfBridging extends Wand {
 	private final Block bridgeBlock;
 	
 	public WandOfBridging(Block bridgeBlock) {
-		super();
+		super(defaultCharges);
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
 		this.setCreativeTab(CreativeTabs.tabTools);
-        this.setMaxDamage(defaultCharges + 1);
-        this.bridgeBlock = bridgeBlock;
+		this.bridgeBlock = bridgeBlock;
 	}
 
-	@Override
-	public int getUseCost() {
-		return 1;
-	}
 
 	@Override
 	public int getBaseRepairCost() {
@@ -83,8 +78,8 @@ public class WandOfBridging extends Wand {
 		}
 		
 		if(blocksChanged > 0){
-			srcItemStack.damageItem(getUseCost(), playerEntity);
-	        playSound("random.levelup",world,playerEntity);
+			srcItemStack.damageItem(1, playerEntity);
+			playSound("random.levelup",world,playerEntity);
 			return true;
 		}else {
 			return false;

@@ -24,10 +24,9 @@ public class WandOfMagicMissile extends Wand {
 	 * @param itemID id of this item
 	 */
 	public WandOfMagicMissile(){
-		super();
+		super(defaultCharges);
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
 		this.setCreativeTab(CreativeTabs.tabCombat);
-        this.setMaxDamage(defaultCharges + 1);
 	}
 	
 	public int getMaxItemUseDuration(ItemStack par1ItemStack){
@@ -70,7 +69,7 @@ public class WandOfMagicMissile extends Wand {
 	        		playSound(noChargeAttackSound,world,playerEntity);
 	        		return srcItemStack;
 	        	}
-	        	srcItemStack.damageItem(getUseCost(), playerEntity);
+	        	srcItemStack.damageItem(1, playerEntity);
 	        }
 
 	        playSound("mob.endermen.portal",world,playerEntity);
@@ -82,12 +81,8 @@ public class WandOfMagicMissile extends Wand {
 	        return srcItemStack;
 	    }
 
-	@Override
-	public int getUseCost() {
-		return 1;
-	}
 	
 	@Override  public int getBaseRepairCost(){
-    	return 3;
+    	return 2;
     }
 }
