@@ -1,11 +1,12 @@
 package cyano.wonderfulwands.projectiles;
 
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.fml.relauncher.Side;
+import java.util.List;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityWitherSkull;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -45,30 +46,28 @@ public class DeathSkull extends EntityWitherSkull {
 	    /**
 	     * Called when this EntityFireball hits a block or entity.
 	     */
-	    protected void onImpact(MovingObjectPosition par1MovingObjectPosition)
-	    {
-	        if (!this.worldObj.isRemote)
-	        {
-	            if (par1MovingObjectPosition.entityHit != null)
-	            {
-	                
-	                    par1MovingObjectPosition.entityHit.attackEntityFrom(DamageSource.magic, 20.0F);
-	                
-
-	                if (par1MovingObjectPosition.entityHit instanceof EntityLivingBase)
-	                {
-	                    byte witherSeconds = 10;
-
-	                    if (witherSeconds > 0)
-	                    {
-	                        ((EntityLivingBase)par1MovingObjectPosition.entityHit).addPotionEffect(new PotionEffect(Potion.wither.id, 20 * witherSeconds, 1));
-	                    }
-	                }
-	            }
-
-	            this.worldObj.newExplosion(this, this.posX, this.posY, this.posZ, explosionForce, false, this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing"));
-	            this.setDead();
-	        }
-	    }
+	@Override
+	protected void onImpact(MovingObjectPosition impact)
+	{
+		if (!this.worldObj.isRemote)
+		{
+			if(impact.entityHit != null ){
+				impact.entityHit.attackEntityFrom(DamageSource.magic, 20);
+			}
+			double radius = 3;
+			if(impact.hitVec != null){
+				AxisAlignedBB aoe = new AxisAlignedBB(impact.hitVec.xCoord-radius,impact.hitVec.yCoord-radius,impact.hitVec.zCoord-radius,
+						impact.hitVec.xCoord+radius,impact.hitVec.yCoord+radius,impact.hitVec.zCoord+radius);
+				List<EntityLivingBase> collateralDamage = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, aoe);
+				PotionEffect wither = new PotionEffect(Potion.wither.id, 210, 1);
+				for(EntityLivingBase victim : collateralDamage){
+					victim.addPotionEffect(wither);
+					victim.attackEntityFrom(DamageSource.magic, 10);
+				}
+			}
+			this.worldObj.newExplosion(this, this.posX, this.posY, this.posZ, explosionForce, false, this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing"));
+			this.setDead();
+		}
+	}
 
 }

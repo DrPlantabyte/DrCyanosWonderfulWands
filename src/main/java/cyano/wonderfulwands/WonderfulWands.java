@@ -2,25 +2,17 @@ package cyano.wonderfulwands;
 
 
 import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import sun.reflect.ConstructorAccessor;
-import sun.reflect.ReflectionFactory;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -30,7 +22,9 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.*;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import cyano.wonderfulwands.blocks.MageLight;
 import cyano.wonderfulwands.entities.EntityLightWisp;
 import cyano.wonderfulwands.projectiles.EntityMagicMissile;
@@ -60,7 +54,7 @@ import cyano.wonderfulwands.wizardrobes.WizardsHat;
 public class WonderfulWands {
     public static final String MODID = "wonderfulwands";
     public static final String NAME ="Cyano's Wonderful Wands";
-    public static final String VERSION = "1.7.0";
+    public static final String VERSION = "1.7.1";
 	
     @SidedProxy(clientSide="cyano.wonderfulwands.ClientProxy", serverSide="cyano.wonderfulwands.ServerProxy")
     public static Proxy proxy;
@@ -100,6 +94,9 @@ public class WonderfulWands {
 	
 	public static ItemArmor.ArmorMaterial NONARMOR = null;
 	public static ItemArmor.ArmorMaterial WIZARDROBES = null;
+
+	public static MyCreativeTab robesTab;
+	public static MyCreativeTab wandsTab;
 	
 	// Mark this method for receiving an FMLEvent (in this case, it's the FMLPreInitializationEvent)
     @EventHandler public void preInit(FMLPreInitializationEvent event)
@@ -109,13 +106,17 @@ public class WonderfulWands {
     	Configuration config = new Configuration(event.getSuggestedConfigurationFile());
     	config.load();
     	
+
+ 		robesTab = new MyCreativeTab(MODID+".armor");
+ 		wandsTab = new MyCreativeTab(MODID+".wands");
+    	
     	altRecipes = config.getBoolean("alternative_recipes", "options", false, 
 				"If true, then robes and wands will use different recipes than normal");
 		
     	NONARMOR = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("NONARMOR","empty_armor",10,new int[]{0, 0, 0, 0},0);
     	WIZARDROBES = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("WIZARDCLOTH","wizard_robes", 15,new int[]{1, 1, 1, 1},40);
     	
-		wandGeneric = new Item().setUnlocalizedName("wand_ordinary");
+		wandGeneric = new Item().setUnlocalizedName(MODID+"_wand_ordinary").setCreativeTab(wandsTab);
 		wandOfMagicMissile = new WandOfMagicMissile();
 		wandOfFire = new WandOfFire();
 		wandOfDeath = new WandOfDeath();
@@ -297,6 +298,9 @@ public class WonderfulWands {
  		
  		EntityRegistry.registerGlobalEntityID(EntityLightWisp.class, "WispLight", EntityRegistry.findGlobalUniqueEntityId());
  		EntityRegistry.registerModEntity(EntityLightWisp.class, "WispLight", 2/*id*/, this, 128/*trackingRange*/, 1/*updateFrequency*/, true/*sendsVelocityUpdates*/);
+ 		
+ 		robesTab.setIcon(witchHat);
+ 		wandsTab.setIcon(wandGeneric);
  		
 		proxy.init(event);
 		

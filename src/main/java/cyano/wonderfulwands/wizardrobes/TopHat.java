@@ -22,7 +22,7 @@ public class TopHat extends net.minecraft.item.ItemArmor {
 	public TopHat( ) {
 		super( WonderfulWands.NONARMOR, 0, 0);
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+itemName);
-		this.setCreativeTab(CreativeTabs.tabMisc);
+		this.setCreativeTab(WonderfulWands.robesTab);
 		// set values
 		this.setMaxDamage(100);
 	}

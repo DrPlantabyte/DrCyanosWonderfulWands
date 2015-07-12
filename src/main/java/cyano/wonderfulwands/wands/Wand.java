@@ -2,6 +2,7 @@ package cyano.wonderfulwands.wands;
 
 import java.util.List;
 
+import cyano.wonderfulwands.WonderfulWands;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -23,7 +24,7 @@ public abstract class Wand extends Item {
 	public Wand(int numCharges) {
 		super();
         this.maxStackSize = 1;
-		this.setCreativeTab(CreativeTabs.tabTools);
+		this.setCreativeTab(WonderfulWands.wandsTab);
         this.setMaxDamage(numCharges + 1);
 	}
 	

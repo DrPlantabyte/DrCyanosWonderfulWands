@@ -25,7 +25,6 @@ public class WandOfBridging extends Wand {
 	public WandOfBridging(Block bridgeBlock) {
 		super(defaultCharges);
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
-		this.setCreativeTab(CreativeTabs.tabTools);
 		this.bridgeBlock = bridgeBlock;
 	}
 

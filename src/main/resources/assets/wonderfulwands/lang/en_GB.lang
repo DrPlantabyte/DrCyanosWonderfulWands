@@ -103,3 +103,7 @@ item.wonderfulwands_robes_white_boots.name=White Wizard Slippers
 tile.wonderfulwands_mage_light.name=Mage Light
 
 entity.wonderfulwands_magic_missile.name=Magical Missile
+
+
+itemGroup.wonderfulwands.armor=Wizarding Robes
+itemGroup.wonderfulwands.wands=Wonderful Wands

@@ -21,7 +21,6 @@ public class WandOfClimbing extends Wand {
 	public WandOfClimbing() {
 		super(defaultCharges);
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
-		this.setCreativeTab(CreativeTabs.tabTools);
 	}
 
 

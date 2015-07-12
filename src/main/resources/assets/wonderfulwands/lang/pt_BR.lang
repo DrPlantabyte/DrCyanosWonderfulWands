@@ -103,3 +103,7 @@ item.wonderfulwands_robes_white_boots.name=Sandálias do Mago Branco
 tile.wonderfulwands_mage_light.name=Luz do Mago 
 
 entity.wonderfulwands_magic_missile.name=Mísseis Mágicos 
+
+
+itemGroup.wonderfulwands.armor=Wizarding Robes
+itemGroup.wonderfulwands.wands=Wonderful Wands

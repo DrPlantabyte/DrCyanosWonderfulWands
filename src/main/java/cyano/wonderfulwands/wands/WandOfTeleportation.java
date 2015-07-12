@@ -21,7 +21,6 @@ public class WandOfTeleportation extends Wand {
 	public WandOfTeleportation() {
 		super(defaultCharges);
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
-		this.setCreativeTab(CreativeTabs.tabTools);
         this.setMaxDamage(defaultCharges + 1);
 	}
 

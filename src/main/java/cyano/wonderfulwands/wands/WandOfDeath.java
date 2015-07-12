@@ -25,7 +25,6 @@ public class WandOfDeath extends Wand {
 	public WandOfDeath(){
 		super(defaultCharges);
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
-		this.setCreativeTab(CreativeTabs.tabCombat);
 	}
 	
 	@Override public int getMaxItemUseDuration(ItemStack par1ItemStack){

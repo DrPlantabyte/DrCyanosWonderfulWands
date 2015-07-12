@@ -102,3 +102,7 @@ item.wonderfulwands_robes_white_boots.name=白色巫师拖鞋
 tile.wonderfulwands_mage_light.name=魔光
 
 entity.wonderfulwands_magic_missile.name=魔法箭矢
+
+
+itemGroup.wonderfulwands.armor=Wizarding Robes
+itemGroup.wonderfulwands.wands=Wonderful Wands

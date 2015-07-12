@@ -1,14 +1,22 @@
 package cyano.wonderfulwands.wands;
 
+import java.util.List;
+
 import cyano.wonderfulwands.WonderfulWands;
 import cyano.wonderfulwands.projectiles.Fireball;
+import cyano.wonderfulwands.util.RayTrace;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class WandOfStorms extends Wand  {
@@ -24,7 +32,6 @@ public class WandOfStorms extends Wand  {
 	public WandOfStorms() {
 		super(defaultCharges);
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
-		this.setCreativeTab(CreativeTabs.tabCombat);
 	}
 
 
@@ -63,38 +70,51 @@ public class WandOfStorms extends Wand  {
 	  * This method is invoked after the item has been used for an amount of time equal to the duration 
 	  * provided to the EntityPlayer.setItemInUse(stack, duration).
 	  */
-	 @Override public ItemStack onItemUseFinish (ItemStack srcItemStack, World world, EntityPlayer playerEntity)
-	 { // 
-		 
-	        if (!playerEntity.capabilities.isCreativeMode)
-	        {
-	        	if(isOutOfCharge(srcItemStack)){
-	        		// wand out of magic
-	        		playSound(noChargeAttackSound,world,playerEntity);
-	        		return srcItemStack;
-	        	}
-	        	srcItemStack.damageItem(1, playerEntity);
-	        }
+	@Override public ItemStack onItemUseFinish (ItemStack srcItemStack, World world, EntityPlayer playerEntity)
+	{ // 
 
-	        playSound("mob.endermen.portal",world,playerEntity);
+		if (!playerEntity.capabilities.isCreativeMode)
+		{
+			if(isOutOfCharge(srcItemStack)){
+				// wand out of magic
+				playSound(noChargeAttackSound,world,playerEntity);
+				return srcItemStack;
+			}
+			srcItemStack.damageItem(1, playerEntity);
+		}
 
-	     
-	        if (!world.isRemote)
-	        {
-	        	// try a few times and strike the highest point
-	        	BlockPos origin = playerEntity.getPosition();
-        		BlockPos target = origin; 
-	        	for(int i = 0; i < 8; i++){
-	        		BlockPos test = origin.add(world.rand.nextInt(AOEdiameter)+AOEsubtractor, 0, world.rand.nextInt(AOEdiameter)+AOEsubtractor);
-		        	test = world.getTopSolidOrLiquidBlock(test);
-		        	if(test.getY() > target.getY()){
-		        		target = test;
-		        	}
-	        	}
-	        	
-	            world.addWeatherEffect(new EntityLightningBolt(world,target.getX(), target.getY(), target.getZ()));
-	        }
-	        return srcItemStack;
-	    }
+		playSound("mob.endermen.portal",world,playerEntity);
 
+
+		if (!world.isRemote)
+		{
+			// drop lightning at looked-at location
+			
+			MovingObjectPosition trace = RayTrace.rayTraceBlocksAndEntities(world, 64, playerEntity);
+			if(trace == null || trace.typeOfHit == MovingObjectPosition.MovingObjectType.MISS){ // missed! Drop random lightning
+				int r = 32;
+				int d = r * 2;
+				BlockPos target = new BlockPos(playerEntity.posX+world.rand.nextInt(d)-r,playerEntity.posY,playerEntity.posZ+world.rand.nextInt(d)-r);
+				while(target.getY() < 255 && !world.isAirBlock(target)){
+					target = target.up();
+				}
+				while(target.getY() > 0 && world.isAirBlock(target)){
+					target = target.down();
+				}
+				world.addWeatherEffect(new EntityLightningBolt(world,target.getX(), target.getY(), target.getZ()));
+			} else {
+				Vec3 target = trace.hitVec;
+				if(target == null){
+					target = new Vec3(trace.getBlockPos().getX(),trace.getBlockPos().getY(),trace.getBlockPos().getZ());
+				}
+				world.addWeatherEffect(new EntityLightningBolt(world,target.xCoord, target.yCoord, target.zCoord));
+			}
+			
+			
+		}
+		return srcItemStack;
+	}
+
+	
+	
 }

@@ -31,7 +31,7 @@ public class WizardingArmor extends ItemArmor {
 	//	func_111206_d("wizardrobes:robes"+armorSlot);
 		String name = itemName+"_"+color+"_"+slotName[armorSlot];
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+name);
-		this.setCreativeTab(CreativeTabs.tabCombat);
+		this.setCreativeTab(WonderfulWands.robesTab);
 		this.color = color;
 	}
 

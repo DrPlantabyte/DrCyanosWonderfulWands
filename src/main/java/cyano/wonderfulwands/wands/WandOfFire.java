@@ -20,7 +20,6 @@ public class WandOfFire extends Wand  {
 	public WandOfFire() {
 		super(defaultCharges);
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
-		this.setCreativeTab(CreativeTabs.tabCombat);
 	}
 
 	@Override
@@ -81,8 +80,8 @@ public class WandOfFire extends Wand  {
 	        	
 	        	double deltaX = (double)(-MathHelper.sin(playerEntity.rotationYaw / 180.0F * (float)Math.PI));
 	        	double deltaZ = (double)( MathHelper.cos(playerEntity.rotationYaw / 180.0F * (float)Math.PI));
-	        	
-	            world.spawnEntityInWorld(new Fireball(world,playerEntity, playerEntity.posX+deltaX,playerEntity.posY+1,playerEntity.posZ+deltaZ,  vecX, vecY, vecZ));
+	        	Fireball fireball = new Fireball(world,playerEntity, playerEntity.posX+deltaX,playerEntity.posY+1,playerEntity.posZ+deltaZ,  vecX, vecY, vecZ);
+	        	world.spawnEntityInWorld(fireball);
 	        }
 	        return srcItemStack;
 	    }

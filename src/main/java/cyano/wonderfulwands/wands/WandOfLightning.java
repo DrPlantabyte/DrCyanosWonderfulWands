@@ -30,7 +30,7 @@ public class WandOfLightning extends Wand {
 
 	public static int defaultCharges = 64;
 
-	public static final float damage = 7;
+	public static final float damage = 8;
 
 	//	public static final int burnTime = 3;
 	/**
@@ -40,7 +40,6 @@ public class WandOfLightning extends Wand {
 	public WandOfLightning(){
 		super(defaultCharges);
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
-		this.setCreativeTab(CreativeTabs.tabCombat);
 	}
 
 	@Override public int getMaxItemUseDuration(ItemStack par1ItemStack){

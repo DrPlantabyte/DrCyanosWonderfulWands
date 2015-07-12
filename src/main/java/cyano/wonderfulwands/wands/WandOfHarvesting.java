@@ -25,7 +25,6 @@ public class WandOfHarvesting extends Wand {
 	public WandOfHarvesting() {
 		super(defaultCharges);
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
-		this.setCreativeTab(CreativeTabs.tabTools);
         this.setMaxDamage(defaultCharges + 1);
 	}
 	
