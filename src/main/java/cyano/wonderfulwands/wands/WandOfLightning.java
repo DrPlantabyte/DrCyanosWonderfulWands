@@ -126,6 +126,7 @@ public class WandOfLightning extends Wand {
 					playerEntity.posX+range,playerEntity.posY+range,playerEntity.posZ+range);
 			List entities = world.getEntitiesWithinAABB(EntityLivingBase.class, bb); // ArrayList<EntityLivingBase> 
 			for(int i = 0; i < entities.size(); i++){
+				if(!(entities.get(i) instanceof EntityLivingBase)) continue;
 				EntityLivingBase e = (EntityLivingBase) entities.get(i);
 				if(playerEntity == e){
 					continue; // don't zap yourself

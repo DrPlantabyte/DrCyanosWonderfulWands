@@ -54,7 +54,7 @@ import cyano.wonderfulwands.wizardrobes.WizardsHat;
 public class WonderfulWands {
     public static final String MODID = "wonderfulwands";
     public static final String NAME ="Cyano's Wonderful Wands";
-    public static final String VERSION = "1.7.1";
+    public static final String VERSION = "1.7.2";
 	
     @SidedProxy(clientSide="cyano.wonderfulwands.ClientProxy", serverSide="cyano.wonderfulwands.ServerProxy")
     public static Proxy proxy;

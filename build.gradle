@@ -23,7 +23,7 @@ allprojects {
     targetCompatibility = 1.7
 }
 
-version = "1.7.1"
+version = "1.7.2"
 group= "cyano.wonderfulwands" 
 archivesBaseName = "CyanosWonderfulWands_1.8"
 
