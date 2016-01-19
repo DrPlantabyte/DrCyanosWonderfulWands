@@ -3,11 +3,38 @@ package cyano.wonderfulwands;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.util.Map;
 
+import cyano.wonderfulwands.blocks.IllusoryBlock;
+import cyano.wonderfulwands.blocks.IllusoryGrassBlock;
+import cyano.wonderfulwands.blocks.MageLight;
+import cyano.wonderfulwands.entities.EntityLightWisp;
+import cyano.wonderfulwands.projectiles.EntityMagicMissile;
+import cyano.wonderfulwands.projectiles.EntityWandLightningBolt;
+import cyano.wonderfulwands.wands.Wand;
+import cyano.wonderfulwands.wands.WandOfBridging;
+import cyano.wonderfulwands.wands.WandOfClimbing;
+import cyano.wonderfulwands.wands.WandOfDeath;
+import cyano.wonderfulwands.wands.WandOfFire;
+import cyano.wonderfulwands.wands.WandOfGreaterLight;
+import cyano.wonderfulwands.wands.WandOfGrowth;
+import cyano.wonderfulwands.wands.WandOfHarvesting;
+import cyano.wonderfulwands.wands.WandOfHealing;
+import cyano.wonderfulwands.wands.WandOfIce;
+import cyano.wonderfulwands.wands.WandOfIllusions;
+import cyano.wonderfulwands.wands.WandOfLight;
+import cyano.wonderfulwands.wands.WandOfLightning;
+import cyano.wonderfulwands.wands.WandOfMagicMissile;
+import cyano.wonderfulwands.wands.WandOfMining;
+import cyano.wonderfulwands.wands.WandOfStorms;
+import cyano.wonderfulwands.wands.WandOfTeleportation;
+import cyano.wonderfulwands.wizardrobes.TopHat;
+import cyano.wonderfulwands.wizardrobes.WitchsHat;
+import cyano.wonderfulwands.wizardrobes.WizardingArmor;
+import cyano.wonderfulwands.wizardrobes.WizardsHat;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -25,36 +52,12 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-import cyano.wonderfulwands.blocks.MageLight;
-import cyano.wonderfulwands.entities.EntityLightWisp;
-import cyano.wonderfulwands.projectiles.EntityMagicMissile;
-import cyano.wonderfulwands.projectiles.EntityWandLightningBolt;
-import cyano.wonderfulwands.wands.Wand;
-import cyano.wonderfulwands.wands.WandOfBridging;
-import cyano.wonderfulwands.wands.WandOfClimbing;
-import cyano.wonderfulwands.wands.WandOfDeath;
-import cyano.wonderfulwands.wands.WandOfFire;
-import cyano.wonderfulwands.wands.WandOfGreaterLight;
-import cyano.wonderfulwands.wands.WandOfGrowth;
-import cyano.wonderfulwands.wands.WandOfHarvesting;
-import cyano.wonderfulwands.wands.WandOfHealing;
-import cyano.wonderfulwands.wands.WandOfIce;
-import cyano.wonderfulwands.wands.WandOfLight;
-import cyano.wonderfulwands.wands.WandOfLightning;
-import cyano.wonderfulwands.wands.WandOfMagicMissile;
-import cyano.wonderfulwands.wands.WandOfMining;
-import cyano.wonderfulwands.wands.WandOfStorms;
-import cyano.wonderfulwands.wands.WandOfTeleportation;
-import cyano.wonderfulwands.wizardrobes.TopHat;
-import cyano.wonderfulwands.wizardrobes.WitchsHat;
-import cyano.wonderfulwands.wizardrobes.WizardingArmor;
-import cyano.wonderfulwands.wizardrobes.WizardsHat;
 
 @Mod(modid = WonderfulWands.MODID, name=WonderfulWands.NAME, version = WonderfulWands.VERSION)
 public class WonderfulWands {
     public static final String MODID = "wonderfulwands";
     public static final String NAME ="Cyano's Wonderful Wands";
-    public static final String VERSION = "1.7.2";
+    public static final String VERSION = "1.8.0";
 	
     @SidedProxy(clientSide="cyano.wonderfulwands.ClientProxy", serverSide="cyano.wonderfulwands.ServerProxy")
     public static Proxy proxy;
@@ -75,6 +78,7 @@ public class WonderfulWands {
 	public static Wand wandOfLightning = null;
 	public static Wand wandOfBridging = null;
 	public static Wand wandOfClimbing = null;
+	public static Wand wandOfIllusions = null;
 	
 	public static Block mageLight = null;
 	
@@ -132,9 +136,46 @@ public class WonderfulWands {
 		wandOfLightning = new WandOfLightning();
 		wandOfBridging = new WandOfBridging(Blocks.cobblestone);
 		wandOfClimbing = new WandOfClimbing();
+		wandOfIllusions = new WandOfIllusions();
 		
 		mageLight = new MageLight();
 		GameRegistry.registerBlock(mageLight, MageLight.name);
+		IllusoryBlock illusion;
+		illusion = new IllusoryBlock(Blocks.dirt);
+		GameRegistry.registerBlock(illusion,illusion.name);
+		illusion = new IllusoryGrassBlock();
+		GameRegistry.registerBlock(illusion,illusion.name);
+		illusion = new IllusoryBlock(Blocks.planks.getMapColor(Blocks.planks.getDefaultState()),"illusion_oak_planks",Blocks.planks);
+		GameRegistry.registerBlock(illusion,illusion.name);
+		illusion = new IllusoryBlock(Blocks.bookshelf);
+		GameRegistry.registerBlock(illusion,illusion.name);
+		illusion = new IllusoryBlock(Blocks.stone); illusion.setUnlocalizedName("stone.stone");
+		GameRegistry.registerBlock(illusion,illusion.name);
+		illusion = new IllusoryBlock(Blocks.cobblestone.getMapColor(Blocks.cobblestone.getDefaultState()),"illusion_cobblestone", Blocks.cobblestone, "stonebrick");
+		GameRegistry.registerBlock(illusion,illusion.name);
+		illusion = new IllusoryBlock(Blocks.brick_block);
+		GameRegistry.registerBlock(illusion,illusion.name);
+		illusion = new IllusoryBlock(Blocks.hay_block.getMapColor(Blocks.hay_block.getDefaultState()),"illusion_hay_block",Blocks.hay_block);
+		GameRegistry.registerBlock(illusion,illusion.name);
+		illusion = new IllusoryBlock(Blocks.pumpkin);
+		GameRegistry.registerBlock(illusion,illusion.name);
+		illusion = new IllusoryBlock(Blocks.melon_block);
+		GameRegistry.registerBlock(illusion,illusion.name);
+		illusion = new IllusoryBlock(Blocks.nether_brick.getMapColor(Blocks.nether_brick.getDefaultState()),"illusion_nether_brick",Blocks.nether_brick);
+		GameRegistry.registerBlock(illusion,illusion.name);
+		illusion = new IllusoryBlock(Blocks.netherrack.getMapColor(Blocks.netherrack.getDefaultState()),"illusion_netherrack",Blocks.netherrack);
+		GameRegistry.registerBlock(illusion,illusion.name);
+		illusion = new IllusoryBlock(Blocks.end_stone.getMapColor(Blocks.end_stone.getDefaultState()),"illusion_end_stone",Blocks.end_stone);
+		GameRegistry.registerBlock(illusion,illusion.name);
+		illusion = new IllusoryBlock(Blocks.cobblestone.getMapColor(Blocks.prismarine.getDefaultState()),"illusion_prismarine", Blocks.prismarine, "prismarine.rough");
+		GameRegistry.registerBlock(illusion,illusion.name);
+		illusion = new IllusoryBlock(Blocks.soul_sand.getMapColor(Blocks.soul_sand.getDefaultState()),"illusion_soul_sand",Blocks.soul_sand);
+		GameRegistry.registerBlock(illusion,illusion.name);
+		illusion = new IllusoryBlock(Blocks.stonebrick.getMapColor(Blocks.stonebrick.getDefaultState()),"illusion_stonebrick",Blocks.stonebrick);
+		GameRegistry.registerBlock(illusion,illusion.name);
+		illusion = new IllusoryBlock(Blocks.sand);
+		GameRegistry.registerBlock(illusion,illusion.name);
+		
 
 		// Register the wand items
 		GameRegistry.registerItem(wandGeneric, "wand_ordinary");
@@ -153,6 +194,7 @@ public class WonderfulWands {
 		GameRegistry.registerItem(wandOfLightning, WandOfLightning.itemName);
 		GameRegistry.registerItem(wandOfBridging, WandOfBridging.itemName);
 		GameRegistry.registerItem(wandOfClimbing, WandOfClimbing.itemName);
+		GameRegistry.registerItem(wandOfIllusions, WandOfIllusions.itemName);
 		
 		// recipes
 
@@ -195,6 +237,8 @@ public class WonderfulWands {
 		// wand of bridging
 		addWandRecipe(wandOfBridging,"blockIron");
 		addWandRecipe(wandOfBridging,"blockSteel");
+		// wand of illusions
+		addWandRecipe(wandOfIllusions,Items.fermented_spider_eye);
 		
 		// Wizarding Robes
 		int robesRenderIndex = proxy.getArmorRenderIndex(MODID+"_robes");
@@ -326,6 +370,7 @@ public class WonderfulWands {
     	registerItemRender( wandOfLightning,WandOfLightning.itemName);
     	registerItemRender( wandOfBridging,WandOfBridging.itemName);
     	registerItemRender( wandOfClimbing,WandOfClimbing.itemName);
+    	registerItemRender( wandOfIllusions,WandOfIllusions.itemName);
     	
     	registerItemRender(net.minecraft.item.Item.getItemFromBlock(mageLight),MageLight.name);
     	
@@ -338,6 +383,17 @@ public class WonderfulWands {
     	registerItemRender(wizardHat,wizardHat.itemName);
     	registerItemRender(witchHat,witchHat.itemName);
     	registerItemRender(topHat,topHat.itemName);
+    	for(Map.Entry<Block, IllusoryBlock> entry : IllusoryBlock.getLookUpTable().entrySet()){
+    		IllusoryBlock b = entry.getValue();
+    		Block r = entry.getKey();
+        	Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
+			.register(net.minecraft.item.Item.getItemFromBlock(b), 0, 
+				new ModelResourceLocation(r.getRegistryName(), "inventory"));
+    	}
+    	IllusoryBlock pb = IllusoryBlock.getLookUpTable().get(Blocks.planks);
+    	Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
+		.register(net.minecraft.item.Item.getItemFromBlock(pb), 0, 
+			new ModelResourceLocation(MODID+":"+pb.name, "inventory"));
 	}
     
     private void registerItemRender(Item i, String itemName){

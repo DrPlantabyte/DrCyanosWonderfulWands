@@ -72,7 +72,7 @@ public class EntityLightWisp extends net.minecraft.entity.EntityLivingBase{
 	private int getLight(BlockPos coord){
 		if(coord.getY() < 0 || coord.getY() > 255) return 16;
 		IBlockState bs = worldObj.getBlockState(coord);
-		if(bs.getBlock().isSolidFullCube()) return 16;
+		if(bs.getBlock().isFullBlock()) return 16;
 		if(!(worldObj.getChunkFromBlockCoords(coord).isLoaded())) return 16;
 		return worldObj.getChunkFromBlockCoords(coord).getLightFor(EnumSkyBlock.BLOCK, coord);
 	}

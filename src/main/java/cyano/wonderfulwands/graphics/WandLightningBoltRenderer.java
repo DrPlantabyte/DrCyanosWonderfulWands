@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderArrow;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.util.MathHelper;
@@ -54,11 +55,11 @@ public class WandLightningBoltRenderer extends Render{
         {
             GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
             GL11.glNormal3f(0.0F, 0.0F, f10);
-            tessellator.getWorldRenderer().startDrawingQuads();
-            tessellator.getWorldRenderer().addVertexWithUV(0.0D, -2.0D, 0.0D, (double)0, (double)0);
-            tessellator.getWorldRenderer().addVertexWithUV(size, -2.0D, 0.0D, entity.length, (double)0);
-            tessellator.getWorldRenderer().addVertexWithUV(size, 2.0D, 0.0D, entity.length, (double)1);
-            tessellator.getWorldRenderer().addVertexWithUV(0.0D, 2.0D, 0.0D, (double)0, (double)1);
+            tessellator.getWorldRenderer().begin(7, DefaultVertexFormats.POSITION_TEX_NORMAL);
+            tessellator.getWorldRenderer().pos(0.0D, -2.0D, 0.0D).tex( (double)0, (double)0);
+            tessellator.getWorldRenderer().pos(size, -2.0D, 0.0D).tex( entity.length, (double)0);
+            tessellator.getWorldRenderer().pos(size, 2.0D, 0.0D).tex(  entity.length, (double)1);
+            tessellator.getWorldRenderer().pos(0.0D, 2.0D, 0.0D).tex(  (double)0, (double)1);
             tessellator.draw();
         }
 

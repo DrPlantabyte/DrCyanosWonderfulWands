@@ -82,7 +82,7 @@ public class WandOfIce extends Wand {
 			} else {
 				w.setBlockState(coord, Blocks.snow.getDefaultState());
 			}
-		}else if(target.isSolidFullCube() && w.isAirBlock(coord.up())){
+		}else if(target.isFullCube() && w.isAirBlock(coord.up())){
 			w.setBlockState(coord.up(), Blocks.snow_layer.getDefaultState());
 			return 1;
 		}

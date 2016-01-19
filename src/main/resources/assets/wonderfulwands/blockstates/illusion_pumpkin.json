@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "normal": [
+            { "model": "pumpkin" },
+            { "model": "pumpkin", "y": 180 },
+            { "model": "pumpkin", "y": 270 },
+            { "model": "pumpkin", "y": 90 }
+        ]
+    }
+}

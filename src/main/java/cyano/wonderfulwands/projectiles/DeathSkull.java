@@ -65,7 +65,7 @@ public class DeathSkull extends EntityWitherSkull {
 					victim.attackEntityFrom(DamageSource.magic, 10);
 				}
 			}
-			this.worldObj.newExplosion(this, this.posX, this.posY, this.posZ, explosionForce, false, this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing"));
+			this.worldObj.newExplosion(this, this.posX, this.posY, this.posZ, explosionForce, false, this.worldObj.getGameRules().getBoolean("mobGriefing"));
 			this.setDead();
 		}
 	}

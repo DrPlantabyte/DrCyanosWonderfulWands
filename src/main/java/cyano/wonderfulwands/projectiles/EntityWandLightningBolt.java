@@ -64,9 +64,9 @@ public class EntityWandLightningBolt  extends Entity{
         if (tag.hasKey("direction", 9))
         {
             NBTTagList nbttaglist = tag.getTagList("direction", 6);
-            this.motionX = nbttaglist.getFloat(0);
-            this.motionY = nbttaglist.getFloat(1);
-            this.motionZ = nbttaglist.getFloat(2);
+            this.motionX = nbttaglist.getFloatAt(0);
+            this.motionY = nbttaglist.getFloatAt(1);
+            this.motionZ = nbttaglist.getFloatAt(2);
         }
         else
         {

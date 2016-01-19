@@ -21,16 +21,10 @@ public class MagicMissileRenderer extends RenderArrow{
 	/**
      * Returns the location of an entity's texture. 
      */
-    protected ResourceLocation getEntityTexture(EntityMagicMissile p_110775_1_)
+	@Override
+    protected ResourceLocation getEntityTexture(EntityArrow p_110775_1_)
     {
         return arrowTextures;
     }
 
-    /**
-     * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
-     */
-    @Override protected ResourceLocation getEntityTexture(Entity p_110775_1_)
-    {
-        return this.getEntityTexture((EntityMagicMissile)p_110775_1_);
-    }
 }
