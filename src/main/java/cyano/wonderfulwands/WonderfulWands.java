@@ -2,7 +2,6 @@ package cyano.wonderfulwands;
 
 
 import cyano.wonderfulwands.blocks.IllusoryBlock;
-import cyano.wonderfulwands.blocks.IllusoryGrassBlock;
 import cyano.wonderfulwands.blocks.MageLight;
 import cyano.wonderfulwands.entities.EntityLightWisp;
 import cyano.wonderfulwands.projectiles.EntityMagicMissile;
@@ -135,7 +134,7 @@ public class WonderfulWands {
 		IllusoryBlock illusion;
 		illusion = new IllusoryBlock(Blocks.dirt);
 		GameRegistry.registerBlock(illusion,illusion.name);
-		illusion = new IllusoryGrassBlock();
+		illusion = new IllusoryBlock(Blocks.grass);
 		GameRegistry.registerBlock(illusion,illusion.name);
 		illusion = new IllusoryBlock(Blocks.planks.getMapColor(Blocks.planks.getDefaultState()),"illusion_oak_planks",Blocks.planks);
 		GameRegistry.registerBlock(illusion,illusion.name);

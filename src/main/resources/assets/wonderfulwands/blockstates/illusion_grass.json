@@ -1,10 +1,10 @@
 {
     "variants": {
         "normal": [
-            { "model": "grass_normal" },
-            { "model": "grass_normal", "y": 90 },
-            { "model": "grass_normal", "y": 180 },
-            { "model": "grass_normal", "y": 270 }
+            { "model": "wonderfulwands:grass_normal" },
+            { "model": "wonderfulwands:grass_normal", "y": 90 },
+            { "model": "wonderfulwands:grass_normal", "y": 180 },
+            { "model": "wonderfulwands:grass_normal", "y": 270 }
         ]
     }
 }

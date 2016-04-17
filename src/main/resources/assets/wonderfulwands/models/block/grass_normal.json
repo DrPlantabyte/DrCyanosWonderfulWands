@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "wonderfulwands:blocks/grass_side",
+    "down": "wonderfulwands:blocks/grass_bottom",
+    "up": "wonderfulwands:blocks/grass_top",
+    "north": "wonderfulwands:blocks/grass_side",
+    "east": "wonderfulwands:blocks/grass_side",
+    "south": "wonderfulwands:blocks/grass_side",
+    "west": "wonderfulwands:blocks/grass_side"
+  }
+}
