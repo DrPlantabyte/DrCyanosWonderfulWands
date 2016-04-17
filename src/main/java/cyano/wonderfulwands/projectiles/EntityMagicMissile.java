@@ -31,6 +31,7 @@ public class EntityMagicMissile extends net.minecraft.entity.projectile.EntityAr
     {
         super(w, shooter);
 		init();
+		this.func_184547_a(shooter, shooter.rotationPitch, shooter.rotationYaw, 0.0F, 3.0F, 1.0F); // set velocity from shooter
     }
 
 
