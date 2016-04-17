@@ -1,6 +1,6 @@
 /README.txt
 /.classpath
-/forge-1.8-11.14.0.1269-1.8-changelog.txt
+/forge-*-changelog.txt
 /gradlew
 /gradlew.bat
 /bin/*
@@ -12,4 +12,11 @@
 *.index
 *~
 /temp/*
+/build/*
+/classes/*
+/.idea/*
 temp/*
+/run/*
+
+/bin/
+/extra/MinecraftModUtils/nbproject/private/
