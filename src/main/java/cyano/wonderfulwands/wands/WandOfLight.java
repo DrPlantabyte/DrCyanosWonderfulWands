@@ -1,21 +1,15 @@
 package cyano.wonderfulwands.wands;
 
 import cyano.wonderfulwands.WonderfulWands;
-import net.minecraft.block.Block;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLLog;
 
 public class WandOfLight extends Wand {
 	public static final String itemName = "wand_light";
@@ -44,45 +38,46 @@ public class WandOfLight extends Wand {
         return EnumAction.BOW;
     }
 
-	@Override  public ItemStack onItemRightClick(ItemStack srcItemStack, World world, EntityPlayer playerEntity){
-		 playerEntity.setItemInUse(srcItemStack, getMaxItemUseDuration(srcItemStack));
-	     return srcItemStack;
+	@Override  public ActionResult<ItemStack> onItemRightClick(ItemStack srcItemStack, World world, EntityPlayer playerEntity, EnumHand hand){
+		playerEntity.setActiveHand(hand);
+		return  new ActionResult(EnumActionResult.SUCCESS, srcItemStack);
 	 }
 	@Override public boolean onItemUse(ItemStack srcItemStack, EntityPlayer playerEntity, World world, BlockPos coord, EnumFacing blockFace, float par8, float par9, float par10){
-		return super.onItemUse(srcItemStack, playerEntity, world, coord,blockFace, par8, par9, par10);
+		return false;
 	}
-	@Override public void onPlayerStoppedUsing (ItemStack srcItemStack, World world, EntityPlayer playerEntity, int timeRemain){
+	@Override public void onPlayerStoppedUsing (ItemStack srcItemStack, World world, EntityLivingBase playerEntity, int timeRemain){
 		int chargetime = this.getMaxItemUseDuration(srcItemStack) - timeRemain;
 		if(chargetime < 3) return;
-		if (!playerEntity.capabilities.isCreativeMode)
-        {
-        	if(isOutOfCharge(srcItemStack)){
-        		// wand out of magic
-        		playSound(noChargeAttackSound,world,playerEntity);
-        	}
-        }
+		if (playerEntity instanceof EntityPlayer && !((EntityPlayer)playerEntity).capabilities.isCreativeMode)
+		{
+			if(isOutOfCharge(srcItemStack)){
+				// wand out of magic
+				playSound(noChargeAttackSound,world,playerEntity);
+				return;
+			}
+		}
 		
-		net.minecraft.util.Vec3 vector = playerEntity.getLookVec();
-		net.minecraft.util.Vec3 origin = (new Vec3(playerEntity.posX, playerEntity.posY + playerEntity.getEyeHeight(), playerEntity.posZ)).add(vector);
+		Vec3d vector = playerEntity.getLookVec();
+		Vec3d origin = (new Vec3d(playerEntity.posX, playerEntity.posY + playerEntity.getEyeHeight(), playerEntity.posZ)).add(vector);
 		
 		boolean success = placeMageLight(world, origin, vector, MAX_RANGE);
 		
 		if(success){
-	        playSound("note.pling",world,playerEntity);
-			if (!playerEntity.capabilities.isCreativeMode)
-	        {
-	        	srcItemStack.damageItem(1, playerEntity);
-	        }
+	        playSound(SoundEvents.block_note_pling,world,playerEntity);
+			if (playerEntity instanceof EntityPlayer && !((EntityPlayer)playerEntity).capabilities.isCreativeMode)
+			{
+				srcItemStack.damageItem(1, playerEntity);
+			}
 		}
 		
 	}
 
-	private boolean placeMageLight(World w, net.minecraft.util.Vec3 start, net.minecraft.util.Vec3 velocity, int rangeLimit) {
+	private boolean placeMageLight(World w, Vec3d start,  Vec3d velocity, int rangeLimit) {
 		BlockPos block = new BlockPos(start);
 		if(w.isAirBlock(block)){
-			net.minecraft.util.Vec3 pos = start; 
+			Vec3d pos = start;
 			for(int i = 0; i < rangeLimit; i++){
-				net.minecraft.util.Vec3 next = pos.add(velocity);
+				Vec3d next = pos.add(velocity);
 				BlockPos nextBlock = new BlockPos(next);
 				if(w.isAirBlock(nextBlock)){
 					// keep moving
@@ -92,11 +87,11 @@ public class WandOfLight extends Wand {
 					pos = next;
 					block = nextBlock;
 					if(pos.yCoord < 0 ){
-						pos = new net.minecraft.util.Vec3(pos.xCoord, 0, pos.yCoord);
+						pos = new Vec3d(pos.xCoord, 0, pos.yCoord);
 						break;
 					}
 					if(pos.yCoord > 255){
-						pos = new net.minecraft.util.Vec3(pos.xCoord, 255, pos.yCoord);
+						pos = new Vec3d(pos.xCoord, 255, pos.yCoord);
 						break;
 					}
 				} else {

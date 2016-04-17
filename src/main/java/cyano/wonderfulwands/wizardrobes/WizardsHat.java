@@ -1,24 +1,21 @@
 package cyano.wonderfulwands.wizardrobes;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
-
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.creativetab.CreativeTabs;
+import cyano.wonderfulwands.WonderfulWands;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import cyano.wonderfulwands.WonderfulWands;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Wizards and Witches hats are expensive head-slot items that are rendered in 
@@ -40,7 +37,7 @@ public class WizardsHat extends  net.minecraft.item.ItemArmor {
 	//private final WizardHatRenderer renderer;
 	
 	public WizardsHat( ) {
-		super( WonderfulWands.NONARMOR, 0, 0);
+		super( WonderfulWands.NONARMOR, 0, EntityEquipmentSlot.HEAD);
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+itemName);
 		this.setCreativeTab(WonderfulWands.robesTab);
 		// set values
@@ -52,29 +49,56 @@ public class WizardsHat extends  net.minecraft.item.ItemArmor {
 		return false;
 	}
 	
-	public void setPotionEffectID(ItemStack src, int potionEffectCode){
-		NBTTagCompound tag = new NBTTagCompound();
-		tag.setInteger("EffectID", potionEffectCode);
+	public void setPotionEffectID(ItemStack src, String potionEffectCode){
+		NBTTagCompound tag;
+		if(src.hasTagCompound() == false){
+			tag = new NBTTagCompound();
+		} else {
+			tag = src.getTagCompound();
+		}
+		tag.setString("EffectID", potionEffectCode);
 		src.setTagCompound(tag);
 	}
 	
-	public Integer getPotionEffectID(ItemStack src){
+	public String getPotionEffectID(ItemStack src){
 		if(src.hasTagCompound() == false) return null;
 		NBTTagCompound tag = src.getTagCompound();
 		if(tag.hasKey("EffectID")){
-			return tag.getInteger("EffectID");
+			return tag.getString("EffectID");
 		} else {
 			return null;
+		}
+	}
+
+
+	public void setPotionEffectLevel(ItemStack src, int level){
+		NBTTagCompound tag;
+		if(src.hasTagCompound() == false){
+			tag = new NBTTagCompound();
+		} else {
+			tag = src.getTagCompound();
+		}
+		tag.setByte("EffectLvl", (byte)level);
+		src.setTagCompound(tag);
+	}
+
+	public int getPotionEffectLevel(ItemStack src){
+		if(src.hasTagCompound() == false) return 0;
+		NBTTagCompound tag = src.getTagCompound();
+		if(tag.hasKey("EffectLvl")){
+			return tag.getByte("EffectLvl");
+		} else {
+			return 0;
 		}
 	}
 	
 	
 	@SideOnly(Side.CLIENT)
-	@Override public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot){
+	public net.minecraft.client.model.ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, net.minecraft.client.model.ModelBiped biped){
 		return cyano.wonderfulwands.ClientProxy.wizardHatRenderer;
 	}
 	
-	 @Override public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type)
+	 @Override public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type)
 	{
 		return WonderfulWands.MODID +":textures/models/armor/empty_armor_layer_1.png";
 	}
@@ -97,12 +121,16 @@ public class WizardsHat extends  net.minecraft.item.ItemArmor {
 					Collection<PotionEffect> c = player.getActivePotionEffects();
 					PotionEffect[] effect = c.toArray(new PotionEffect[c.size()]);
 					int i = world.rand.nextInt(effect.length);
-					int potionCode = effect[i].getPotionID();
+					String potionCode = effect[i].getPotion().getRegistryName().toString();
 					this.setPotionEffectID(src, potionCode);
-					player.removePotionEffect(potionCode);
+					this.setPotionEffectLevel(src,effect[i].getAmplifier());
+					player.removePotionEffect(effect[i].getPotion());
 				}
 			} else {
-				player.addPotionEffect(new PotionEffect(this.getPotionEffectID(src),potionDuration));
+				Potion pot = Potion.getPotionFromResourceLocation(this.getPotionEffectID(src));
+				if(pot == null) return;
+				int level = this.getPotionEffectLevel(src);
+				player.addPotionEffect(new PotionEffect(pot,potionDuration,level,false,false));
 			}
 		} 
 	}
@@ -113,9 +141,9 @@ public class WizardsHat extends  net.minecraft.item.ItemArmor {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean b){
 		super.addInformation(stack,player,list,b);
-		Integer potionID = this.getPotionEffectID(stack);
-		if(potionID != null && Potion.potionTypes[potionID] != null){
-			list.add(StatCollector.translateToLocal(Potion.potionTypes[potionID].getName()));
+		String potionID = this.getPotionEffectID(stack);
+		if(potionID != null && Potion.getPotionFromResourceLocation(potionID) != null){
+			list.add(I18n.translateToLocal(Potion.getPotionFromResourceLocation(potionID).getName()));
 		}
 	}
 

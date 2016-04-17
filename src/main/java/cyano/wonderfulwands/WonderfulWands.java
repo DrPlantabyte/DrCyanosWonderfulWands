@@ -1,42 +1,24 @@
 package cyano.wonderfulwands;
 
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Field;
-import java.util.Map;
-
 import cyano.wonderfulwands.blocks.IllusoryBlock;
 import cyano.wonderfulwands.blocks.IllusoryGrassBlock;
 import cyano.wonderfulwands.blocks.MageLight;
 import cyano.wonderfulwands.entities.EntityLightWisp;
 import cyano.wonderfulwands.projectiles.EntityMagicMissile;
 import cyano.wonderfulwands.projectiles.EntityWandLightningBolt;
-import cyano.wonderfulwands.wands.Wand;
-import cyano.wonderfulwands.wands.WandOfBridging;
-import cyano.wonderfulwands.wands.WandOfClimbing;
-import cyano.wonderfulwands.wands.WandOfDeath;
-import cyano.wonderfulwands.wands.WandOfFire;
-import cyano.wonderfulwands.wands.WandOfGreaterLight;
-import cyano.wonderfulwands.wands.WandOfGrowth;
-import cyano.wonderfulwands.wands.WandOfHarvesting;
-import cyano.wonderfulwands.wands.WandOfHealing;
-import cyano.wonderfulwands.wands.WandOfIce;
-import cyano.wonderfulwands.wands.WandOfIllusions;
-import cyano.wonderfulwands.wands.WandOfLight;
-import cyano.wonderfulwands.wands.WandOfLightning;
-import cyano.wonderfulwands.wands.WandOfMagicMissile;
-import cyano.wonderfulwands.wands.WandOfMining;
-import cyano.wonderfulwands.wands.WandOfStorms;
-import cyano.wonderfulwands.wands.WandOfTeleportation;
+import cyano.wonderfulwands.wands.*;
 import cyano.wonderfulwands.wizardrobes.TopHat;
 import cyano.wonderfulwands.wizardrobes.WitchsHat;
 import cyano.wonderfulwands.wizardrobes.WizardingArmor;
 import cyano.wonderfulwands.wizardrobes.WizardsHat;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
@@ -52,6 +34,10 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
+import java.util.Map;
 
 @Mod(modid = WonderfulWands.MODID, name=WonderfulWands.NAME, version = WonderfulWands.VERSION)
 public class WonderfulWands {
@@ -105,6 +91,8 @@ public class WonderfulWands {
 
 	public static MyCreativeTab robesTab;
 	public static MyCreativeTab wandsTab;
+
+	private final EntityEquipmentSlot[] armorSlots = {EntityEquipmentSlot.HEAD, EntityEquipmentSlot.CHEST, EntityEquipmentSlot.LEGS, EntityEquipmentSlot.FEET};
 	
 	// Mark this method for receiving an FMLEvent (in this case, it's the FMLPreInitializationEvent)
     @EventHandler public void preInit(FMLPreInitializationEvent event)
@@ -121,8 +109,8 @@ public class WonderfulWands {
     	altRecipes = config.getBoolean("alternative_recipes", "options", false, 
 				"If true, then robes and wands will use different recipes than normal");
 		
-    	NONARMOR = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("NONARMOR","empty_armor",10,new int[]{0, 0, 0, 0},0);
-    	WIZARDROBES = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("WIZARDCLOTH","wizard_robes", 15,new int[]{1, 1, 1, 1},40);
+    	NONARMOR = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("NONARMOR","empty_armor",10,new int[]{0, 0, 0, 0},0, SoundEvents.item_armor_equip_leather);
+    	WIZARDROBES = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("WIZARDCLOTH","wizard_robes", 15,new int[]{1, 1, 1, 1},40, SoundEvents.item_armor_equip_leather);
     	
 		wandGeneric = new Item().setUnlocalizedName(MODID+"_wand_ordinary").setCreativeTab(wandsTab);
 		wandOfMagicMissile = new WandOfMagicMissile();
@@ -247,14 +235,17 @@ public class WonderfulWands {
 		// Wizarding Robes
 		int robesRenderIndex = proxy.getArmorRenderIndex(MODID+"_robes");
 		for(int colorIndex = 0; colorIndex < 16; colorIndex++){
-			for(int armorSlot = 0; armorSlot < 4; armorSlot++){
+			int slotIndex = 0;
+			for(int i = 0; i < 4; i++){
+				EntityEquipmentSlot armorSlot = armorSlots[slotIndex];
 				String color = colorSuffixes[colorIndex];
 				WizardingArmor r = new WizardingArmor(WIZARDROBES,color,armorSlot);
-				GameRegistry.registerItem(r, "robes_"+color+"_"+WizardingArmor.slotName[armorSlot]);
-				OreDictionary.registerOre(WizardingArmor.slotName[armorSlot]+"WizardRobes", r);
+				GameRegistry.registerItem(r, "robes_"+color+"_"+WizardingArmor.slotName.get(armorSlot));
+				OreDictionary.registerOre(WizardingArmor.slotName.get(armorSlot)+"WizardRobes", r);
 				OreDictionary.registerOre("wizardRobes", r);
-				GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(r ,1),WizardingArmor.slotName[armorSlot]+"WizardRobes",oreDictionaryColors[colorIndex]));
-				robes[colorIndex][armorSlot] = r;
+				GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(r ,1),WizardingArmor.slotName.get(armorSlot)+"WizardRobes",oreDictionaryColors[colorIndex]));
+				robes[colorIndex][slotIndex] = r;
+				slotIndex++;
 			}
 			ItemStack cloth = new ItemStack(Blocks.wool,1,15-colorIndex);
 			// metadata for wool: white, orange, magenta, lightblue, yellow lime green, pink, gray, light gray, cyan, purple, blue, brown, green, red, black
@@ -380,7 +371,7 @@ public class WonderfulWands {
     	
     	for(int color = 0; color < robes.length; color++){
     		for(int slot = 0; slot < robes[0].length; slot++){
-    			registerItemRender(robes[color][slot], "robes_"+colorSuffixes[color]+"_"+WizardingArmor.slotName[slot]);
+    			registerItemRender(robes[color][slot], "robes_"+colorSuffixes[color]+"_"+WizardingArmor.slotName.get(armorSlots[slot]));
     		}
     	}
 

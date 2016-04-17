@@ -1,22 +1,16 @@
 package cyano.wonderfulwands.graphics;
 
-import net.minecraft.client.Minecraft;
+import cyano.wonderfulwands.WonderfulWands;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import cyano.wonderfulwands.WonderfulWands;
 
 @SideOnly(Side.CLIENT)
 public class LightWispRenderer extends Render{
@@ -31,12 +25,12 @@ public class LightWispRenderer extends Render{
     public void doRender(final Entity e, final double x, final double y, final double z, final float f1, final float f2) {
         GlStateManager.pushMatrix();
         this.bindEntityTexture(e);
-        GlStateManager.translate((float)x, (float)y, (float)z);
+        GlStateManager.translate(x, y+0.5, z);
         GlStateManager.enableRescaleNormal();
      //   final float scale = this.scale;
      //   GlStateManager.scale(scale / 1.0f, scale / 1.0f, scale / 1.0f);
         final Tessellator instance = Tessellator.getInstance();
-        final WorldRenderer worldRenderer = instance.getWorldRenderer();
+        final VertexBuffer worldRenderer = instance.getBuffer();
         final float minU = 0;
         final float maxU = 1;
         final float minV = 0;

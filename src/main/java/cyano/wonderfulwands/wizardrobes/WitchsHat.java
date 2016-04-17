@@ -1,10 +1,9 @@
 package cyano.wonderfulwands.wizardrobes;
 
 import cyano.wonderfulwands.WonderfulWands;
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -27,7 +26,7 @@ public class WitchsHat extends WizardsHat {
 
 	
 	@SideOnly(Side.CLIENT)
-	@Override public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot){
+	public net.minecraft.client.model.ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, net.minecraft.client.model.ModelBiped biped){
 		return cyano.wonderfulwands.ClientProxy.witchHatRenderer;
 	}
 	

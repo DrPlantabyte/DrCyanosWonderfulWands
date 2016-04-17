@@ -1,20 +1,20 @@
 package cyano.wonderfulwands.util;
 
-import java.util.List;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import java.util.List;
+
 public abstract class RayTrace {
-	public static MovingObjectPosition rayTraceBlocksAndEntities(World w, double maxRange, EntityLivingBase source){
+	public static RayTraceResult rayTraceBlocksAndEntities(World w, double maxRange, EntityLivingBase source){
 		double rangeSqr = maxRange * maxRange;
-		Vec3 rayOrigin = new Vec3(source.posX, source.posY + source.getEyeHeight(), source.posZ);
-		Vec3 rayDirection = source.getLookVec();
+		Vec3d rayOrigin = new Vec3d(source.posX, source.posY + source.getEyeHeight(), source.posZ);
+		Vec3d rayDirection = source.getLookVec();
 		BlockPos srcPos = source.getPosition();
 		AxisAlignedBB aoi = new AxisAlignedBB(srcPos.getX() - maxRange, srcPos.getY() - maxRange, srcPos.getZ() - maxRange,
 				srcPos.getX() + maxRange, srcPos.getY() + maxRange, srcPos.getZ() + maxRange);
@@ -39,16 +39,16 @@ public abstract class RayTrace {
 		if(closestEntity == null) {
 			return w.rayTraceBlocks(rayOrigin, rayOrigin.add(mul(rayDirection, maxRange)), true, false, false);
 		} else {
-			Vec3 pos = new Vec3(closestEntity.posX, closestEntity.posY+closestEntity.getEyeHeight(), closestEntity.posZ);
-			MovingObjectPosition entityCollision = new MovingObjectPosition(closestEntity, pos);
+			Vec3d pos = new Vec3d(closestEntity.posX, closestEntity.posY+closestEntity.getEyeHeight(), closestEntity.posZ);
+			RayTraceResult entityCollision = new RayTraceResult(closestEntity, pos);
 			return entityCollision;
 		}
 	}
 	
-	public static boolean rayIntersectsBoundingBox(Vec3 rayOrigin, Vec3 rayDirection, AxisAlignedBB box){
+	public static boolean rayIntersectsBoundingBox(Vec3d rayOrigin, Vec3d rayDirection, AxisAlignedBB box){
 		if(box == null) return false;
 		// algorithm from http://gamedev.stackexchange.com/questions/18436/most-efficient-aabb-vs-ray-collision-algorithms
-		Vec3 inverse = new Vec3(1.0 / rayDirection.xCoord, 1.0 / rayDirection.yCoord, 1.0 / rayDirection.zCoord);
+		Vec3d inverse = new Vec3d(1.0 / rayDirection.xCoord, 1.0 / rayDirection.yCoord, 1.0 / rayDirection.zCoord);
 		double t1 = (box.minX - rayOrigin.xCoord)*inverse.xCoord;
 		double t2 = (box.maxX- rayOrigin.xCoord)*inverse.xCoord;
 		double t3 = (box.minY - rayOrigin.yCoord)*inverse.yCoord;
@@ -74,8 +74,8 @@ public abstract class RayTrace {
 		return true;
 	}
 	
-	private static Vec3 mul(Vec3 a, double b){
-		return new Vec3(a.xCoord * b, a.yCoord * b, a.zCoord * b);
+	private static Vec3d mul(Vec3d a, double b){
+		return new Vec3d(a.xCoord * b, a.yCoord * b, a.zCoord * b);
 	}
 	private static double max(double a, double b){
 		return Math.max(a, b);

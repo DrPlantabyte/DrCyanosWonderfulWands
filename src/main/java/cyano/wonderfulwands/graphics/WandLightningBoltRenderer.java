@@ -1,21 +1,17 @@
 package cyano.wonderfulwands.graphics;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
+import cyano.wonderfulwands.WonderfulWands;
+import cyano.wonderfulwands.projectiles.EntityWandLightningBolt;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderArrow;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.relauncher.Side;
-import cyano.wonderfulwands.WonderfulWands;
-import cyano.wonderfulwands.projectiles.EntityWandLightningBolt;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 @SideOnly(Side.CLIENT)
 public class WandLightningBoltRenderer extends Render{
@@ -55,11 +51,11 @@ public class WandLightningBoltRenderer extends Render{
         {
             GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
             GL11.glNormal3f(0.0F, 0.0F, f10);
-            tessellator.getWorldRenderer().begin(7, DefaultVertexFormats.POSITION_TEX_NORMAL);
-            tessellator.getWorldRenderer().pos(0.0D, -2.0D, 0.0D).tex( (double)0, (double)0);
-            tessellator.getWorldRenderer().pos(size, -2.0D, 0.0D).tex( entity.length, (double)0);
-            tessellator.getWorldRenderer().pos(size, 2.0D, 0.0D).tex(  entity.length, (double)1);
-            tessellator.getWorldRenderer().pos(0.0D, 2.0D, 0.0D).tex(  (double)0, (double)1);
+            tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX_NORMAL);
+            tessellator.getBuffer().pos(0.0D, -2.0D, 0.0D).tex( (double)0, (double)0);
+            tessellator.getBuffer().pos(size, -2.0D, 0.0D).tex( entity.length, (double)0);
+            tessellator.getBuffer().pos(size, 2.0D, 0.0D).tex(  entity.length, (double)1);
+            tessellator.getBuffer().pos(0.0D, 2.0D, 0.0D).tex(  (double)0, (double)1);
             tessellator.draw();
         }
 
@@ -85,8 +81,8 @@ public class WandLightningBoltRenderer extends Render{
         return this.getEntityTexture((EntityWandLightningBolt)p_110775_1_);
     }
     
-    @Override public void doRender(Entity p_76986_1_, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_)
+    @Override public void doRender(Entity e, double x, double y, double z, float yaw, float pitch)
     {
-        this.doRender((EntityWandLightningBolt)p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
+        this.doRender((EntityWandLightningBolt)e, x, y, z, yaw, pitch);
     }
 }

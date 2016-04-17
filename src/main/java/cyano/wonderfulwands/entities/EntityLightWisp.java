@@ -1,14 +1,19 @@
 package cyano.wonderfulwands.entities;
 
 import cyano.wonderfulwands.WonderfulWands;
-import cyano.wonderfulwands.blocks.MageLight;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLLog;
+
+import java.util.Collections;
+import java.util.Random;
 
 public class EntityLightWisp extends net.minecraft.entity.EntityLivingBase{
 
@@ -16,13 +21,15 @@ public class EntityLightWisp extends net.minecraft.entity.EntityLivingBase{
 	short lifeCounter = LIFESPAN;
 	static final long UPDATE_INTERVAL = 8;
 	private final double dt = 4.0 / UPDATE_INTERVAL;
-	
+	private BlockPos lastPos = new BlockPos(0,1,0);
+
 	private long nextUpdateTime = 0;
 	public EntityLightWisp(World w) {
 		super(w);
 		this.lifeCounter = LIFESPAN;
+		this.isImmuneToFire = true;
 	}
-	
+
 	public EntityLightWisp(World w, BlockPos startingPosition) {
 		this(w);
 		this.posX = startingPosition.getX() + 0.5;
@@ -30,6 +37,12 @@ public class EntityLightWisp extends net.minecraft.entity.EntityLivingBase{
 		this.posZ = startingPosition.getZ() + 0.5;
 	}
 
+	@Override
+	protected void damageEntity(DamageSource src, float amount){
+		// immune to wall suffocation
+		if(DamageSource.inWall.equals(src.damageType)) return;
+		super.damageEntity(src,amount);
+	}
 	
 	@Override
 	public void readFromNBT(NBTTagCompound root) {
@@ -62,17 +75,38 @@ public class EntityLightWisp extends net.minecraft.entity.EntityLivingBase{
 			} else {
 				wanderFrom(blockCoord, light);
 			}
+			lastPos = blockCoord;
 		}
 		if(lifeCounter <= 0){
 			worldObj.removeEntity(this);
 		}
 	}
-	
+
+	@Override
+	public Iterable<ItemStack> getArmorInventoryList() {
+		return Collections.EMPTY_LIST;
+	}
+
+	@Override
+	public ItemStack getItemStackFromSlot(EntityEquipmentSlot s) {
+		return null;
+	}
+
+	@Override
+	public void setItemStackToSlot(EntityEquipmentSlot s, ItemStack i) {
+		// do nothing
+	}
+
+	@Override
+	public EnumHandSide getPrimaryHand() {
+		return EnumHandSide.LEFT;
+	}
+
 
 	private int getLight(BlockPos coord){
 		if(coord.getY() < 0 || coord.getY() > 255) return 16;
 		IBlockState bs = worldObj.getBlockState(coord);
-		if(bs.getBlock().isFullBlock()) return 16;
+		if(bs.isFullBlock()) return 16;
 		if(!(worldObj.getChunkFromBlockCoords(coord).isLoaded())) return 16;
 		return worldObj.getChunkFromBlockCoords(coord).getLightFor(EnumSkyBlock.BLOCK, coord);
 	}
@@ -84,11 +118,13 @@ public class EntityLightWisp extends net.minecraft.entity.EntityLivingBase{
 	
 	public void turnIntoMageLight(){
 		worldObj.setBlockState(getPosition(), WonderfulWands.mageLight.getDefaultState());
+		this.isDead = true;
 		worldObj.removeEntity(this);
 	}
 
 	
 	public void wanderFrom(BlockPos blockCoord, int light) {
+		// first, check if neighbor is darker than here
 		BlockPos target = null;
 		BlockPos[] coords = new BlockPos[4];
 		coords[0] = blockCoord.north();
@@ -97,20 +133,42 @@ public class EntityLightWisp extends net.minecraft.entity.EntityLivingBase{
 		coords[3] = blockCoord.west();
 		for(int i = 0; i < coords.length; i++){
 			coords[i] = moveToGroundLevel(coords[i]);
-			
 			int l = getLight(coords[i]);
 			if(l < light){
 				light = l;
 				target = coords[i];
 			}
 		}
-		if(target == null || worldObj.rand.nextInt(16) == 0){
-			final float r = 12;
-			float theta = worldObj.rand.nextFloat() * 6.2832f;
-			float dx = r*net.minecraft.util.MathHelper.sin(theta);
-			float dz = r*net.minecraft.util.MathHelper.cos(theta);
+		// if target is still null, then we are stuck in a local minimum, look further afield
+		if(target == null){
+			coords = new BlockPos[8];
+			coords[0] = blockCoord.add(-12, 0, 0);
+			coords[1] = blockCoord.add(-8, 0, -8);
+			coords[2] = blockCoord.add(0, 0, -12);
+			coords[3] = blockCoord.add(8, 0, -8);
+			coords[4] = blockCoord.add(12, 0, 0);
+			coords[5] = blockCoord.add(8, 0, 8);
+			coords[6] = blockCoord.add(0, 0, 12);
+			coords[7] = blockCoord.add(-8, 0, 8);
+			for(int i = 0; i < coords.length; i++){
+				coords[i] = moveToGroundLevel(coords[i]);
+				int l = getLight(coords[i]);
+				if(l < light){
+					light = l;
+					target = coords[i];
+				}
+			}
+		}
+
+		// if target is still null, then we are stuck in a brightly lit area, make long jump in random direction
+		if(target == null){
+			final float r = 24;
+			float theta = this.getEntityWorld().rand.nextFloat() * 6.2832f;
+			float dx = r * MathHelper.sin(theta);
+			float dz = r * MathHelper.cos(theta);
 			target = moveToGroundLevel(blockCoord.add(dx,0,dz));
 		}
+
 		this.setPosition(target.getX()+0.5, target.getY(), target.getZ()+0.5);
 	}
 
@@ -128,31 +186,19 @@ public class EntityLightWisp extends net.minecraft.entity.EntityLivingBase{
 		}
 		return coord;
 	}
-	
-	@Override
-	public ItemStack getHeldItem() {
-		return inv[0];
+
+	@Override public boolean canBreatheUnderwater() {
+		return true;
 	}
 
-	@Override
-	public ItemStack getEquipmentInSlot(int p0) {
-		return inv[0];
+
+	private static void shuffle(Object[] in, Random prng){
+		for(int i = in.length - 1; i > 1; i--){
+			Object o = in[i];
+			int r = prng.nextInt(i);
+			in[i] = in[r];
+			in[r] = o;
+		}
 	}
 
-	@Override
-	public ItemStack getCurrentArmor(int p0) {
-		return inv[0];
-	}
-
-	@Override
-	public void setCurrentItemOrArmor(int p0, ItemStack p1) {
-		// do nothing
-	}
-
-	private final ItemStack[] inv = new ItemStack[1];
-	@Override
-	public ItemStack[] getInventory() {
-		return inv;
-	}
-	
 }

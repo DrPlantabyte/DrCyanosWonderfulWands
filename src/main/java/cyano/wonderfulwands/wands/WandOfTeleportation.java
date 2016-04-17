@@ -1,16 +1,15 @@
 package cyano.wonderfulwands.wands;
 
-import net.minecraft.creativetab.CreativeTabs;
+import cyano.wonderfulwands.WonderfulWands;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import cyano.wonderfulwands.WonderfulWands;
 
 public class WandOfTeleportation extends Wand {
 	public static final String itemName = "wand_teleportation";
@@ -38,33 +37,40 @@ public class WandOfTeleportation extends Wand {
         return EnumAction.BOW;
     }
 
-	@Override  public ItemStack onItemRightClick(ItemStack srcItemStack, World world, EntityPlayer playerEntity){
-		 playerEntity.setItemInUse(srcItemStack, getMaxItemUseDuration(srcItemStack));
-	     return srcItemStack;
-	 }
-	@Override public boolean onItemUse(ItemStack srcItemStack, EntityPlayer playerEntity, World world, BlockPos coord, EnumFacing blockFace, float par8, float par9, float par10){
-		return super.onItemUse(srcItemStack, playerEntity, world, coord,blockFace, par8, par9, par10);
+	@Override public ActionResult<ItemStack> onItemRightClick(ItemStack srcItemStack, World world, EntityPlayer playerEntity, EnumHand hand){
+		playerEntity.setActiveHand(hand);
+		return  new ActionResult(EnumActionResult.SUCCESS, srcItemStack);
 	}
-	@Override public void onPlayerStoppedUsing (ItemStack srcItemStack, World world, EntityPlayer playerEntity, int timeRemain){
+
+	/**
+	 * Callback for item usage, invoked when right-clicking on a block. If the item
+	 * does something special on right clicking, he will have one of those. Return
+	 * True if something happen and false if it don't. This is for ITEMS, not BLOCKS
+	 */
+	@Override public boolean onItemUse(ItemStack srcItemStack, EntityPlayer playerEntity, World world, BlockPos coord, EnumFacing blockFace, float par8, float par9, float par10){
+		return false;
+	}
+
+	@Override public void onPlayerStoppedUsing (ItemStack srcItemStack, World world, EntityLivingBase playerEntity, int timeRemain){
 		int chargetime = this.getMaxItemUseDuration(srcItemStack) - timeRemain;
 		if(chargetime < 3) return;
-		if (!playerEntity.capabilities.isCreativeMode)
-        {
-        	if(isOutOfCharge(srcItemStack)){
-        		// wand out of magic
-        		playSound(noChargeAttackSound,world,playerEntity);
-        		return;
-        	}
-        	srcItemStack.damageItem(1, playerEntity);
-        }
+		if (playerEntity instanceof EntityPlayer && !((EntityPlayer)playerEntity).capabilities.isCreativeMode)
+		{
+			if(isOutOfCharge(srcItemStack)){
+				// wand out of magic
+				playSound(noChargeAttackSound,world,playerEntity);
+				return;
+			}
+			srcItemStack.damageItem(1, playerEntity);
+		}
 
-	        playSound("mob.endermen.portal",world,playerEntity);
+		playSound(SoundEvents.entity_endermen_teleport,world,playerEntity);
 			
 			final int maxRange = 160;
-			Vec3 origin = (new Vec3(playerEntity.posX, playerEntity.posY + playerEntity.getEyeHeight(), playerEntity.posZ));
-			Vec3 vector = playerEntity.getLookVec();
-			Vec3 pos = origin;
-			Vec3 next = pos;
+			Vec3d origin = (new Vec3d(playerEntity.posX, playerEntity.posY + playerEntity.getEyeHeight(), playerEntity.posZ));
+			Vec3d vector = playerEntity.getLookVec();
+			Vec3d pos = origin;
+			Vec3d next = pos;
 			BlockPos coord = new BlockPos(pos);
 			
 			for(int i = 0; i < maxRange; i++){
@@ -95,7 +101,7 @@ public class WandOfTeleportation extends Wand {
 			if(world.isRemote)playerEntity.setVelocity(0, 0, 0);
 			playerEntity.fallDistance = 0;
 
-	        playSound("mob.endermen.portal",world,playerEntity);
+		playSound(playerEntity.getEntityWorld(),next,12,SoundEvents.entity_endermen_teleport);
 	}
 
 }

@@ -1,21 +1,25 @@
 package cyano.wonderfulwands.blocks;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-
-import cyano.wonderfulwands.WonderfulWands;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 public class IllusoryBlock extends net.minecraft.block.Block{
 
@@ -45,7 +49,7 @@ public class IllusoryBlock extends net.minecraft.block.Block{
 		super(Material.carpet, color);
 		this.setCreativeTab(CreativeTabs.tabMisc);
 		this.setHardness(0.0F);
-		this.setStepSound(this.soundTypeCloth);
+		this.setStepSound(SoundType.CLOTH);
 		this.name = name;
 		this.setUnlocalizedName(sourceBlockUnlocalizedName);
 		blockLookup.put(sourceBlock, this);
@@ -59,13 +63,16 @@ public class IllusoryBlock extends net.minecraft.block.Block{
 		return Collections.unmodifiableMap(blockLookup);
 	}
 
-	/**
-	 * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
-	 * cleared to be reused)
-	 */
-	@Override public AxisAlignedBB getCollisionBoundingBox(World w, BlockPos coord, IBlockState state)
-	{
-		return null;
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		// for selection
+		return FULL_BLOCK_AABB;
+	}
+
+	@Override
+	public AxisAlignedBB getSelectedBoundingBox(IBlockState blockState, World worldIn, BlockPos pos) {
+		// for collisions
+		return NULL_AABB;
 	}
 
 
@@ -76,7 +83,7 @@ public class IllusoryBlock extends net.minecraft.block.Block{
 	}
 	
 	@Override
-	protected boolean canSilkHarvest()
+	public boolean canSilkHarvest(World world, BlockPos pos, IBlockState state, EntityPlayer player)
 	{
 		return true;
 	}
@@ -84,16 +91,18 @@ public class IllusoryBlock extends net.minecraft.block.Block{
 	 * Is this block (a) opaque and (b) a full 1m cube?  This determines whether or not to render the shared face of two
 	 * adjacent blocks and also whether the player can attach torches, redstone wire, etc to this block.
 	 */
-	@Override public boolean isOpaqueCube()
+	@Override public boolean isOpaqueCube(IBlockState bs)
 	{
 		return false;
 	}
 
-	@Override public boolean isFullCube(){
+	@Override public boolean isFullCube(IBlockState bs){
 		return false;
 	}
 
-	@Override public EnumWorldBlockLayer getBlockLayer(){
-		return EnumWorldBlockLayer.SOLID;
+	@SideOnly(Side.CLIENT)
+	public BlockRenderLayer getBlockLayer()
+	{
+		return BlockRenderLayer.SOLID;
 	}
 }

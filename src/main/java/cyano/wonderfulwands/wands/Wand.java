@@ -1,26 +1,27 @@
 package cyano.wonderfulwands.wands;
 
-import java.util.List;
-
 import cyano.wonderfulwands.WonderfulWands;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.util.StatCollector;
+import net.minecraft.network.play.server.SPacketCustomSound;
+import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.List;
+
 public abstract class Wand extends Item {
 	/** vanilla minecraft sound to play when you try to use a wand that has no charge left */
-    public static String noChargeAttackSound = "random.bow";
-	/**
-	 * Default constructor
-	 * @param itemID id of this item
-	 */
+    public static SoundEvent noChargeAttackSound = SoundEvents.entity_item_pickup;
+
 	public Wand(int numCharges) {
 		super();
         this.maxStackSize = 1;
@@ -54,15 +55,22 @@ public abstract class Wand extends Item {
     	return srcItemStack.getItemDamage() >= (srcItemStack.getMaxDamage() - 1);
     }
     /** plays a sound at the player location */
-    protected void playSound(String soundID, World world, EntityPlayer playerEntity){
-    	 if (!world.isRemote)
-         {
-    		 world.playSoundAtEntity(playerEntity, soundID, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
-         }
+    protected void playSound(SoundEvent sound, World world, Entity playerEntity){
+		playSound(world,playerEntity.getPositionVector().addVector(0,1,0),12, sound);
     }
     
     public abstract int getBaseRepairCost();
-    
+
+	@Override
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World w, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ){
+		if(onItemUse(stack,player,w,pos,facing,hitX,hitY,hitZ)){
+			return EnumActionResult.SUCCESS;
+		}
+		return EnumActionResult.PASS;
+	}
+
+	protected abstract boolean onItemUse(ItemStack srcItemStack, EntityPlayer playerEntity, World world, BlockPos coord, EnumFacing blockFace, float partialX, float partialY, float partialZ);
+
     
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean b){
@@ -71,5 +79,38 @@ public abstract class Wand extends Item {
 		int max = stack.getMaxDamage() - 1;
 		sb.append(max - stack.getItemDamage()).append('/').append(max);
 		list.add(sb.toString());
+	}
+
+	protected void playSound(World w, Vec3d position, double range, SoundEvent sound){
+		playSound(w,position,range,sound,1.0F,1.0F);
+	}
+	protected void playSound(World w, Vec3d position, double range, SoundEvent sound, float volume, float pitch){
+		if(w.isRemote)return;
+		AxisAlignedBB area = new AxisAlignedBB(
+				position.xCoord - range,position.yCoord - range,position.zCoord - range,
+				position.xCoord + range,position.yCoord + range,position.zCoord + range
+				);
+
+		List<EntityPlayerMP> players = w.getEntitiesWithinAABB(EntityPlayerMP.class, area);
+		SPacketCustomSound soundPacket = new SPacketCustomSound(sound.getRegistryName().toString(), SoundCategory.PLAYERS,
+				position.xCoord, position.yCoord, position.zCoord, volume, pitch);
+		for(EntityPlayerMP player : players){
+			player.playerNetServerHandler.sendPacket(soundPacket);
+		}
+	}
+	protected void playFadedSound(World w, Vec3d position, double range, SoundEvent sound, float volume, float pitch){
+		if(w.isRemote)return;
+		AxisAlignedBB area = new AxisAlignedBB(
+				position.xCoord - range,position.yCoord - range,position.zCoord - range,
+				position.xCoord + range,position.yCoord + range,position.zCoord + range
+		);
+		List<EntityPlayerMP> players = w.getEntitiesWithinAABB(EntityPlayerMP.class, area);
+		for(EntityPlayerMP player : players){
+			float distSqr = (float)player.getPositionVector().squareDistanceTo(position);
+			float localVolume = Math.min(volume,volume/distSqr);
+			SPacketCustomSound soundPacket = new SPacketCustomSound(sound.getRegistryName().toString(), SoundCategory.PLAYERS,
+					position.xCoord, position.yCoord, position.zCoord, localVolume, pitch);
+			player.playerNetServerHandler.sendPacket(soundPacket);
+		}
 	}
 }

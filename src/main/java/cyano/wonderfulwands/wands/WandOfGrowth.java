@@ -3,18 +3,16 @@ package cyano.wonderfulwands.wands;
 import cyano.wonderfulwands.WonderfulWands;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStoneBrick;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class WandOfGrowth extends Wand {
@@ -47,7 +45,7 @@ public class WandOfGrowth extends Wand {
         }
 		boolean success = growBlock(playerEntity,world,coord);
 		if(success){
-	        playSound("random.orb",world,playerEntity);
+	        playSound(SoundEvents.entity_experience_orb_pickup,world,playerEntity);
 			if (!playerEntity.capabilities.isCreativeMode)
 	        {
 	        	srcItemStack.damageItem(1, playerEntity);
@@ -56,15 +54,7 @@ public class WandOfGrowth extends Wand {
 		return success;
 		
 	}
-	/**
-	 * Acts like bonemeal, but also grows reeds and cactus and turns cobblestone/stone brick into their mossy equivalents
-	 * @param playerEntity
-	 * @param world
-	 * @param targetX
-	 * @param targetY
-	 * @param targetZ
-	 * @return True if anything happened, false otherwise (invalid target)
-	 */
+
 	protected boolean growBlock(EntityPlayer playerEntity, World world, BlockPos coord){
 		IBlockState targetBS = world.getBlockState(coord); 
 		Block targetBlock = targetBS.getBlock();

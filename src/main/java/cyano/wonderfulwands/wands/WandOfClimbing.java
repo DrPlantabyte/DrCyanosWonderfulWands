@@ -1,14 +1,14 @@
 package cyano.wonderfulwands.wands;
 
+import cyano.wonderfulwands.WonderfulWands;
 import net.minecraft.block.BlockVine;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import cyano.wonderfulwands.WonderfulWands;
 
 public class WandOfClimbing extends Wand {
 	public static final String itemName = "wand_climb";
@@ -43,7 +43,7 @@ public class WandOfClimbing extends Wand {
 		}
 		boolean success = growVines(world,coord.offset(blockFace)) > 0;
 		if(success){
-	        playSound("random.orb",world,playerEntity);
+	        playSound(SoundEvents.entity_experience_orb_pickup,world,playerEntity);
 			if (!playerEntity.capabilities.isCreativeMode)
 	        {
 	        	srcItemStack.damageItem(1, playerEntity);
@@ -80,19 +80,19 @@ public class WandOfClimbing extends Wand {
 
 	private int placeVinesAt(World world,BlockPos p) {
 		boolean n=false,e=false,s=false,w=false,canDo=false;
-		if(world.getBlockState(p.north()).getBlock().getMaterial().blocksMovement()){
+		if(world.getBlockState(p.north()).getMaterial().blocksMovement()){
 			n = true;
 			canDo = true;
 		}
-		if(world.getBlockState(p.east()).getBlock().getMaterial().blocksMovement()){
+		if(world.getBlockState(p.east()).getMaterial().blocksMovement()){
 			e = true;
 			canDo = true;
 		}
-		if(world.getBlockState(p.south()).getBlock().getMaterial().blocksMovement()){
+		if(world.getBlockState(p.south()).getMaterial().blocksMovement()){
 			s = true;
 			canDo = true;
 		}
-		if(world.getBlockState(p.west()).getBlock().getMaterial().blocksMovement()){
+		if(world.getBlockState(p.west()).getMaterial().blocksMovement()){
 			w = true;
 			canDo = true;
 		}

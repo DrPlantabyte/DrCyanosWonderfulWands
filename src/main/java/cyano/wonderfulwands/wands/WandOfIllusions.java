@@ -1,20 +1,15 @@
 package cyano.wonderfulwands.wands;
 
-import java.util.List;
-
 import cyano.wonderfulwands.WonderfulWands;
 import cyano.wonderfulwands.blocks.IllusoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemDye;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class WandOfIllusions extends Wand {
@@ -47,7 +42,7 @@ public class WandOfIllusions extends Wand {
         }
 		boolean success = convertBlock(playerEntity,world,coord);
 		if(success){
-			playSound("random.orb",world,playerEntity);
+			playSound(SoundEvents.entity_experience_orb_pickup,world,playerEntity);
 			if (!playerEntity.capabilities.isCreativeMode)
 	        {
 	        	srcItemStack.damageItem(1, playerEntity);
@@ -62,9 +57,6 @@ public class WandOfIllusions extends Wand {
 	 * turns block into illusion
 	 * @param playerEntity
 	 * @param world
-	 * @param targetX
-	 * @param targetY
-	 * @param targetZ
 	 * @return True if anything happened, false otherwise (invalid target)
 	 */
 	protected boolean convertBlock(EntityPlayer playerEntity, World world, BlockPos coord){

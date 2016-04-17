@@ -1,19 +1,13 @@
 package cyano.wonderfulwands.wands;
 
-import java.util.List;
-
 import cyano.wonderfulwands.WonderfulWands;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class WandOfMining extends Wand {
@@ -60,9 +54,6 @@ public class WandOfMining extends Wand {
 	 * Acts like iron pickaxe
 	 * @param playerEntity
 	 * @param world
-	 * @param targetX
-	 * @param targetY
-	 * @param targetZ
 	 * @return True if anything happened, false otherwise (invalid target)
 	 */
 	protected boolean mineBlock(EntityPlayer playerEntity, World world, BlockPos coord){
@@ -72,7 +63,7 @@ public class WandOfMining extends Wand {
 		}
 		
 		
-		if(fauxPick.canHarvestBlock(targetBlock.getBlock()) || targetBlock.getBlock().getBlockHardness(world,coord) < 1.0F){
+		if(fauxPick.canHarvestBlock(targetBlock) || targetBlock.getBlockHardness(world,coord) < 1.0F){
 			// mine it
 			int fortuneLevel = 0;
 		//	if(!world.isRemote){ }

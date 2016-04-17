@@ -2,13 +2,17 @@ package cyano.wonderfulwands.wands;
 
 import cyano.wonderfulwands.WonderfulWands;
 import cyano.wonderfulwands.projectiles.DeathSkull;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityWitherSkull;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class WandOfDeath extends Wand {
@@ -18,22 +22,27 @@ public class WandOfDeath extends Wand {
 	
 
 	public static int defaultCharges = 64;
-	/**
-	 * Constructor
-	 * @param itemID id of this item
-	 */
+
 	public WandOfDeath(){
 		super(defaultCharges);
 		this.setUnlocalizedName(WonderfulWands.MODID +"_"+ itemName);
+	}
+
+	/**
+	 * returns the action that specifies what animation to play when the items is being used
+	 */
+	@Override public EnumAction getItemUseAction(ItemStack par1ItemStack)
+	{
+		return EnumAction.BLOCK;
 	}
 	
 	@Override public int getMaxItemUseDuration(ItemStack par1ItemStack){
 		return cooldown;
 	}
 	
-	@Override public ItemStack onItemRightClick(ItemStack srcItemStack, World world, EntityPlayer playerEntity){
-		 playerEntity.setItemInUse(srcItemStack, getMaxItemUseDuration(srcItemStack));
-	        return srcItemStack;
+	@Override public ActionResult<ItemStack> onItemRightClick(ItemStack srcItemStack, World world, EntityPlayer playerEntity, EnumHand hand){
+		playerEntity.setActiveHand(hand);
+	        return  new ActionResult(EnumActionResult.SUCCESS, srcItemStack);
 	 }
 	
 	 /**
@@ -42,14 +51,14 @@ public class WandOfDeath extends Wand {
 	     * True if something happen and false if it don't. This is for ITEMS, not BLOCKS
 	     */
 	@Override public boolean onItemUse(ItemStack srcItemStack, EntityPlayer playerEntity, World world, BlockPos coord, EnumFacing blockFace, float par8, float par9, float par10){
-		return super.onItemUse(srcItemStack, playerEntity, world, coord,blockFace, par8, par9, par10);
+		return false;
 	}
 	 
 
 	/**
 	 * Invoked when the player releases the right-click button
 	 */
-	@Override public void onPlayerStoppedUsing (ItemStack srcItemStack, World world, EntityPlayer playerEntity, int timeRemain){
+	@Override public void onPlayerStoppedUsing (ItemStack srcItemStack, World world, EntityLivingBase playerEntity, int timeRemain){
 		super.onPlayerStoppedUsing(srcItemStack, world, playerEntity, timeRemain);
 	}
 	
@@ -57,10 +66,10 @@ public class WandOfDeath extends Wand {
 	  * This method is invoked after the item has been used for an amount of time equal to the duration 
 	  * provided to the EntityPlayer.setItemInUse(stack, duration).
 	  */
-	 @Override public ItemStack onItemUseFinish (ItemStack srcItemStack, World world, EntityPlayer playerEntity)
+	 @Override public ItemStack onItemUseFinish (ItemStack srcItemStack, World world, EntityLivingBase playerEntity)
 	 { // 
 		 
-	        if (!playerEntity.capabilities.isCreativeMode)
+	        if (playerEntity instanceof EntityPlayer && !((EntityPlayer)playerEntity).capabilities.isCreativeMode)
 	        {
 	        	if(isOutOfCharge(srcItemStack)){
 	        		// wand out of magic
@@ -70,7 +79,7 @@ public class WandOfDeath extends Wand {
 	        	srcItemStack.damageItem(1, playerEntity);
 	        }
 
-	        playSound("mob.endermen.portal",world,playerEntity);
+	        playSound(SoundEvents.entity_wither_shoot,world,playerEntity);
 
 	        if (!world.isRemote)
 	        {

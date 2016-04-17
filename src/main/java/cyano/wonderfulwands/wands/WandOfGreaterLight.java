@@ -1,14 +1,18 @@
 package cyano.wonderfulwands.wands;
 
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumAction;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.world.World;
 import cyano.wonderfulwands.WonderfulWands;
 import cyano.wonderfulwands.entities.EntityLightWisp;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 
 /**
@@ -43,25 +47,33 @@ public class WandOfGreaterLight extends Wand {
         return EnumAction.BOW;
     }
 
-	@Override  public ItemStack onItemRightClick(ItemStack srcItemStack, World world, EntityPlayer playerEntity){
-		 playerEntity.setItemInUse(srcItemStack, getMaxItemUseDuration(srcItemStack));
-	     return srcItemStack;
-	 }
-	@Override public boolean onItemUse(ItemStack srcItemStack, EntityPlayer playerEntity, World world, BlockPos coord, EnumFacing blockFace, float par8, float par9, float par10){
-		return super.onItemUse(srcItemStack, playerEntity, world, coord,blockFace, par8, par9, par10);
+	@Override public ActionResult<ItemStack> onItemRightClick(ItemStack srcItemStack, World world, EntityPlayer playerEntity, EnumHand hand){
+		playerEntity.setActiveHand(hand);
+		return  new ActionResult(EnumActionResult.SUCCESS, srcItemStack);
 	}
-	@Override public void onPlayerStoppedUsing (ItemStack srcItemStack, World world, EntityPlayer playerEntity, int timeRemain){
+
+	/**
+	 * Callback for item usage, invoked when right-clicking on a block. If the item
+	 * does something special on right clicking, he will have one of those. Return
+	 * True if something happen and false if it don't. This is for ITEMS, not BLOCKS
+	 */
+	@Override public boolean onItemUse(ItemStack srcItemStack, EntityPlayer playerEntity, World world, BlockPos coord, EnumFacing blockFace, float par8, float par9, float par10){
+		return false;
+	}
+
+	@Override public void onPlayerStoppedUsing (ItemStack srcItemStack, World world, EntityLivingBase playerEntity, int timeRemain){
 		int chargetime = this.getMaxItemUseDuration(srcItemStack) - timeRemain;
 		if(chargetime < 5) return;
 		BlockPos center = playerEntity.getPosition();
-		if (!playerEntity.capabilities.isCreativeMode)
-        {
-        	if(isOutOfCharge(srcItemStack)){
-        		// wand out of magic
-        		playSound(noChargeAttackSound,world,playerEntity);
-        		return;
-        	}
-        }
+		if (playerEntity instanceof EntityPlayer && !((EntityPlayer)playerEntity).capabilities.isCreativeMode)
+		{
+			if(isOutOfCharge(srcItemStack)){
+				// wand out of magic
+				playSound(noChargeAttackSound,world,playerEntity);
+				return;
+			}
+			srcItemStack.damageItem(1, playerEntity);
+		}
 		
 
 		if(!world.isRemote){
@@ -80,12 +92,7 @@ public class WandOfGreaterLight extends Wand {
 			}
 		}
 		
-        playSound("random.fizz",world,playerEntity);
-		
-		if (!playerEntity.capabilities.isCreativeMode)
-        {
-        	srcItemStack.damageItem(1, playerEntity);
-        }
+        playSound(SoundEvents.block_portal_trigger,world,playerEntity);
 		
 		return;
 		

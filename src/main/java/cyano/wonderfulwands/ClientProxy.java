@@ -1,14 +1,22 @@
 package cyano.wonderfulwands;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.common.event.*;
-import cyano.wonderfulwands.entities.*;
-import cyano.wonderfulwands.graphics.*;
-import cyano.wonderfulwands.projectiles.*;
-import cyano.wonderfulwands.wizardrobes.*;
+import cyano.wonderfulwands.entities.EntityLightWisp;
+import cyano.wonderfulwands.graphics.LightWispRenderer;
+import cyano.wonderfulwands.graphics.MagicMissileRenderer;
+import cyano.wonderfulwands.graphics.WandLightningBoltRenderer;
+import cyano.wonderfulwands.projectiles.EntityMagicMissile;
+import cyano.wonderfulwands.projectiles.EntityWandLightningBolt;
+import cyano.wonderfulwands.wizardrobes.TopHatRenderer;
+import cyano.wonderfulwands.wizardrobes.WitchHatRenderer;
+import cyano.wonderfulwands.wizardrobes.WizardHatRenderer;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class ClientProxy extends Proxy{
 	public static TopHatRenderer topHatRenderer;
@@ -26,13 +34,24 @@ public class ClientProxy extends Proxy{
         // client-only init code
         RenderManager rm = Minecraft.getMinecraft().getRenderManager();
         // add renderers
- 		RenderingRegistry.registerEntityRenderingHandler(EntityMagicMissile.class, new MagicMissileRenderer(rm));
- 		RenderingRegistry.registerEntityRenderingHandler(EntityWandLightningBolt.class, new WandLightningBoltRenderer(rm));
- 		RenderingRegistry.registerEntityRenderingHandler(EntityLightWisp.class, new LightWispRenderer(rm));
+ 		RenderingRegistry.registerEntityRenderingHandler(EntityMagicMissile.class,  new IRenderFactory<EntityMagicMissile> (){
+			@Override
+			public Render<? super EntityMagicMissile> createRenderFor(RenderManager rm) {return new MagicMissileRenderer(rm);}
+		});
+		RenderingRegistry.registerEntityRenderingHandler(EntityWandLightningBolt.class,  new IRenderFactory<EntityWandLightningBolt> (){
+			@Override
+			public Render<? super EntityWandLightningBolt> createRenderFor(RenderManager rm) {return new WandLightningBoltRenderer(rm);}
+		});
+		RenderingRegistry.registerEntityRenderingHandler(EntityLightWisp.class,  new IRenderFactory<EntityLightWisp> (){
+			@Override
+			public Render<? super EntityLightWisp> createRenderFor(RenderManager rm) {return new LightWispRenderer(rm);}
+		});
  		
  		topHatRenderer = new TopHatRenderer();
     	wizardHatRenderer = new WizardHatRenderer();
     	witchHatRenderer = new WitchHatRenderer();
+
+		//
     	
     }
 

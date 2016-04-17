@@ -1,16 +1,14 @@
 package cyano.wonderfulwands.projectiles;
 
-import java.util.List;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityLargeFireball;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class Fireball extends EntityLargeFireball{
 
@@ -19,19 +17,19 @@ public class Fireball extends EntityLargeFireball{
 	    {
 	        super(par1World, par2EntityLivingBase, vX, vY, vZ);
 	        this.setPosition(posX, posY, posZ);
-	        Double d3 = (double)MathHelper.sqrt_double(vX * vX + vY * vY + vZ * vZ);
+	        Double d3 = (double) MathHelper.sqrt_double(vX * vX + vY * vY + vZ * vZ);
 	        this.accelerationX = vX / d3 * 0.1D;
 	        this.accelerationY = vY / d3 * 0.1D;
 	        this.accelerationZ = vZ / d3 * 0.1D;
 	    }
 
 	@Override
-	protected void onImpact(MovingObjectPosition impact)
+	protected void onImpact(RayTraceResult impact)
 	{
 		if (!this.worldObj.isRemote)
 		{
 			if(impact.entityHit != null ){
-				impact.entityHit.attackEntityFrom(DamageSource.magic, 5);
+				impact.entityHit.attackEntityFrom(DamageSource.magic, 7);
 			}
 			double radius = 2;
 			if(impact.hitVec != null){

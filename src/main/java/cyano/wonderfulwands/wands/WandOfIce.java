@@ -1,16 +1,16 @@
 package cyano.wonderfulwands.wands;
 
+import cyano.wonderfulwands.WonderfulWands;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSnow;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import cyano.wonderfulwands.WonderfulWands;
 
 public class WandOfIce extends Wand {
 	public static final String itemName = "wand_ice";
@@ -59,7 +59,7 @@ public class WandOfIce extends Wand {
 		}
 		if(blocksChanged > 0){
 			srcItemStack.damageItem(1, playerEntity);
-			playSound("random.orb",world,playerEntity);
+			playSound(SoundEvents.entity_experience_orb_pickup,world,playerEntity);
 			return true;
 		}else {
 			return false;
@@ -82,7 +82,7 @@ public class WandOfIce extends Wand {
 			} else {
 				w.setBlockState(coord, Blocks.snow.getDefaultState());
 			}
-		}else if(target.isFullCube() && w.isAirBlock(coord.up())){
+		}else if(target.isFullCube(bs) && w.isAirBlock(coord.up())){
 			w.setBlockState(coord.up(), Blocks.snow_layer.getDefaultState());
 			return 1;
 		}

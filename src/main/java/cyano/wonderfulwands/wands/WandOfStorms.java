@@ -1,22 +1,19 @@
 package cyano.wonderfulwands.wands;
 
-import java.util.List;
-
 import cyano.wonderfulwands.WonderfulWands;
-import cyano.wonderfulwands.projectiles.Fireball;
 import cyano.wonderfulwands.util.RayTrace;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class WandOfStorms extends Wand  {
@@ -43,37 +40,36 @@ public class WandOfStorms extends Wand  {
 	@Override public int getMaxItemUseDuration(ItemStack par1ItemStack){
 		return cooldown;
 	}
-
-	@Override  public ItemStack onItemRightClick(ItemStack srcItemStack, World world, EntityPlayer playerEntity){
-		 playerEntity.setItemInUse(srcItemStack, getMaxItemUseDuration(srcItemStack));
-	        return srcItemStack;
-	 }
-	
-	 /**
-	     * Callback for item usage, invoked when right-clicking on a block. If the item 
-	     * does something special on right clicking, he will have one of those. Return
-	     * True if something happen and false if it don't. This is for ITEMS, not BLOCKS
-	     */
-	@Override public boolean onItemUse(ItemStack srcItemStack, EntityPlayer playerEntity, World world, BlockPos coord, EnumFacing blockFace, float par8, float par9, float par10){
-		return super.onItemUse(srcItemStack, playerEntity, world, coord,blockFace, par8, par9, par10);
+	@Override public ActionResult<ItemStack> onItemRightClick(ItemStack srcItemStack, World world, EntityPlayer playerEntity, EnumHand hand){
+		playerEntity.setActiveHand(hand);
+		return  new ActionResult(EnumActionResult.SUCCESS, srcItemStack);
 	}
-	 
+
+	/**
+	 * Callback for item usage, invoked when right-clicking on a block. If the item
+	 * does something special on right clicking, he will have one of those. Return
+	 * True if something happen and false if it don't. This is for ITEMS, not BLOCKS
+	 */
+	@Override public boolean onItemUse(ItemStack srcItemStack, EntityPlayer playerEntity, World world, BlockPos coord, EnumFacing blockFace, float par8, float par9, float par10){
+		return false;
+	}
+
 
 	/**
 	 * Invoked when the player releases the right-click button
 	 */
-	@Override public void onPlayerStoppedUsing (ItemStack srcItemStack, World world, EntityPlayer playerEntity, int timeRemain){
+	@Override public void onPlayerStoppedUsing (ItemStack srcItemStack, World world, EntityLivingBase playerEntity, int timeRemain){
 		super.onPlayerStoppedUsing(srcItemStack, world, playerEntity, timeRemain);
 	}
-	
-	 /**
-	  * This method is invoked after the item has been used for an amount of time equal to the duration 
-	  * provided to the EntityPlayer.setItemInUse(stack, duration).
-	  */
-	@Override public ItemStack onItemUseFinish (ItemStack srcItemStack, World world, EntityPlayer playerEntity)
-	{ // 
 
-		if (!playerEntity.capabilities.isCreativeMode)
+	/**
+	 * This method is invoked after the item has been used for an amount of time equal to the duration
+	 * provided to the EntityPlayer.setItemInUse(stack, duration).
+	 */
+	@Override public ItemStack onItemUseFinish (ItemStack srcItemStack, World world, EntityLivingBase playerEntity)
+	{ //
+
+		if (playerEntity instanceof EntityPlayer && !((EntityPlayer)playerEntity).capabilities.isCreativeMode)
 		{
 			if(isOutOfCharge(srcItemStack)){
 				// wand out of magic
@@ -83,15 +79,15 @@ public class WandOfStorms extends Wand  {
 			srcItemStack.damageItem(1, playerEntity);
 		}
 
-		playSound("mob.endermen.portal",world,playerEntity);
+		playSound(SoundEvents.entity_experience_orb_pickup,world,playerEntity);
 
 
 		if (!world.isRemote)
 		{
 			// drop lightning at looked-at location
 			
-			MovingObjectPosition trace = RayTrace.rayTraceBlocksAndEntities(world, 64, playerEntity);
-			if(trace == null || trace.typeOfHit == MovingObjectPosition.MovingObjectType.MISS){ // missed! Drop random lightning
+			RayTraceResult trace = RayTrace.rayTraceBlocksAndEntities(world, 64, playerEntity);
+			if(trace == null || trace.typeOfHit == RayTraceResult.Type.MISS){ // missed! Drop random lightning
 				int r = 32;
 				int d = r * 2;
 				BlockPos target = new BlockPos(playerEntity.posX+world.rand.nextInt(d)-r,playerEntity.posY,playerEntity.posZ+world.rand.nextInt(d)-r);
@@ -101,13 +97,13 @@ public class WandOfStorms extends Wand  {
 				while(target.getY() > 0 && world.isAirBlock(target)){
 					target = target.down();
 				}
-				world.addWeatherEffect(new EntityLightningBolt(world,target.getX(), target.getY(), target.getZ()));
+				world.addWeatherEffect(new EntityLightningBolt(world,target.getX(), target.getY(), target.getZ(),false));
 			} else {
-				Vec3 target = trace.hitVec;
+				Vec3d target = trace.hitVec;
 				if(target == null){
-					target = new Vec3(trace.getBlockPos().getX(),trace.getBlockPos().getY(),trace.getBlockPos().getZ());
+					target = new Vec3d(trace.getBlockPos().getX(),trace.getBlockPos().getY(),trace.getBlockPos().getZ());
 				}
-				world.addWeatherEffect(new EntityLightningBolt(world,target.xCoord, target.yCoord, target.zCoord));
+				world.addWeatherEffect(new EntityLightningBolt(world,target.xCoord, target.yCoord, target.zCoord,false));
 			}
 			
 			
