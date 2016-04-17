@@ -57,7 +57,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 public class WonderfulWands {
     public static final String MODID = "wonderfulwands";
     public static final String NAME ="Cyano's Wonderful Wands";
-    public static final String VERSION = "1.8.0";
+    public static final String VERSION = "2.0.0";
 	
     @SidedProxy(clientSide="cyano.wonderfulwands.ClientProxy", serverSide="cyano.wonderfulwands.ServerProxy")
     public static Proxy proxy;
@@ -79,6 +79,10 @@ public class WonderfulWands {
 	public static Wand wandOfBridging = null;
 	public static Wand wandOfClimbing = null;
 	public static Wand wandOfIllusions = null;
+	public static Wand wandOfRails = null; // TODO: this wand
+	public static Wand wandOfWebbing = null; // TODO: this wand
+	public static Wand wandOfLevitation = null; // TODO: this wand
+	public static Wand wandOfTunneling = null; // TODO: this wand
 	
 	public static Block mageLight = null;
 	

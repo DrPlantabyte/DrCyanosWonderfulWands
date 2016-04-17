@@ -16,6 +16,11 @@ item.wonderfulwands_wand_climb.name=登山者魔杖
 item.wonderfulwands_wand_greater_light.name=安全魔杖
 item.wonderfulwands_wand_illusion.name=幻想魔杖
 
+item.wonderfulwands_wand_levitation.name=懸浮魔杖
+item.wonderfulwands_wand_tunneling.name=隧道魔杖
+item.wonderfulwands_wand_webbing.name=織帶魔杖
+item.wonderfulwands_wand_rails.name=鐵路魔杖
+
 item.wonderfulwands_hat_wizard.name=巫师之帽
 item.wonderfulwands_hat_witch.name=女巫之帽
 item.wonderfulwands_tophat.name=高礼帽

@@ -1,0 +1,14 @@
+{
+    "variants": {
+        "shape=north_south":     { "model": "wonderfulwands:normal_feyrail_flat" },
+        "shape=east_west":       { "model": "wonderfulwands:normal_feyrail_flat",      "y": 90 },
+        "shape=ascending_east":  { "model": "wonderfulwands:normal_feyrail_raised_ne", "y": 90 },
+        "shape=ascending_west":  { "model": "wonderfulwands:normal_feyrail_raised_sw", "y": 90 },
+        "shape=ascending_north": { "model": "wonderfulwands:normal_feyrail_raised_ne" },
+        "shape=ascending_south": { "model": "wonderfulwands:normal_feyrail_raised_sw" },
+        "shape=south_east":      { "model": "wonderfulwands:normal_feyrail_curved" },
+        "shape=south_west":      { "model": "wonderfulwands:normal_feyrail_curved",    "y": 90 },
+        "shape=north_west":      { "model": "wonderfulwands:normal_feyrail_curved",    "y": 180 },
+        "shape=north_east":      { "model": "wonderfulwands:normal_feyrail_curved",    "y": 270 }
+    }
+}

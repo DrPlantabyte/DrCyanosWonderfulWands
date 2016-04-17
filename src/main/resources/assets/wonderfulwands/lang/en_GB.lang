@@ -17,6 +17,12 @@ item.wonderfulwands_wand_bridge.name=Wand of Bridging
 item.wonderfulwands_wand_climb.name=Wand of Climbing
 item.wonderfulwands_wand_illusion.name=Wand of Illusions
 
+item.wonderfulwands_wand_levitation.name=Wand of Levitation
+item.wonderfulwands_wand_tunneling.name=Wand of Tunneling
+item.wonderfulwands_wand_webbing.name=Wand of Webbing
+item.wonderfulwands_wand_rails.name=Wand of Railroads
+
+
 item.wonderfulwands_hat_wizard.name=Wizard's Hat
 item.wonderfulwands_hat_witch.name=Witch's Hat
 item.wonderfulwands_tophat.name=Top Hat
