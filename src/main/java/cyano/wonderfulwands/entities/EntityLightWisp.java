@@ -28,6 +28,7 @@ public class EntityLightWisp extends net.minecraft.entity.EntityLivingBase{
 		super(w);
 		this.lifeCounter = LIFESPAN;
 		this.isImmuneToFire = true;
+		nextUpdateTime = w.rand.nextInt((int)UPDATE_INTERVAL);
 	}
 
 	public EntityLightWisp(World w, BlockPos startingPosition) {
@@ -131,6 +132,7 @@ public class EntityLightWisp extends net.minecraft.entity.EntityLivingBase{
 		coords[1] = blockCoord.east();
 		coords[2] = blockCoord.south();
 		coords[3] = blockCoord.west();
+		shuffle(coords,getRNG());
 		for(int i = 0; i < coords.length; i++){
 			coords[i] = moveToGroundLevel(coords[i]);
 			int l = getLight(coords[i]);
@@ -150,6 +152,7 @@ public class EntityLightWisp extends net.minecraft.entity.EntityLivingBase{
 			coords[5] = blockCoord.add(8, 0, 8);
 			coords[6] = blockCoord.add(0, 0, 12);
 			coords[7] = blockCoord.add(-8, 0, 8);
+			shuffle(coords,getRNG());
 			for(int i = 0; i < coords.length; i++){
 				coords[i] = moveToGroundLevel(coords[i]);
 				int l = getLight(coords[i]);

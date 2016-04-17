@@ -71,7 +71,7 @@ public class WandOfMagicMissile extends Wand {
 			srcItemStack.damageItem(1, playerEntity);
 		}
 
-	        playSound(SoundEvents.entity_shulker_shoot,world,playerEntity);
+	        playSound(SoundEvents.entity_endermen_teleport,world,playerEntity);
 
 	        if (!world.isRemote)
 	        {
