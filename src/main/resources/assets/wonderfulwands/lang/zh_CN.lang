@@ -112,3 +112,6 @@ entity.wonderfulwands_magic_missile.name=魔法箭矢
 
 itemGroup.wonderfulwands.armor=Wizarding Robes
 itemGroup.wonderfulwands.wands=Wonderful Wands
+
+tile.feyrail.name=仙靈火車軌道
+tile.powered_feyrail.name=快速仙靈火車軌道

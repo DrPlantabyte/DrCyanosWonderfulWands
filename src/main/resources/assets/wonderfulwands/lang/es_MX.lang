@@ -109,3 +109,9 @@ item.wonderfulwands_robes_white_boots.name=White Zapatos del Mago
 tile.wonderfulwands_mage_light.name=Luz del Mago
 
 entity.wonderfulwands_magic_missile.name=Flechas Mágicas
+
+itemGroup.wonderfulwands.armor=Wizarding Robes
+itemGroup.wonderfulwands.wands=Wonderful Wands
+
+tile.feyrail.name=Vía de las Hadas
+tile.powered_feyrail.name=Rápida Vía de las Hadas

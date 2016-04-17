@@ -1,8 +1,10 @@
 package cyano.wonderfulwands;
 
 
+import cyano.wonderfulwands.blocks.FeyRail;
 import cyano.wonderfulwands.blocks.IllusoryBlock;
 import cyano.wonderfulwands.blocks.MageLight;
+import cyano.wonderfulwands.blocks.PoweredFeyRail;
 import cyano.wonderfulwands.entities.EntityLightWisp;
 import cyano.wonderfulwands.projectiles.EntityMagicMissile;
 import cyano.wonderfulwands.projectiles.EntityWandLightningBolt;
@@ -68,8 +70,10 @@ public class WonderfulWands {
 	public static Wand wandOfWebbing = null; // TODO: this wand
 	public static Wand wandOfLevitation = null; // TODO: this wand
 	public static Wand wandOfTunneling = null; // TODO: this wand
-	
+
 	public static Block mageLight = null;
+	public static Block feyRail = null;
+	public static Block feyRailPowered = null;
 	
 	public static boolean altRecipes = false;
 	
@@ -166,6 +170,16 @@ public class WonderfulWands {
 		GameRegistry.registerBlock(illusion,illusion.name);
 		illusion = new IllusoryBlock(Blocks.sand);
 		GameRegistry.registerBlock(illusion,illusion.name);
+
+		feyRail = new FeyRail();
+		feyRail.setUnlocalizedName("feyrail");
+		feyRail.setCreativeTab(wandsTab);
+		GameRegistry.registerBlock(feyRail,"feyrail");
+		feyRailPowered = new PoweredFeyRail();
+		feyRailPowered.setUnlocalizedName("powered_feyrail");
+		feyRailPowered.setCreativeTab(wandsTab);
+		GameRegistry.registerBlock(feyRailPowered,"powered_feyrail");
+
 		
 
 		// Register the wand items

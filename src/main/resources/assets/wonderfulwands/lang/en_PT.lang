@@ -114,3 +114,6 @@ entity.wonderfulwands_magic_missile.name=Magical Missile
 
 itemGroup.wonderfulwands.armor=Wizarding Robes
 itemGroup.wonderfulwands.wands=Wonderful Wands
+
+tile.feyrail.name=Ghost Tracks
+tile.powered_feyrail.name=Ghost Speed Tracks

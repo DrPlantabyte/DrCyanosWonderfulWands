@@ -114,3 +114,8 @@ entity.wonderfulwands_magic_missile.name=Zauberpfeil
 
 itemGroup.wonderfulwands.armor=Zauberer Kleidung
 itemGroup.wonderfulwands.wands=Zauberstäbe
+
+
+
+tile.feyrail.name=Fee Bahngleis
+tile.powered_feyrail.name=Schnell Fee Bahngleis

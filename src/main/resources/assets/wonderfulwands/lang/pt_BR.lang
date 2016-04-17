@@ -113,3 +113,6 @@ entity.wonderfulwands_magic_missile.name=Mísseis Mágicos
 
 itemGroup.wonderfulwands.armor=Wizarding Robes
 itemGroup.wonderfulwands.wands=Wonderful Wands
+
+tile.feyrail.name=Trilho das Fadas
+tile.powered_feyrail.name=Trilho das Fadas

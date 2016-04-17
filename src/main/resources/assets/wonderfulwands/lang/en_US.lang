@@ -112,3 +112,6 @@ entity.wonderfulwands_magic_missile.name=Magical Missile
 
 itemGroup.wonderfulwands.armor=Wizarding Robes
 itemGroup.wonderfulwands.wands=Wonderful Wands
+
+tile.feyrail.name=Faerie Rails
+tile.powered_feyrail.name=Powered Faerie Rails
