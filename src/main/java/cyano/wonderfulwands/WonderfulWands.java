@@ -132,6 +132,7 @@ public class WonderfulWands {
 		wandOfBridging = new WandOfBridging(Blocks.cobblestone);
 		wandOfClimbing = new WandOfClimbing();
 		wandOfIllusions = new WandOfIllusions();
+		wandOfRails = new WandOfRails();
 		
 		mageLight = new MageLight();
 		GameRegistry.registerBlock(mageLight, MageLight.name);
@@ -200,6 +201,7 @@ public class WonderfulWands {
 		GameRegistry.registerItem(wandOfBridging, WandOfBridging.itemName);
 		GameRegistry.registerItem(wandOfClimbing, WandOfClimbing.itemName);
 		GameRegistry.registerItem(wandOfIllusions, WandOfIllusions.itemName);
+		GameRegistry.registerItem(wandOfRails, WandOfRails.itemName);
 		
 		// recipes
 
@@ -244,6 +246,8 @@ public class WonderfulWands {
 		addWandRecipe(wandOfBridging,"blockSteel");
 		// wand of illusions
 		addWandRecipe(wandOfIllusions,Items.fermented_spider_eye);
+		// wand of railroads
+		addWandRecipe(wandOfRails,Blocks.golden_rail);
 		
 		// Wizarding Robes
 		int robesRenderIndex = proxy.getArmorRenderIndex(MODID+"_robes");
@@ -318,6 +322,16 @@ public class WonderfulWands {
 		}
     }
 
+	private static void addWandRecipe(Wand output, Block specialItem){
+		if(altRecipes){
+			GameRegistry.addRecipe(new ShapedOreRecipe(wandItemStack(output), " x ", " ex", "s  ", 'x', specialItem, 'e',
+					"gemEmerald", 's', wandGeneric));
+		}else{
+			GameRegistry.addRecipe(new ShapedOreRecipe(wandItemStack(output), "xex", " s ", " g ", 'x', specialItem, 'e',
+					"gemEmerald", 's', "stickWood", 'g', "nuggetGold"));
+		}
+	}
+
     private static void addWandRecipe(Wand output, ItemStack specialItem){
     	if(altRecipes){
 			GameRegistry.addRecipe(new ShapedOreRecipe(wandItemStack(output), " x ", " ex", "s  ", 'x', specialItem, 'e',
@@ -378,9 +392,12 @@ public class WonderfulWands {
     	registerItemRender( wandOfLightning,WandOfLightning.itemName);
     	registerItemRender( wandOfBridging,WandOfBridging.itemName);
     	registerItemRender( wandOfClimbing,WandOfClimbing.itemName);
-    	registerItemRender( wandOfIllusions,WandOfIllusions.itemName);
-    	
-    	registerItemRender(net.minecraft.item.Item.getItemFromBlock(mageLight),MageLight.name);
+		registerItemRender( wandOfIllusions,WandOfIllusions.itemName);
+		registerItemRender( wandOfRails,WandOfRails.itemName);
+
+		registerItemRender(net.minecraft.item.Item.getItemFromBlock(mageLight),MageLight.name);
+		registerItemRender(net.minecraft.item.Item.getItemFromBlock(feyRail),"feyrail");
+		registerItemRender(net.minecraft.item.Item.getItemFromBlock(feyRailPowered),"powered_feyrail");
     	
     	for(int color = 0; color < robes.length; color++){
     		for(int slot = 0; slot < robes[0].length; slot++){
