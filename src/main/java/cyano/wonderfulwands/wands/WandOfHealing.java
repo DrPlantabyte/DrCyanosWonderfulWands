@@ -71,27 +71,18 @@ public class WandOfHealing extends Wand {
 	 * Invoked when the player releases the right-click button
 	 */
 	@Override public void onPlayerStoppedUsing (ItemStack srcItemStack, World world, EntityLivingBase playerEntity, int timeRemain){
-		super.onPlayerStoppedUsing(srcItemStack, world, playerEntity, timeRemain);
-	}
-
-	/**
-	 * This method is invoked after the item has been used for an amount of time equal to the duration
-	 * provided to the EntityPlayer.setItemInUse(stack, duration).
-	 */
-	@Override public ItemStack onItemUseFinish (ItemStack srcItemStack, World world, EntityLivingBase playerEntity)
-	{ //
 
 		if (playerEntity instanceof EntityPlayer && !((EntityPlayer)playerEntity).capabilities.isCreativeMode)
 		{
 			if(isOutOfCharge(srcItemStack)){
 				// wand out of magic
 				playSound(noChargeAttackSound,world,playerEntity);
-				return srcItemStack;
+				return ;
 			}
 		}
 
 		RayTraceResult trace = RayTrace.rayTraceBlocksAndEntities(world,range,playerEntity);
-		if(trace == null) return srcItemStack;
+		if(trace == null) return ;
 		Entity target = trace.entityHit;
 		if(!(target instanceof EntityLivingBase)){
 			target = playerEntity;
@@ -124,6 +115,6 @@ public class WandOfHealing extends Wand {
 
 			world.spawnEntityInWorld(new DeathSkull(world, playerEntity,playerEntity.posX+deltaX,playerEntity.posY+1,playerEntity.posZ+deltaZ,  vecX, vecY, vecZ));
 		}
-		return srcItemStack;
 	}
+
 }
