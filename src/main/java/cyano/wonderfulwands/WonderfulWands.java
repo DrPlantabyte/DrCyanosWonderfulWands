@@ -66,7 +66,7 @@ public class WonderfulWands {
 	public static Wand wandOfBridging = null;
 	public static Wand wandOfClimbing = null;
 	public static Wand wandOfIllusions = null;
-	public static Wand wandOfRails = null; // TODO: this wand
+	public static Wand wandOfRails = null;
 	public static Wand wandOfWebbing = null; // TODO: this wand
 	public static Wand wandOfLevitation = null; // TODO: this wand
 	public static Wand wandOfTunneling = null; // TODO: this wand
@@ -133,6 +133,9 @@ public class WonderfulWands {
 		wandOfClimbing = new WandOfClimbing();
 		wandOfIllusions = new WandOfIllusions();
 		wandOfRails = new WandOfRails();
+		wandOfWebbing = new WandOfWebbing();
+		wandOfLevitation = new WandOfLevitation();
+		wandOfTunneling = new WandOfTunneling();
 		
 		mageLight = new MageLight();
 		GameRegistry.registerBlock(mageLight, MageLight.name);
@@ -202,6 +205,9 @@ public class WonderfulWands {
 		GameRegistry.registerItem(wandOfClimbing, WandOfClimbing.itemName);
 		GameRegistry.registerItem(wandOfIllusions, WandOfIllusions.itemName);
 		GameRegistry.registerItem(wandOfRails, WandOfRails.itemName);
+		GameRegistry.registerItem(wandOfWebbing, WandOfWebbing.itemName);
+		GameRegistry.registerItem(wandOfLevitation, WandOfLevitation.itemName);
+		GameRegistry.registerItem(wandOfTunneling, WandOfTunneling.itemName);
 		
 		// recipes
 
@@ -248,6 +254,12 @@ public class WonderfulWands {
 		addWandRecipe(wandOfIllusions,Items.fermented_spider_eye);
 		// wand of railroads
 		addWandRecipe(wandOfRails,Blocks.golden_rail);
+		// wand of webs
+		addWandRecipe(wandOfWebbing,Items.slime_ball);
+		// wand of levitation
+		addWandRecipe(wandOfLevitation,Items.feather);
+		// wand of tunneling
+		addWandRecipe(wandOfTunneling,Items.diamond_pickaxe);
 		
 		// Wizarding Robes
 		int robesRenderIndex = proxy.getArmorRenderIndex(MODID+"_robes");
@@ -394,6 +406,9 @@ public class WonderfulWands {
     	registerItemRender( wandOfClimbing,WandOfClimbing.itemName);
 		registerItemRender( wandOfIllusions,WandOfIllusions.itemName);
 		registerItemRender( wandOfRails,WandOfRails.itemName);
+		registerItemRender( wandOfWebbing,WandOfWebbing.itemName);
+		registerItemRender( wandOfLevitation,WandOfLevitation.itemName);
+		registerItemRender( wandOfTunneling,WandOfTunneling.itemName);
 
 		registerItemRender(net.minecraft.item.Item.getItemFromBlock(mageLight),MageLight.name);
 		registerItemRender(net.minecraft.item.Item.getItemFromBlock(feyRail),"feyrail");
