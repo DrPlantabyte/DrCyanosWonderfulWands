@@ -43,8 +43,14 @@ public class PoweredFeyRail extends BlockRailPowered {
 
 	@Override
 	public void onMinecartPass(World world, net.minecraft.entity.item.EntityMinecart cart, BlockPos pos){
-		float maxSpeed = cart.getCurrentCartSpeedCapOnRail();
-		cart.
+		double maxSpeed = cart.getCurrentCartSpeedCapOnRail();
+		double dx = cart.motionX;
+		double dz = cart.motionZ;
+		double speed = Math.sqrt(dx *dx + dz * dz);
+		if(speed > 0){
+			cart.motionX = maxSpeed * dx / speed;
+			cart.motionZ = maxSpeed * dz / speed;
+		}
 	}
 
 	@Override

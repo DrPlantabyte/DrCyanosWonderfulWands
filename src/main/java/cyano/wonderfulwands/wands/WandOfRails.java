@@ -16,7 +16,7 @@ public class WandOfRails extends Wand {
 
 	public static int cooldown = 10;
 
-	public static int defaultCharges = 1024;
+	public static int defaultCharges = 256;
 
 
 	public WandOfRails() {
@@ -42,7 +42,7 @@ public class WandOfRails extends Wand {
 	@Override
 	public void onUpdate(ItemStack item, World w, Entity e, int itemSlot, boolean isSelected) {
 		if(isSelected && !w.isRemote){
-			if(this.placeRail(w,e.getPosition(),item) ){
+			if(this.placeRail(w,e.getPosition(),item) || this.placeRail(w,e.getPosition().down(),item)){
 				if(e instanceof EntityPlayer && !((EntityPlayer)e).capabilities.isCreativeMode){
 					item.damageItem(1,(EntityPlayer)e);
 				}
