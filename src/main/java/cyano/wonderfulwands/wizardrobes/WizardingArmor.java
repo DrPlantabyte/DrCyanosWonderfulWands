@@ -48,8 +48,8 @@ public class WizardingArmor extends ItemArmor {
     @Override public boolean getIsRepairable(ItemStack srcItemStack, ItemStack rawMaterial)
     {
     	// repair with string or wool
-        return rawMaterial.getUnlocalizedName().equals(Items.string.getUnlocalizedName()) 
-        		|| rawMaterial.getUnlocalizedName().equals(Blocks.wool.getUnlocalizedName());
+        return rawMaterial.getUnlocalizedName().equals(Items.STRING.getUnlocalizedName()) 
+        		|| rawMaterial.getUnlocalizedName().equals(Blocks.WOOL.getUnlocalizedName());
     }
 	
     @SideOnly(Side.CLIENT)

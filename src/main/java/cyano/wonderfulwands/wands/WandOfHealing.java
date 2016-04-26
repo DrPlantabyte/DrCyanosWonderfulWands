@@ -95,8 +95,8 @@ public class WandOfHealing extends Wand {
 			float maxHealth = e.getMaxHealth();
 			if(health < maxHealth){
 				e.setHealth(Math.min(maxHealth, health + healingAmount) );
-				playSound(SoundEvents.entity_experience_orb_pickup,world,playerEntity);
-				playSound(SoundEvents.entity_player_levelup,world,e);
+				playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP,world,playerEntity);
+				playSound(SoundEvents.ENTITY_PLAYER_LEVELUP,world,e);
 				e.addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("regeneration"),60,0));
 				e.addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("glowing"),60,0));
 				if (playerEntity instanceof EntityPlayer && !((EntityPlayer)playerEntity).capabilities.isCreativeMode)

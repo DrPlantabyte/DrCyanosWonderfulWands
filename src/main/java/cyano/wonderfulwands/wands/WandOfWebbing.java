@@ -66,7 +66,7 @@ public class WandOfWebbing extends Wand {
 		boolean success = placeSpiderWeb(world, origin, vector, MAX_RANGE);
 		
 		if(success){
-	        playSound(SoundEvents.entity_spider_ambient,world,playerEntity);
+	        playSound(SoundEvents.ENTITY_SPIDER_AMBIENT,world,playerEntity);
 			if (playerEntity instanceof EntityPlayer && !((EntityPlayer)playerEntity).capabilities.isCreativeMode)
 			{
 				srcItemStack.damageItem(1, playerEntity);
@@ -103,14 +103,14 @@ public class WandOfWebbing extends Wand {
 				}
 			}
 			if(!w.isRemote){
-				w.setBlockState(block, Blocks.web.getDefaultState());
+				w.setBlockState(block, Blocks.WEB.getDefaultState());
 				Random r = w.rand;
 				for(int dx = -2; dx <= 2; dx++){
 					for(int dy = -2; dy <= 2; dy++){
 						for(int dz = -2; dz <= 2; dz++){
 							BlockPos p = block.add(dx,dy,dz);
 							if(w.isAirBlock(p) && r.nextInt(5) == 0) {
-								w.setBlockState(p, Blocks.web.getDefaultState());
+								w.setBlockState(p, Blocks.WEB.getDefaultState());
 							}
 						}
 					}

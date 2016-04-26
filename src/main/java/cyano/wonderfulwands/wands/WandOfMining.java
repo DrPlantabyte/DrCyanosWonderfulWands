@@ -49,7 +49,7 @@ public class WandOfMining extends Wand {
 		
 	}
 	
-	private final ItemStack fauxPick = new ItemStack(Items.stone_pickaxe);
+	private final ItemStack fauxPick = new ItemStack(Items.STONE_PICKAXE);
 	/**
 	 * Acts like iron pickaxe
 	 * @param playerEntity
@@ -58,7 +58,7 @@ public class WandOfMining extends Wand {
 	 */
 	protected boolean mineBlock(EntityPlayer playerEntity, World world, BlockPos coord){
 		IBlockState targetBlock = world.getBlockState(coord);
-		if(targetBlock.getBlock() == Blocks.bedrock){
+		if(targetBlock.getBlock() == Blocks.BEDROCK){
 			return false;
 		}
 		

@@ -141,8 +141,8 @@ public class WandOfLightning extends Wand {
 			}
 
 
-			playFadedSound(world,playerEntity.getPositionVector(),64, SoundEvents.entity_generic_explode,4F,1.7F);
-			playSound(world,playerEntity.getPositionVector(),64, SoundEvents.entity_lightning_thunder,1F,1.7F);
+			playFadedSound(world,playerEntity.getPositionVector(),64, SoundEvents.ENTITY_GENERIC_EXPLODE,4F,1.7F);
+			playSound(world,playerEntity.getPositionVector(),64, SoundEvents.ENTITY_LIGHTNING_THUNDER,1F,1.7F);
 
 			world.spawnEntityInWorld(new EntityWandLightningBolt(world, 
 					playerEntity,playerEntity.posX,playerEntity.posY+1,playerEntity.posZ, 

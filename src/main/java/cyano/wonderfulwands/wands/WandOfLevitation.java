@@ -91,8 +91,8 @@ public class WandOfLevitation extends Wand {
 		}
 		if(target instanceof EntityLivingBase){
 			EntityLivingBase e = (EntityLivingBase)target;
-			playSound(SoundEvents.entity_experience_orb_pickup,world,playerEntity);
-			playSound(SoundEvents.entity_endermen_teleport,world,e);
+			playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP,world,playerEntity);
+			playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT,world,e);
 			e.addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("levitation"),duration,0));
 			e.addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("glowing"),duration,0));
 			if (playerEntity instanceof EntityPlayer && !((EntityPlayer)playerEntity).capabilities.isCreativeMode)

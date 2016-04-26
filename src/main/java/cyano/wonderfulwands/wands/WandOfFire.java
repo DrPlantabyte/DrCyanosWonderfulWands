@@ -75,7 +75,7 @@ public class WandOfFire extends Wand  {
 			srcItemStack.damageItem(1, playerEntity);
 		}
 
-		playSound(SoundEvents.entity_firework_launch,world,playerEntity);
+		playSound(SoundEvents.ENTITY_FIREWORK_LAUNCH,world,playerEntity);
 
 		if (!world.isRemote)
 		{

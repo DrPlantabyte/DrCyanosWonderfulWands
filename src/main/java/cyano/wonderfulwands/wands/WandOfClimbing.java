@@ -43,7 +43,7 @@ public class WandOfClimbing extends Wand {
 		}
 		boolean success = growVines(world,coord.offset(blockFace)) > 0;
 		if(success){
-	        playSound(SoundEvents.entity_experience_orb_pickup,world,playerEntity);
+	        playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP,world,playerEntity);
 			if (!playerEntity.capabilities.isCreativeMode)
 	        {
 	        	srcItemStack.damageItem(1, playerEntity);
@@ -97,7 +97,7 @@ public class WandOfClimbing extends Wand {
 			canDo = true;
 		}
 		if(canDo){
-			world.setBlockState(p, Blocks.vine.getDefaultState()
+			world.setBlockState(p, Blocks.VINE.getDefaultState()
 					.withProperty(BlockVine.UP, false)
 					.withProperty(BlockVine.NORTH, n)
 					.withProperty(BlockVine.EAST, e)

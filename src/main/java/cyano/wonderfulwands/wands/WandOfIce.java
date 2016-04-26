@@ -59,7 +59,7 @@ public class WandOfIce extends Wand {
 		}
 		if(blocksChanged > 0){
 			srcItemStack.damageItem(1, playerEntity);
-			playSound(SoundEvents.entity_experience_orb_pickup,world,playerEntity);
+			playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP,world,playerEntity);
 			return true;
 		}else {
 			return false;
@@ -69,21 +69,21 @@ public class WandOfIce extends Wand {
 	protected int freezeBlock(World w, BlockPos coord){
 		IBlockState bs = w.getBlockState(coord);
 		Block target = bs.getBlock();
-		if(target == Blocks.water || target == Blocks.flowing_water){
-			w.setBlockState(coord, Blocks.ice.getDefaultState());
+		if(target == Blocks.WATER || target == Blocks.FLOWING_WATER){
+			w.setBlockState(coord, Blocks.ICE.getDefaultState());
 			return 1;
-		} else if(target == Blocks.lava || target == Blocks.flowing_lava){
-			w.setBlockState(coord, Blocks.cobblestone.getDefaultState());
+		} else if(target == Blocks.LAVA || target == Blocks.FLOWING_LAVA){
+			w.setBlockState(coord, Blocks.COBBLESTONE.getDefaultState());
 			return 1;
-		}else if(target == Blocks.snow_layer) {
+		}else if(target == Blocks.SNOW_LAYER) {
 			if(((Integer)bs.getValue(BlockSnow.LAYERS)) < 8){
-				w.setBlockState(coord, Blocks.snow_layer.getDefaultState()
+				w.setBlockState(coord, Blocks.SNOW_LAYER.getDefaultState()
 						.withProperty(BlockSnow.LAYERS,(((Integer)bs.getValue(BlockSnow.LAYERS)) + 1)));
 			} else {
-				w.setBlockState(coord, Blocks.snow.getDefaultState());
+				w.setBlockState(coord, Blocks.SNOW.getDefaultState());
 			}
 		}else if(target.isFullCube(bs) && w.isAirBlock(coord.up())){
-			w.setBlockState(coord.up(), Blocks.snow_layer.getDefaultState());
+			w.setBlockState(coord.up(), Blocks.SNOW_LAYER.getDefaultState());
 			return 1;
 		}
 		return 0;

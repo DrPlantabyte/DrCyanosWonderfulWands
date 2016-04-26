@@ -107,7 +107,7 @@ public class WandOfBridging extends Wand {
 		}
 
 		if(blocksChanged > 0){
-			playSound(SoundEvents.entity_player_levelup,world,playerEntity);
+			playSound(SoundEvents.ENTITY_PLAYER_LEVELUP,world,playerEntity);
 			if (playerEntity instanceof EntityPlayer && !((EntityPlayer)playerEntity).capabilities.isCreativeMode)
 			{
 				srcItemStack.damageItem(1, playerEntity);

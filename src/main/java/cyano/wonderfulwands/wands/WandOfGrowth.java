@@ -45,7 +45,7 @@ public class WandOfGrowth extends Wand {
         }
 		boolean success = growBlock(playerEntity,world,coord);
 		if(success){
-	        playSound(SoundEvents.entity_experience_orb_pickup,world,playerEntity);
+	        playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP,world,playerEntity);
 			if (!playerEntity.capabilities.isCreativeMode)
 	        {
 	        	srcItemStack.damageItem(1, playerEntity);
@@ -58,42 +58,42 @@ public class WandOfGrowth extends Wand {
 	protected boolean growBlock(EntityPlayer playerEntity, World world, BlockPos coord){
 		IBlockState targetBS = world.getBlockState(coord); 
 		Block targetBlock = targetBS.getBlock();
-		ItemStack fauxItemStack = new ItemStack(Items.dye,1,15);
+		ItemStack fauxItemStack = new ItemStack(Items.DYE,1,15);
 
 		int targetX = coord.getX();
 		int targetY = coord.getY();
 		int targetZ = coord.getZ();
 		
-		if(targetBlock == Blocks.cactus){
+		if(targetBlock == Blocks.CACTUS){
 			// grow cactus
 			int y = targetY+1;
-			while(world.getBlockState(new BlockPos(targetX, y, targetZ)).getBlock() == Blocks.cactus && y < 255){
+			while(world.getBlockState(new BlockPos(targetX, y, targetZ)).getBlock() == Blocks.CACTUS && y < 255){
 				y++;
 			}
 			if(world.isAirBlock(new BlockPos(targetX, y, targetZ))){
 				// place cactus block
-				world.setBlockState(new BlockPos(targetX, y, targetZ), Blocks.cactus.getDefaultState());
+				world.setBlockState(new BlockPos(targetX, y, targetZ), Blocks.CACTUS.getDefaultState());
 			}
 			return true;
-		} else if(targetBlock == Blocks.reeds){
+		} else if(targetBlock == Blocks.REEDS){
 			// grow reeds
 			int y = targetY+1;
-			while(world.getBlockState(new BlockPos(targetX, y, targetZ)).getBlock() == Blocks.reeds && y < 255){
+			while(world.getBlockState(new BlockPos(targetX, y, targetZ)).getBlock() == Blocks.REEDS && y < 255){
 				y++;
 			}
 			if(world.isAirBlock(new BlockPos(targetX, y, targetZ))){
 				// place cactus block
-				world.setBlockState(new BlockPos(targetX, y, targetZ), Blocks.reeds.getDefaultState());
+				world.setBlockState(new BlockPos(targetX, y, targetZ), Blocks.REEDS.getDefaultState());
 			}
 			return true;
-		} else if(targetBlock == Blocks.cobblestone){
+		} else if(targetBlock == Blocks.COBBLESTONE){
 			// mossify cobblestone
-			world.setBlockState(coord, Blocks.mossy_cobblestone.getDefaultState());
+			world.setBlockState(coord, Blocks.MOSSY_COBBLESTONE.getDefaultState());
 			return true;
-		} else if(targetBlock == Blocks.stonebrick){
+		} else if(targetBlock == Blocks.STONEBRICK){
 			if( targetBS.getProperties().get(stoneblockVariantKey) == BlockStoneBrick.EnumType.DEFAULT){
 				// mossify stonebrick
-				world.setBlockState(coord, Blocks.stonebrick.getStateFromMeta(1)); 
+				world.setBlockState(coord, Blocks.STONEBRICK.getStateFromMeta(1)); 
 				return true;
 			}
 		}

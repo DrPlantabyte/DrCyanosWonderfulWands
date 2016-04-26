@@ -25,11 +25,11 @@ public class MageLight extends Block {
 	private final AxisAlignedBB bounds;
 	
 	public MageLight() {
-        super(Material.circuits);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        super(Material.CIRCUITS);
+        this.setCreativeTab(CreativeTabs.DECORATIONS);
         this.setHardness(0.0F);
         this.setLightLevel(1F);
-        this.setStepSound(SoundType.GLASS);
+        this.setSoundType(SoundType.GLASS);
         this.setUnlocalizedName(WonderfulWands.MODID+"_"+name);
         
         float f = 0.25F;

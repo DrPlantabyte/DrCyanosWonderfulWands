@@ -13,7 +13,7 @@ public class MyCreativeTab extends CreativeTabs {
 	 */
 	public MyCreativeTab( String unlocalizedName) {
 		super(unlocalizedName);
-		this.icon = net.minecraft.init.Items.bed;
+		this.icon = net.minecraft.init.Items.BED;
 	}
 	
 	public void setIcon(Item i){
