@@ -50,7 +50,7 @@ public class WandOfHarvesting extends Wand {
 				}
 			}
 
-	        playSound(SoundEvents.entity_experience_orb_pickup,world,playerEntity);
+	        playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP,world,playerEntity);
 	        
 			return true;
 		}
@@ -71,8 +71,8 @@ public class WandOfHarvesting extends Wand {
 	
 	protected boolean isHarvestable(World w, BlockPos coord){
 		Material mat = w.getBlockState(coord).getMaterial();
-		return mat == Material.cactus || mat == Material.leaves 
-				|| mat == Material.plants || mat == Material.gourd || mat == Material.vine
-				|| mat == Material.web || mat == Material.dragonEgg || mat == Material.sponge;
+		return mat == Material.CACTUS || mat == Material.LEAVES
+				|| mat == Material.PLANTS || mat == Material.GOURD || mat == Material.VINE
+				|| mat == Material.WEB || mat == Material.DRAGON_EGG || mat == Material.SPONGE;
 	}
 }

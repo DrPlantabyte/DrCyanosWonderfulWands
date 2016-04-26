@@ -64,7 +64,7 @@ public class WandOfTeleportation extends Wand {
 			srcItemStack.damageItem(1, playerEntity);
 		}
 
-		playSound(SoundEvents.entity_endermen_teleport,world,playerEntity);
+		playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT,world,playerEntity);
 			
 			final int maxRange = 160;
 			Vec3d origin = (new Vec3d(playerEntity.posX, playerEntity.posY + playerEntity.getEyeHeight(), playerEntity.posZ));
@@ -101,7 +101,7 @@ public class WandOfTeleportation extends Wand {
 			if(world.isRemote)playerEntity.setVelocity(0, 0, 0);
 			playerEntity.fallDistance = 0;
 
-		playSound(playerEntity.getEntityWorld(),next,12,SoundEvents.entity_endermen_teleport);
+		playSound(playerEntity.getEntityWorld(),next,12,SoundEvents.ENTITY_ENDERMEN_TELEPORT);
 	}
 
 }

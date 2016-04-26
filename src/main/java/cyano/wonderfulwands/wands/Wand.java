@@ -20,7 +20,7 @@ import java.util.List;
 
 public abstract class Wand extends Item {
 	/** vanilla minecraft sound to play when you try to use a wand that has no charge left */
-    public static SoundEvent noChargeAttackSound = SoundEvents.entity_item_pickup;
+    public static SoundEvent noChargeAttackSound = SoundEvents.ENTITY_ITEM_PICKUP;
 
 	public Wand(int numCharges) {
 		super();

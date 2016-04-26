@@ -46,7 +46,7 @@ public class WandOfRails extends Wand {
 				if(e instanceof EntityPlayer && !((EntityPlayer)e).capabilities.isCreativeMode){
 					item.damageItem(1,(EntityPlayer)e);
 				}
-				super.playSound(SoundEvents.entity_experience_orb_pickup,w,e);
+				super.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP,w,e);
 			}
 		}
 	}

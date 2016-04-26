@@ -79,7 +79,7 @@ public class WandOfDeath extends Wand {
 	        	srcItemStack.damageItem(1, playerEntity);
 	        }
 
-	        playSound(SoundEvents.entity_wither_shoot,world,playerEntity);
+	        playSound(SoundEvents.ENTITY_WITHER_SHOOT,world,playerEntity);
 
 	        if (!world.isRemote)
 	        {

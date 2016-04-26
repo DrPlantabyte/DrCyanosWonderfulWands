@@ -42,7 +42,7 @@ public class WandOfIllusions extends Wand {
         }
 		boolean success = convertBlock(playerEntity,world,coord);
 		if(success){
-			playSound(SoundEvents.entity_experience_orb_pickup,world,playerEntity);
+			playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP,world,playerEntity);
 			if (!playerEntity.capabilities.isCreativeMode)
 	        {
 	        	srcItemStack.damageItem(1, playerEntity);
@@ -52,7 +52,7 @@ public class WandOfIllusions extends Wand {
 		
 	}
 	
-	private final ItemStack fauxPick = new ItemStack(Items.stone_pickaxe);
+	private final ItemStack fauxPick = new ItemStack(Items.STONE_PICKAXE);
 	/**
 	 * turns block into illusion
 	 * @param playerEntity

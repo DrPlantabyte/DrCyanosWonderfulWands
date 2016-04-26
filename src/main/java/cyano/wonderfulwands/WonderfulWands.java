@@ -112,8 +112,8 @@ public class WonderfulWands {
     	altRecipes = config.getBoolean("alternative_recipes", "options", false, 
 				"If true, then robes and wands will use different recipes than normal");
 		
-    	NONARMOR = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("NONARMOR","empty_armor",10,new int[]{0, 0, 0, 0},0, SoundEvents.item_armor_equip_leather);
-    	WIZARDROBES = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("WIZARDCLOTH","wizard_robes", 15,new int[]{1, 1, 1, 1},40, SoundEvents.item_armor_equip_leather);
+    	NONARMOR = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("NONARMOR","empty_armor",10,new int[]{0, 0, 0, 0},0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER);
+    	WIZARDROBES = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("WIZARDCLOTH","wizard_robes", 15,new int[]{1, 1, 1, 1},40, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER);
     	
 		wandGeneric = new Item().setUnlocalizedName(MODID+"_wand_ordinary").setCreativeTab(wandsTab);
 		wandOfMagicMissile = new WandOfMagicMissile();
@@ -129,7 +129,7 @@ public class WonderfulWands {
 		wandOfGreaterLight = new WandOfGreaterLight();
 		wandOfStorms = new WandOfStorms();
 		wandOfLightning = new WandOfLightning();
-		wandOfBridging = new WandOfBridging(Blocks.cobblestone);
+		wandOfBridging = new WandOfBridging(Blocks.COBBLESTONE);
 		wandOfClimbing = new WandOfClimbing();
 		wandOfIllusions = new WandOfIllusions();
 		wandOfRails = new WandOfRails();
@@ -140,39 +140,39 @@ public class WonderfulWands {
 		mageLight = new MageLight();
 		GameRegistry.registerBlock(mageLight, MageLight.name);
 		IllusoryBlock illusion;
-		illusion = new IllusoryBlock(Blocks.dirt);
+		illusion = new IllusoryBlock(Blocks.DIRT);
 		GameRegistry.registerBlock(illusion,illusion.name);
-		illusion = new IllusoryBlock(Blocks.grass);
+		illusion = new IllusoryBlock(Blocks.GRASS);
 		GameRegistry.registerBlock(illusion,illusion.name);
-		illusion = new IllusoryBlock(Blocks.planks.getMapColor(Blocks.planks.getDefaultState()),"illusion_oak_planks",Blocks.planks);
+		illusion = new IllusoryBlock(Blocks.PLANKS.getMapColor(Blocks.PLANKS.getDefaultState()),"illusion_oak_planks",Blocks.PLANKS);
 		GameRegistry.registerBlock(illusion,illusion.name);
-		illusion = new IllusoryBlock(Blocks.bookshelf);
+		illusion = new IllusoryBlock(Blocks.BOOKSHELF);
 		GameRegistry.registerBlock(illusion,illusion.name);
-		illusion = new IllusoryBlock(Blocks.stone); illusion.setUnlocalizedName("stone.stone");
+		illusion = new IllusoryBlock(Blocks.STONE); illusion.setUnlocalizedName("stone.stone");
 		GameRegistry.registerBlock(illusion,illusion.name);
-		illusion = new IllusoryBlock(Blocks.cobblestone.getMapColor(Blocks.cobblestone.getDefaultState()),"illusion_cobblestone", Blocks.cobblestone, "stonebrick");
+		illusion = new IllusoryBlock(Blocks.COBBLESTONE.getMapColor(Blocks.COBBLESTONE.getDefaultState()),"illusion_cobblestone", Blocks.COBBLESTONE, "stonebrick");
 		GameRegistry.registerBlock(illusion,illusion.name);
-		illusion = new IllusoryBlock(Blocks.brick_block);
+		illusion = new IllusoryBlock(Blocks.BRICK_BLOCK);
 		GameRegistry.registerBlock(illusion,illusion.name);
-		illusion = new IllusoryBlock(Blocks.hay_block.getMapColor(Blocks.hay_block.getDefaultState()),"illusion_hay_block",Blocks.hay_block);
+		illusion = new IllusoryBlock(Blocks.HAY_BLOCK.getMapColor(Blocks.HAY_BLOCK.getDefaultState()),"illusion_hay_block",Blocks.HAY_BLOCK);
 		GameRegistry.registerBlock(illusion,illusion.name);
-		illusion = new IllusoryBlock(Blocks.pumpkin);
+		illusion = new IllusoryBlock(Blocks.PUMPKIN);
 		GameRegistry.registerBlock(illusion,illusion.name);
-		illusion = new IllusoryBlock(Blocks.melon_block);
+		illusion = new IllusoryBlock(Blocks.MELON_BLOCK);
 		GameRegistry.registerBlock(illusion,illusion.name);
-		illusion = new IllusoryBlock(Blocks.nether_brick.getMapColor(Blocks.nether_brick.getDefaultState()),"illusion_nether_brick",Blocks.nether_brick);
+		illusion = new IllusoryBlock(Blocks.NETHER_BRICK.getMapColor(Blocks.NETHER_BRICK.getDefaultState()),"illusion_nether_brick",Blocks.NETHER_BRICK);
 		GameRegistry.registerBlock(illusion,illusion.name);
-		illusion = new IllusoryBlock(Blocks.netherrack.getMapColor(Blocks.netherrack.getDefaultState()),"illusion_netherrack",Blocks.netherrack);
+		illusion = new IllusoryBlock(Blocks.NETHERRACK.getMapColor(Blocks.NETHERRACK.getDefaultState()),"illusion_netherrack",Blocks.NETHERRACK);
 		GameRegistry.registerBlock(illusion,illusion.name);
-		illusion = new IllusoryBlock(Blocks.end_stone.getMapColor(Blocks.end_stone.getDefaultState()),"illusion_end_stone",Blocks.end_stone);
+		illusion = new IllusoryBlock(Blocks.END_STONE.getMapColor(Blocks.END_STONE.getDefaultState()),"illusion_end_stone",Blocks.END_STONE);
 		GameRegistry.registerBlock(illusion,illusion.name);
-		illusion = new IllusoryBlock(Blocks.cobblestone.getMapColor(Blocks.prismarine.getDefaultState()),"illusion_prismarine", Blocks.prismarine, "prismarine.rough");
+		illusion = new IllusoryBlock(Blocks.COBBLESTONE.getMapColor(Blocks.PRISMARINE.getDefaultState()),"illusion_prismarine", Blocks.PRISMARINE, "prismarine.rough");
 		GameRegistry.registerBlock(illusion,illusion.name);
-		illusion = new IllusoryBlock(Blocks.soul_sand.getMapColor(Blocks.soul_sand.getDefaultState()),"illusion_soul_sand",Blocks.soul_sand);
+		illusion = new IllusoryBlock(Blocks.SOUL_SAND.getMapColor(Blocks.SOUL_SAND.getDefaultState()),"illusion_soul_sand",Blocks.SOUL_SAND);
 		GameRegistry.registerBlock(illusion,illusion.name);
-		illusion = new IllusoryBlock(Blocks.stonebrick.getMapColor(Blocks.stonebrick.getDefaultState()),"illusion_stonebrick",Blocks.stonebrick);
+		illusion = new IllusoryBlock(Blocks.STONEBRICK.getMapColor(Blocks.STONEBRICK.getDefaultState()),"illusion_stonebrick",Blocks.STONEBRICK);
 		GameRegistry.registerBlock(illusion,illusion.name);
-		illusion = new IllusoryBlock(Blocks.sand);
+		illusion = new IllusoryBlock(Blocks.SAND);
 		GameRegistry.registerBlock(illusion,illusion.name);
 
 		feyRail = new FeyRail();
@@ -219,47 +219,47 @@ public class WonderfulWands {
 		// Nonmagical
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(wandGeneric), " g ", " s ", " g ", 'g', "nuggetGold", 's',"stickWood"));
 		// Magic Missile
-		addWandRecipe(wandOfMagicMissile,Items.golden_sword);
+		addWandRecipe(wandOfMagicMissile,Items.GOLDEN_SWORD);
 		// Fire
-		addWandRecipe(wandOfFire,Items.fire_charge);
+		addWandRecipe(wandOfFire,Items.FIRE_CHARGE);
 		// Death
-		addWandRecipe(wandOfDeath,new ItemStack(Items.skull,1,1));
+		addWandRecipe(wandOfDeath,new ItemStack(Items.SKULL,1,1));
 		// Growth
-		addWandRecipe(wandOfGrowth,Items.bone);
+		addWandRecipe(wandOfGrowth,Items.BONE);
 		// Harvesting
-		addWandRecipe(wandOfHarvesting,Items.shears);
+		addWandRecipe(wandOfHarvesting,Items.SHEARS);
 		// Healing
-		addWandRecipe(wandOfHealing,Items.ghast_tear);
+		addWandRecipe(wandOfHealing,Items.GHAST_TEAR);
 		// Ice
-		addWandRecipe(wandOfIce,Items.snowball);
+		addWandRecipe(wandOfIce,Items.SNOWBALL);
 		// Digging
-		addWandRecipe(wandOfMining,Items.golden_pickaxe);
+		addWandRecipe(wandOfMining,Items.GOLDEN_PICKAXE);
 		// Teleport
-		addWandRecipe(wandOfTeleportation, Items.ender_eye);
+		addWandRecipe(wandOfTeleportation, Items.ENDER_EYE);
 		// wand of light
-		OreDictionary.registerOre("torch", Blocks.torch);
+		OreDictionary.registerOre("torch", Blocks.TORCH);
 		addWandRecipe(wandOfLight,"torch");
-		addWandRecipe(wandOfGreaterLight,new ItemStack(Blocks.redstone_lamp));
+		addWandRecipe(wandOfGreaterLight,new ItemStack(Blocks.REDSTONE_LAMP));
 		// wand of storms
-		addWandRecipe(wandOfStorms,new ItemStack(Blocks.wool,1,7));
+		addWandRecipe(wandOfStorms,new ItemStack(Blocks.WOOL,1,7));
 		// wand of lightning
 		addWandRecipe(wandOfLightning,"gemDiamond");
 		// wand of climbing
-		OreDictionary.registerOre("vine", Blocks.vine);
+		OreDictionary.registerOre("vine", Blocks.VINE);
 		addWandRecipe(wandOfClimbing,"vine");
 		// wand of bridging
 		addWandRecipe(wandOfBridging,"blockIron");
 		addWandRecipe(wandOfBridging,"blockSteel");
 		// wand of illusions
-		addWandRecipe(wandOfIllusions,Items.fermented_spider_eye);
+		addWandRecipe(wandOfIllusions,Items.FERMENTED_SPIDER_EYE);
 		// wand of railroads
-		addWandRecipe(wandOfRails,Blocks.golden_rail);
+		addWandRecipe(wandOfRails,Blocks.GOLDEN_RAIL);
 		// wand of webs
-		addWandRecipe(wandOfWebbing,Items.slime_ball);
+		addWandRecipe(wandOfWebbing,Items.SLIME_BALL);
 		// wand of levitation
-		addWandRecipe(wandOfLevitation,Items.feather);
+		addWandRecipe(wandOfLevitation,Items.FEATHER);
 		// wand of tunneling
-		addWandRecipe(wandOfTunneling,Items.diamond_pickaxe);
+		addWandRecipe(wandOfTunneling,Items.DIAMOND_PICKAXE);
 		
 		// Wizarding Robes
 		int robesRenderIndex = proxy.getArmorRenderIndex(MODID+"_robes");
@@ -276,7 +276,7 @@ public class WonderfulWands {
 				robes[colorIndex][slotIndex] = r;
 				slotIndex++;
 			}
-			ItemStack cloth = new ItemStack(Blocks.wool,1,15-colorIndex);
+			ItemStack cloth = new ItemStack(Blocks.WOOL,1,15-colorIndex);
 			// metadata for wool: white, orange, magenta, lightblue, yellow lime green, pink, gray, light gray, cyan, purple, blue, brown, green, red, black
 			if(altRecipes){
 				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(robes[colorIndex][0],1),"ccc", "cgc",  'c', cloth, 'g', "ingotGold"));
@@ -309,15 +309,15 @@ public class WonderfulWands {
 				"may want to disable them if you expect there to be troublemakers (aka \n" +
 				"\"griefers\")")){
 			if(altRecipes){
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(wizardHat,1)," d "," b ", "bbb",  'b', new ItemStack(Blocks.wool,1,11), 'd', Blocks.skull));
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(witchHat,1)," d "," b ", "bbb",  'b', new ItemStack(Blocks.wool,1,15), 'd', Blocks.skull));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(wizardHat,1)," d "," b ", "bbb",  'b', new ItemStack(Blocks.WOOL,1,11), 'd', Blocks.SKULL));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(witchHat,1)," d "," b ", "bbb",  'b', new ItemStack(Blocks.WOOL,1,15), 'd', Blocks.SKULL));
 			}else{
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(wizardHat,1)," d "," b ", "bbb",  'b', new ItemStack(Blocks.wool,1,11), 'd', Items.ghast_tear));
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(witchHat,1)," d "," b ", "bbb",  'b', new ItemStack(Blocks.wool,1,15), 'd', Items.ghast_tear));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(wizardHat,1)," d "," b ", "bbb",  'b', new ItemStack(Blocks.WOOL,1,11), 'd', Items.GHAST_TEAR));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(witchHat,1)," d "," b ", "bbb",  'b', new ItemStack(Blocks.WOOL,1,15), 'd', Items.GHAST_TEAR));
 			}
 		
 		}
-		GameRegistry.addRecipe(new ItemStack(topHat,1)," b "," l ",  'b', new ItemStack(Blocks.wool,1,15), 'l', Items.leather);
+		GameRegistry.addRecipe(new ItemStack(topHat,1)," b "," l ",  'b', new ItemStack(Blocks.WOOL,1,15), 'l', Items.LEATHER);
 		
 	//	OreDictionary.initVanillaEntries()
 		config.save();
@@ -430,7 +430,7 @@ public class WonderfulWands {
 			.register(net.minecraft.item.Item.getItemFromBlock(b), 0, 
 				new ModelResourceLocation(r.getRegistryName(), "inventory"));
     	}
-    	IllusoryBlock pb = IllusoryBlock.getLookUpTable().get(Blocks.planks);
+    	IllusoryBlock pb = IllusoryBlock.getLookUpTable().get(Blocks.PLANKS);
     	Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
 		.register(net.minecraft.item.Item.getItemFromBlock(pb), 0, 
 			new ModelResourceLocation(MODID+":"+pb.name, "inventory"));

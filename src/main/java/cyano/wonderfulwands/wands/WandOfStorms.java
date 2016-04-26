@@ -79,7 +79,7 @@ public class WandOfStorms extends Wand  {
 			srcItemStack.damageItem(1, playerEntity);
 		}
 
-		playSound(SoundEvents.entity_experience_orb_pickup,world,playerEntity);
+		playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP,world,playerEntity);
 
 
 		if (!world.isRemote)

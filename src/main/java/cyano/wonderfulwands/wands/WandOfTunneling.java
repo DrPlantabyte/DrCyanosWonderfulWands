@@ -41,7 +41,7 @@ public class WandOfTunneling extends Wand {
         	}
         }
 		mineTunnel(world,coord,blockFace.getOpposite());
-		playSound(SoundEvents.entity_player_levelup,world,playerEntity);
+		playSound(SoundEvents.ENTITY_PLAYER_LEVELUP,world,playerEntity);
 
 		if (!playerEntity.capabilities.isCreativeMode)
 		{
@@ -73,7 +73,7 @@ public class WandOfTunneling extends Wand {
 
 	protected boolean mineBlock( World world, BlockPos coord){
 		IBlockState targetBlock = world.getBlockState(coord);
-		if(targetBlock.getBlock() == Blocks.bedrock){
+		if(targetBlock.getBlock() == Blocks.BEDROCK){
 			return false;
 		}
 		

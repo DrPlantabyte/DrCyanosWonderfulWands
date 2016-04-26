@@ -63,7 +63,7 @@ public class WandOfLight extends Wand {
 		boolean success = placeMageLight(world, origin, vector, MAX_RANGE);
 		
 		if(success){
-	        playSound(SoundEvents.block_note_pling,world,playerEntity);
+	        playSound(SoundEvents.BLOCK_NOTE_PLING,world,playerEntity);
 			if (playerEntity instanceof EntityPlayer && !((EntityPlayer)playerEntity).capabilities.isCreativeMode)
 			{
 				srcItemStack.damageItem(1, playerEntity);

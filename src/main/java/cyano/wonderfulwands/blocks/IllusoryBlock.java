@@ -46,10 +46,10 @@ public class IllusoryBlock extends net.minecraft.block.Block{
 	}
 	
 	public IllusoryBlock(MapColor color, String name, Block sourceBlock, String sourceBlockName, String sourceBlockUnlocalizedName) {
-		super(Material.carpet, color);
-		this.setCreativeTab(CreativeTabs.tabMisc);
+		super(Material.CARPET, color);
+		this.setCreativeTab(CreativeTabs.MISC);
 		this.setHardness(0.0F);
-		this.setStepSound(SoundType.CLOTH);
+		this.setSoundType(SoundType.CLOTH);
 		this.name = name;
 		this.setUnlocalizedName(sourceBlockUnlocalizedName);
 		blockLookup.put(sourceBlock, this);
