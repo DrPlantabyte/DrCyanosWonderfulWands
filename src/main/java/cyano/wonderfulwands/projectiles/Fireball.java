@@ -28,16 +28,14 @@ public class Fireball extends EntityLargeFireball{
 	{
 		if (!this.worldObj.isRemote)
 		{
-			if(impact.entityHit != null ){
-				impact.entityHit.attackEntityFrom(DamageSource.magic, 7);
-			}
-			double radius = 2;
+			double radius = 2.0;
 			if(impact.hitVec != null){
 				AxisAlignedBB aoe = new AxisAlignedBB(impact.hitVec.xCoord-radius,impact.hitVec.yCoord-radius,impact.hitVec.zCoord-radius,
 						impact.hitVec.xCoord+radius,impact.hitVec.yCoord+radius,impact.hitVec.zCoord+radius);
 				List<EntityLivingBase> collateralDamage = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, aoe);
 				for(EntityLivingBase victim : collateralDamage){
-					victim.setFire(15);
+					victim.attackEntityFrom(DamageSource.magic, 5);
+					victim.setFire(5);
 				}
 			}
 		}

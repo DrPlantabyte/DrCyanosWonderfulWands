@@ -40,11 +40,12 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.Map;
 
-@Mod(modid = WonderfulWands.MODID, name=WonderfulWands.NAME, version = WonderfulWands.VERSION)
+@Mod(modid = WonderfulWands.MODID, name=WonderfulWands.NAME, version = WonderfulWands.VERSION,
+		acceptedMinecraftVersions = "[1.9.4,)")
 public class WonderfulWands {
     public static final String MODID = "wonderfulwands";
     public static final String NAME ="Cyano's Wonderful Wands";
-    public static final String VERSION = "2.0.0";
+    public static final String VERSION = "2.1.0";
 	
     @SidedProxy(clientSide="cyano.wonderfulwands.ClientProxy", serverSide="cyano.wonderfulwands.ServerProxy")
     public static Proxy proxy;
@@ -67,9 +68,9 @@ public class WonderfulWands {
 	public static Wand wandOfClimbing = null;
 	public static Wand wandOfIllusions = null;
 	public static Wand wandOfRails = null;
-	public static Wand wandOfWebbing = null; // TODO: this wand
-	public static Wand wandOfLevitation = null; // TODO: this wand
-	public static Wand wandOfTunneling = null; // TODO: this wand
+	public static Wand wandOfWebbing = null;
+	public static Wand wandOfLevitation = null;
+	public static Wand wandOfTunneling = null; 
 
 	public static Block mageLight = null;
 	public static Block feyRail = null;
@@ -112,8 +113,8 @@ public class WonderfulWands {
     	altRecipes = config.getBoolean("alternative_recipes", "options", false, 
 				"If true, then robes and wands will use different recipes than normal");
 		
-    	NONARMOR = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("NONARMOR","empty_armor",10,new int[]{0, 0, 0, 0},0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER);
-    	WIZARDROBES = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("WIZARDCLOTH","wizard_robes", 15,new int[]{1, 1, 1, 1},40, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER);
+    	NONARMOR = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("NONARMOR","empty_armor",10,new int[]{0, 0, 0, 0},0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0);
+    	WIZARDROBES = net.minecraftforge.common.util.EnumHelper.addArmorMaterial("WIZARDCLOTH","wizard_robes", 15,new int[]{1, 1, 1, 1},40, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0);
     	
 		wandGeneric = new Item().setUnlocalizedName(MODID+"_wand_ordinary").setCreativeTab(wandsTab);
 		wandOfMagicMissile = new WandOfMagicMissile();
@@ -138,76 +139,76 @@ public class WonderfulWands {
 		wandOfTunneling = new WandOfTunneling();
 		
 		mageLight = new MageLight();
-		GameRegistry.registerBlock(mageLight, MageLight.name);
+		registerBlock(mageLight, MageLight.name);
 		IllusoryBlock illusion;
 		illusion = new IllusoryBlock(Blocks.DIRT);
-		GameRegistry.registerBlock(illusion,illusion.name);
+		registerBlock(illusion,illusion.name);
 		illusion = new IllusoryBlock(Blocks.GRASS);
-		GameRegistry.registerBlock(illusion,illusion.name);
+		registerBlock(illusion,illusion.name);
 		illusion = new IllusoryBlock(Blocks.PLANKS.getMapColor(Blocks.PLANKS.getDefaultState()),"illusion_oak_planks",Blocks.PLANKS);
-		GameRegistry.registerBlock(illusion,illusion.name);
+		registerBlock(illusion,illusion.name);
 		illusion = new IllusoryBlock(Blocks.BOOKSHELF);
-		GameRegistry.registerBlock(illusion,illusion.name);
+		registerBlock(illusion,illusion.name);
 		illusion = new IllusoryBlock(Blocks.STONE); illusion.setUnlocalizedName("stone.stone");
-		GameRegistry.registerBlock(illusion,illusion.name);
+		registerBlock(illusion,illusion.name);
 		illusion = new IllusoryBlock(Blocks.COBBLESTONE.getMapColor(Blocks.COBBLESTONE.getDefaultState()),"illusion_cobblestone", Blocks.COBBLESTONE, "stonebrick");
-		GameRegistry.registerBlock(illusion,illusion.name);
+		registerBlock(illusion,illusion.name);
 		illusion = new IllusoryBlock(Blocks.BRICK_BLOCK);
-		GameRegistry.registerBlock(illusion,illusion.name);
+		registerBlock(illusion,illusion.name);
 		illusion = new IllusoryBlock(Blocks.HAY_BLOCK.getMapColor(Blocks.HAY_BLOCK.getDefaultState()),"illusion_hay_block",Blocks.HAY_BLOCK);
-		GameRegistry.registerBlock(illusion,illusion.name);
+		registerBlock(illusion,illusion.name);
 		illusion = new IllusoryBlock(Blocks.PUMPKIN);
-		GameRegistry.registerBlock(illusion,illusion.name);
+		registerBlock(illusion,illusion.name);
 		illusion = new IllusoryBlock(Blocks.MELON_BLOCK);
-		GameRegistry.registerBlock(illusion,illusion.name);
+		registerBlock(illusion,illusion.name);
 		illusion = new IllusoryBlock(Blocks.NETHER_BRICK.getMapColor(Blocks.NETHER_BRICK.getDefaultState()),"illusion_nether_brick",Blocks.NETHER_BRICK);
-		GameRegistry.registerBlock(illusion,illusion.name);
+		registerBlock(illusion,illusion.name);
 		illusion = new IllusoryBlock(Blocks.NETHERRACK.getMapColor(Blocks.NETHERRACK.getDefaultState()),"illusion_netherrack",Blocks.NETHERRACK);
-		GameRegistry.registerBlock(illusion,illusion.name);
+		registerBlock(illusion,illusion.name);
 		illusion = new IllusoryBlock(Blocks.END_STONE.getMapColor(Blocks.END_STONE.getDefaultState()),"illusion_end_stone",Blocks.END_STONE);
-		GameRegistry.registerBlock(illusion,illusion.name);
+		registerBlock(illusion,illusion.name);
 		illusion = new IllusoryBlock(Blocks.COBBLESTONE.getMapColor(Blocks.PRISMARINE.getDefaultState()),"illusion_prismarine", Blocks.PRISMARINE, "prismarine.rough");
-		GameRegistry.registerBlock(illusion,illusion.name);
+		registerBlock(illusion,illusion.name);
 		illusion = new IllusoryBlock(Blocks.SOUL_SAND.getMapColor(Blocks.SOUL_SAND.getDefaultState()),"illusion_soul_sand",Blocks.SOUL_SAND);
-		GameRegistry.registerBlock(illusion,illusion.name);
+		registerBlock(illusion,illusion.name);
 		illusion = new IllusoryBlock(Blocks.STONEBRICK.getMapColor(Blocks.STONEBRICK.getDefaultState()),"illusion_stonebrick",Blocks.STONEBRICK);
-		GameRegistry.registerBlock(illusion,illusion.name);
+		registerBlock(illusion,illusion.name);
 		illusion = new IllusoryBlock(Blocks.SAND);
-		GameRegistry.registerBlock(illusion,illusion.name);
+		registerBlock(illusion,illusion.name);
 
 		feyRail = new FeyRail();
 		feyRail.setUnlocalizedName("feyrail");
 		feyRail.setCreativeTab(wandsTab);
-		GameRegistry.registerBlock(feyRail,"feyrail");
+		registerBlock(feyRail,"feyrail");
 		feyRailPowered = new PoweredFeyRail();
 		feyRailPowered.setUnlocalizedName("powered_feyrail");
 		feyRailPowered.setCreativeTab(wandsTab);
-		GameRegistry.registerBlock(feyRailPowered,"powered_feyrail");
+		registerBlock(feyRailPowered,"powered_feyrail");
 
 		
 
 		// Register the wand items
-		GameRegistry.registerItem(wandGeneric, "wand_ordinary");
-		GameRegistry.registerItem(wandOfMagicMissile, WandOfMagicMissile.itemName);
-		GameRegistry.registerItem(wandOfFire, WandOfFire.itemName);
-		GameRegistry.registerItem(wandOfDeath, WandOfDeath.itemName);
-		GameRegistry.registerItem(wandOfGrowth, WandOfGrowth.itemName);
-		GameRegistry.registerItem(wandOfHarvesting, WandOfHarvesting.itemName);
-		GameRegistry.registerItem(wandOfHealing, WandOfHealing.itemName);
-		GameRegistry.registerItem(wandOfIce, WandOfIce.itemName);
-		GameRegistry.registerItem(wandOfMining, WandOfMining.itemName);
-		GameRegistry.registerItem(wandOfTeleportation, WandOfTeleportation.itemName);
-		GameRegistry.registerItem(wandOfLight, WandOfLight.itemName);
-		GameRegistry.registerItem(wandOfGreaterLight, WandOfGreaterLight.itemName);
-		GameRegistry.registerItem(wandOfStorms, WandOfStorms.itemName);
-		GameRegistry.registerItem(wandOfLightning, WandOfLightning.itemName);
-		GameRegistry.registerItem(wandOfBridging, WandOfBridging.itemName);
-		GameRegistry.registerItem(wandOfClimbing, WandOfClimbing.itemName);
-		GameRegistry.registerItem(wandOfIllusions, WandOfIllusions.itemName);
-		GameRegistry.registerItem(wandOfRails, WandOfRails.itemName);
-		GameRegistry.registerItem(wandOfWebbing, WandOfWebbing.itemName);
-		GameRegistry.registerItem(wandOfLevitation, WandOfLevitation.itemName);
-		GameRegistry.registerItem(wandOfTunneling, WandOfTunneling.itemName);
+		registerItem(wandGeneric, "wand_ordinary");
+		registerItem(wandOfMagicMissile, WandOfMagicMissile.itemName);
+		registerItem(wandOfFire, WandOfFire.itemName);
+		registerItem(wandOfDeath, WandOfDeath.itemName);
+		registerItem(wandOfGrowth, WandOfGrowth.itemName);
+		registerItem(wandOfHarvesting, WandOfHarvesting.itemName);
+		registerItem(wandOfHealing, WandOfHealing.itemName);
+		registerItem(wandOfIce, WandOfIce.itemName);
+		registerItem(wandOfMining, WandOfMining.itemName);
+		registerItem(wandOfTeleportation, WandOfTeleportation.itemName);
+		registerItem(wandOfLight, WandOfLight.itemName);
+		registerItem(wandOfGreaterLight, WandOfGreaterLight.itemName);
+		registerItem(wandOfStorms, WandOfStorms.itemName);
+		registerItem(wandOfLightning, WandOfLightning.itemName);
+		registerItem(wandOfBridging, WandOfBridging.itemName);
+		registerItem(wandOfClimbing, WandOfClimbing.itemName);
+		registerItem(wandOfIllusions, WandOfIllusions.itemName);
+		registerItem(wandOfRails, WandOfRails.itemName);
+		registerItem(wandOfWebbing, WandOfWebbing.itemName);
+		registerItem(wandOfLevitation, WandOfLevitation.itemName);
+		registerItem(wandOfTunneling, WandOfTunneling.itemName);
 		
 		// recipes
 
@@ -269,7 +270,7 @@ public class WonderfulWands {
 				EntityEquipmentSlot armorSlot = armorSlots[slotIndex];
 				String color = colorSuffixes[colorIndex];
 				WizardingArmor r = new WizardingArmor(WIZARDROBES,color,armorSlot);
-				GameRegistry.registerItem(r, "robes_"+color+"_"+WizardingArmor.slotName.get(armorSlot));
+				registerItem(r, "robes_"+color+"_"+WizardingArmor.slotName.get(armorSlot));
 				OreDictionary.registerOre(WizardingArmor.slotName.get(armorSlot)+"WizardRobes", r);
 				OreDictionary.registerOre("wizardRobes", r);
 				GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(r ,1),WizardingArmor.slotName.get(armorSlot)+"WizardRobes",oreDictionaryColors[colorIndex]));
@@ -296,11 +297,11 @@ public class WonderfulWands {
 
 
 		wizardHat = new WizardsHat();
-		GameRegistry.registerItem(wizardHat, wizardHat.itemName);
+		registerItem(wizardHat, wizardHat.itemName);
 		witchHat = new WitchsHat();
-		GameRegistry.registerItem(witchHat, witchHat.itemName);
+		registerItem(witchHat, witchHat.itemName);
 		topHat = new TopHat();
-		GameRegistry.registerItem(topHat, topHat.itemName);
+		registerItem(topHat, topHat.itemName);
 		
 		
 		if(config.getBoolean("allow_wizard_hat", "options", true, 
@@ -367,14 +368,11 @@ public class WonderfulWands {
 	public void init(FMLInitializationEvent event) {
 		// register entities
 		registerItemRenders();
-		
-		EntityRegistry.registerGlobalEntityID(EntityMagicMissile.class, "magic_missile", EntityRegistry.findGlobalUniqueEntityId());
+
  		EntityRegistry.registerModEntity(EntityMagicMissile.class, "magic_missile", 0/*id*/, this, 128/*trackingRange*/, 1/*updateFrequency*/, true/*sendsVelocityUpdates*/);
- 		
- 		EntityRegistry.registerGlobalEntityID(EntityWandLightningBolt.class, "bolt_lightning", EntityRegistry.findGlobalUniqueEntityId());
+
  		EntityRegistry.registerModEntity(EntityWandLightningBolt.class, "bolt_lightning", 1/*id*/, this, 128/*trackingRange*/, 1/*updateFrequency*/, false/*sendsVelocityUpdates*/);
- 		
- 		EntityRegistry.registerGlobalEntityID(EntityLightWisp.class, "WispLight", EntityRegistry.findGlobalUniqueEntityId());
+
  		EntityRegistry.registerModEntity(EntityLightWisp.class, "WispLight", 2/*id*/, this, 128/*trackingRange*/, 1/*updateFrequency*/, true/*sendsVelocityUpdates*/);
  		
  		robesTab.setIcon(witchHat);
@@ -455,7 +453,13 @@ public class WonderfulWands {
 		// stub
 	}
 	*/
-	
+
+	private static void registerBlock(Block b, String n){
+		GameRegistry.register(b.setRegistryName(MODID,n));
+	}
+	private static void registerItem(Item i, String n){
+		GameRegistry.register(i.setRegistryName(MODID,n));
+	}
 	
 	public static String objectDump(Object o) throws IllegalArgumentException, IllegalAccessException {
 		if(o == null ){

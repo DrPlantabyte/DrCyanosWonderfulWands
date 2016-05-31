@@ -92,7 +92,7 @@ public class WandOfGreaterLight extends Wand {
 			}
 		}
 		
-        playSound(SoundEvents.BLOCK_PORTAL_TRIGGER,world,playerEntity);
+        playSound(SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE,world,playerEntity);
 		
 		return;
 		

@@ -56,9 +56,10 @@ public class EntityLightWisp extends net.minecraft.entity.EntityLivingBase{
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound root) {
+	public NBTTagCompound writeToNBT(NBTTagCompound root) {
 		super.writeToNBT(root);
 		root.setShort("t", this.lifeCounter);
+		return root;
 	}
 	
 	@Override

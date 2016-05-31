@@ -23,7 +23,7 @@ public class PoweredFeyRail extends BlockRailPowered {
 	}
 
 	@Override
-	protected void onNeighborChangedInternal(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+	protected void updateState(IBlockState state, World worldIn, BlockPos pos, Block neighborBlock)
 	{
 		// disable by redstone instead of powered by redstone
 		boolean wasPowered = ((Boolean)state.getValue(POWERED)).booleanValue();
@@ -47,9 +47,17 @@ public class PoweredFeyRail extends BlockRailPowered {
 		double dx = cart.motionX;
 		double dz = cart.motionZ;
 		double speed = Math.sqrt(dx *dx + dz * dz);
-		if(speed > 0){
-			cart.motionX = maxSpeed * dx / speed;
-			cart.motionZ = maxSpeed * dz / speed;
+		if (speed > 0) {
+			if (world.getBlockState(pos).getValue(POWERED).booleanValue()) {
+				// act as an accelerator
+				cart.motionX = maxSpeed * dx / speed;
+				cart.motionZ = maxSpeed * dz / speed;
+			} else {
+				// act as a break
+				double newSpeed = Math.max(0,speed - (0.0625 * maxSpeed));
+				cart.motionX = newSpeed * dx / speed;
+				cart.motionZ = newSpeed * dz / speed;
+			}
 		}
 	}
 

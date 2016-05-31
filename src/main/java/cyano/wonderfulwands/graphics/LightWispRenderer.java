@@ -27,6 +27,7 @@ public class LightWispRenderer extends Render{
         this.bindEntityTexture(e);
         GlStateManager.translate(x, y+0.5, z);
         GlStateManager.enableRescaleNormal();
+		GlStateManager.disableLighting();
      //   final float scale = this.scale;
      //   GlStateManager.scale(scale / 1.0f, scale / 1.0f, scale / 1.0f);
         final Tessellator instance = Tessellator.getInstance();
@@ -44,6 +45,7 @@ public class LightWispRenderer extends Render{
         worldRenderer.pos(0.5D, 0.75D, 0.0D).tex(  maxU, minV).normal(0.0F, 1.0F, 0.0F).endVertex();
         worldRenderer.pos(-0.5D, 0.75D, 0.0D).tex( minU, minV).normal(0.0F, 1.0F, 0.0F).endVertex();
         instance.draw();
+		GlStateManager.enableLighting();
         GlStateManager.disableRescaleNormal();
         GlStateManager.popMatrix();
         super.doRender(e, x, y, z, f1, f2);

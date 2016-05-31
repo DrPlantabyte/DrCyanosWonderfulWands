@@ -95,7 +95,7 @@ public abstract class Wand extends Item {
 		SPacketCustomSound soundPacket = new SPacketCustomSound(sound.getRegistryName().toString(), SoundCategory.PLAYERS,
 				position.xCoord, position.yCoord, position.zCoord, volume, pitch);
 		for(EntityPlayerMP player : players){
-			player.playerNetServerHandler.sendPacket(soundPacket);
+			player.connection.sendPacket(soundPacket);
 		}
 	}
 	protected void playFadedSound(World w, Vec3d position, double range, SoundEvent sound, float volume, float pitch){
@@ -110,7 +110,7 @@ public abstract class Wand extends Item {
 			float localVolume = Math.min(volume,volume/distSqr);
 			SPacketCustomSound soundPacket = new SPacketCustomSound(sound.getRegistryName().toString(), SoundCategory.PLAYERS,
 					position.xCoord, position.yCoord, position.zCoord, localVolume, pitch);
-			player.playerNetServerHandler.sendPacket(soundPacket);
+			player.connection.sendPacket(soundPacket);
 		}
 	}
 }

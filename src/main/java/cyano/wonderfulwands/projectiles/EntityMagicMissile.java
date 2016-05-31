@@ -18,7 +18,7 @@ public class EntityMagicMissile extends net.minecraft.entity.projectile.EntityAr
 
 	private void init() {
 		this.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
-		this.setDamage(7);
+		this.setDamage(2.5);
 	}
 
 	public EntityMagicMissile(World par1World, double par2, double par4, double par6)
