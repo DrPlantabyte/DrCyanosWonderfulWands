@@ -41,11 +41,11 @@ import java.lang.reflect.Field;
 import java.util.Map;
 
 @Mod(modid = WonderfulWands.MODID, name=WonderfulWands.NAME, version = WonderfulWands.VERSION,
-		acceptedMinecraftVersions = "[1.9.4,)")
+		acceptedMinecraftVersions = "[1.10.2,)")
 public class WonderfulWands {
     public static final String MODID = "wonderfulwands";
     public static final String NAME ="Cyano's Wonderful Wands";
-    public static final String VERSION = "2.1.0";
+    public static final String VERSION = "2.2.0";
 	
     @SidedProxy(clientSide="cyano.wonderfulwands.ClientProxy", serverSide="cyano.wonderfulwands.ServerProxy")
     public static Proxy proxy;
